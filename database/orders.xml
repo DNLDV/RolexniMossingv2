@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<orders>
+  <order>
+    <username>ako</username>
+    <item>
+      <title>B720 Collection</title>
+      <price>1236</price>
+    </item>
+  </order>
+  <order>
+    <username>ako</username>
+    <item>
+      <title>B720 Collection</title>
+      <price>1236</price>
+    </item>
+  </order>
+</orders>

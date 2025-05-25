@@ -183,26 +183,31 @@ document.addEventListener('DOMContentLoaded', () => {
   cartCloseBtn.addEventListener("click", closeCart);
   
   // Place Order button functionality
-  const placeOrderBtn = document.getElementById("place-order");
-  if (placeOrderBtn) {
-    placeOrderBtn.addEventListener("click", () => {
-      if (!window.isLoggedIn) {
-        showLoginModal();
-        return;
+  document.getElementById('place-order').addEventListener('click', () => {
+    if (!window.isLoggedIn) {
+      alert("Please sign in first!");
+      return;
+    }
+    if (cart.length === 0) {
+      alert("Your cart is empty!");
+      return;
+    }
+    fetch('placeorder.php', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ items: cart })
+    })
+    .then(res => res.text())
+    .then(res => {
+      if (res === 'success') {
+        alert("Order placed successfully!");
+        cart = [];
+        updateCartDisplay();
+      } else {
+        alert("Order failed: " + res);
       }
-      
-      if (cart.length === 0) {
-        alert("Your cart is empty. Add items before placing an order.");
-        return;
-      }
-      
-      // Here you would typically send the order to a backend
-      alert("Thank you for your order! Your items will be processed soon.");
-      cart = [];
-      updateCartDisplay();
-      closeCart();
     });
-  }
+  });
 });
 
 /*=============== LOGIN/SIGNUP MODAL FUNCTIONALITY ===============*/
