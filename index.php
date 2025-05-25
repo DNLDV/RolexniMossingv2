@@ -219,47 +219,6 @@ $xml = simplexml_load_file("data.xml") or die("Error: Cannot load XML file");
 <!-- SWEETALERT -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-<script>
-  document.getElementById('place-order').addEventListener('click', function () {
-    const cartContainer = document.getElementById('cart-container');
-    const cartItems = cartContainer.children.length;
-
-    if (cartItems === 0) {
-      Swal.fire({
-        icon: "error",
-        title: "Oops...",
-        text: "You don't have any items in your cart!",
-        footer: '<a href="#">Why do I have this issue?</a>'
-      });
-      return;
-    }
-
-    if (window.isLoggedIn) {
-      Swal.fire({
-        title: 'Order Placed!',
-        text: 'Thank you for shopping with PFRolex.',
-        icon: 'success',
-        confirmButtonText: 'OK'
-      }).then(() => {
-        // Clear cart UI
-        cartContainer.innerHTML = '';
-        document.getElementById('cart-items-count').textContent = 'Total Items: 0';
-        document.getElementById('cart-total-price').textContent = '₱0';
-
-        // TODO: Also clear cart data if you use localStorage or other storage
-      });
-    } else {
-      Swal.fire({
-        title: 'Please Log In',
-        text: 'You must be logged in to place an order.',
-        icon: 'warning',
-        confirmButtonText: 'Log in now'
-      }).then(() => {
-        document.getElementById('login-modal').style.display = 'block';
-      });
-    }
-  });
-</script>
 
 <!-- Make the PHP variable available to JavaScript -->
 <script>
