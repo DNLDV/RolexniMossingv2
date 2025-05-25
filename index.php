@@ -143,22 +143,53 @@ $xml = simplexml_load_file("data.xml") or die("Error: Cannot load XML file");
   </section>
 
   <!-- PRODUCTS -->
-  <section class="products section container" id="products">
-    <h2 class="section__title">Products</h2>
-    <div class="products__container grid">
-      <?php foreach ($xml->products->product as $product): ?>
-        <article class="products__card">
-          <img src="<?= $product->image ?>" class="products__img" alt="">
-          <h3 class="products__title"><?= $product->title ?></h3>
-          <span class="products__price">₱<?= $product->price ?></span>
-          <button class="button products__button add-to-cart"
-                  data-title="<?= $product->title ?>" data-price="<?= $product->price ?>" data-image="<?= $product->image ?>">
-            Add to Cart
-          </button>
-        </article>
-      <?php endforeach; ?>
-    </div>
-  </section>
+ <!-- PRODUCTS -->
+<section class="products section container" id="products">
+  <h2 class="section__title">Products</h2>
+
+  <?php
+    $products = $xml->products->product;
+    $totalProducts = count($products);
+    $perPage = 6;
+    $currentPage = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+    $totalPages = ceil($totalProducts / $perPage);
+    $startIndex = ($currentPage - 1) * $perPage;
+  ?>
+
+  <div class="products__container grid">
+    <?php
+      for ($i = $startIndex; $i < $startIndex + $perPage && $i < $totalProducts; $i++):
+        $product = $products[$i];
+    ?>
+      <article class="products__card">
+        <img src="<?= $product->image ?>" class="products__img" alt="">
+        <h3 class="products__title"><?= $product->title ?></h3>
+        <span class="products__price">₱<?= $product->price ?></span>
+        <button class="button products__button add-to-cart"
+                data-title="<?= $product->title ?>" data-price="<?= $product->price ?>" data-image="<?= $product->image ?>">
+          Add to Cart
+        </button>
+      </article>
+    <?php endfor; ?>
+  </div>
+
+  <!-- PAGINATION -->
+  <div class="pagination">
+    <?php if ($currentPage > 1): ?>
+      <a href="?page=<?= $currentPage - 1 ?>#products" class="pagination__prev">Previous</a>
+    <?php endif; ?>
+
+    <?php for ($page = 1; $page <= $totalPages; $page++): ?>
+      <a href="?page=<?= $page ?>#products" class="pagination__link <?= $page == $currentPage ? 'active' : '' ?>">
+        <?= $page ?>
+      </a>
+    <?php endfor; ?>
+
+    <?php if ($currentPage < $totalPages): ?>
+      <a href="?page=<?= $currentPage + 1 ?>#products" class="pagination__next">Next</a>
+    <?php endif; ?>
+  </div>
+</section>      
 
   <!-- NEW -->
   <section class="new section container" id="new">
