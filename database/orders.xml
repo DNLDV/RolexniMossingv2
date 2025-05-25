@@ -10,20 +10,6 @@
   <order>
     <username>ako</username>
     <item>
-      <title>B720 Collection</title>
-      <price>1236</price>
-    </item>
-  </order>
-  <order>
-    <username>ako</username>
-    <item>
-      <title>B720 Collection</title>
-      <price>1236</price>
-    </item>
-  </order>
-  <order>
-    <username>ako</username>
-    <item>
       <title>Rose Gold</title>
       <price>890</price>
     </item>
@@ -58,6 +44,13 @@
     <item>
       <title>Duchen</title>
       <price>950</price>
+    </item>
+  </order>
+  <order>
+    <username>ako</username>
+    <item>
+      <title>B720 Collection</title>
+      <price>1236</price>
     </item>
   </order>
 </orders>
