@@ -1610,7 +1610,28 @@ body.dark-theme{
   border-radius: 0.5rem;
   font-size: 1rem;
 }
-
+.pagination {
+   display: flex;
+   justify-content: center;
+   margin-top: 2rem;
+   gap: 0.5rem;
+ }
+ .pagination__link,
+ .pagination__prev,
+ .pagination__next {
+   padding: 0.5rem 1rem;
+   background-color: var(--first-color-light);
+   color: var(--title-color);
+   border-radius: 0.5rem;
+   text-decoration: none;
+   font-weight: 500;
+ }
+ 
+ .pagination__link.active {
+   background-color: var(--first-color);
+   color: #fff;
+ }
+ 
 
 
  
