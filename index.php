@@ -9,7 +9,7 @@ $xml = simplexml_load_file("data.xml") or die("Error: Cannot load XML file");
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>DVRolex Responsive Watches Website</title>
+  <title>PFRolex Responsive Watches Website</title>
   <link rel="shortcut icon" href="assets/img/favicon.png" type="image/x-icon" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css" />
@@ -21,7 +21,7 @@ $xml = simplexml_load_file("data.xml") or die("Error: Cannot load XML file");
 <!-- HEADER -->
 <header class="header" id="header">
   <nav class="nav container">
-    <a href="#" class="nav__logo"><i class='bx bxs-watch nav__logo-icon'></i> DvRolex</a>
+    <a href="#" class="nav__logo"><i class='bx bxs-watch nav__logo-icon'></i> PFRolex</a>
     <div class="nav__menu" id="nav-menu">
       <ul class="nav__list">
         <li class="nav__item"><a href="#home" class="nav__link active-link">Home</a></li>
@@ -30,9 +30,7 @@ $xml = simplexml_load_file("data.xml") or die("Error: Cannot load XML file");
         <li class="nav__item"><a href="#new" class="nav__link">New</a></li>
       </ul>
       <div class="nav__close" id="nav-close"><i class='bx bx-x'></i></div>
-    </div>
-
-    <div class="nav__btns">
+    </div>    <div class="nav__btns">
       <i class='bx bx-moon change-theme' id="theme-button"></i>
       <div class="nav__shop" id="cart-shop"><i class='bx bx-shopping-bag'></i></div>
 
@@ -40,6 +38,8 @@ $xml = simplexml_load_file("data.xml") or die("Error: Cannot load XML file");
         <form action="logout.php" method="post" class="logout-form">
           <button type="submit" class="logout-btn">Log out</button>
         </form>
+      <?php else: ?>
+        <button class="login-btn nav__login-btn" id="nav-login-btn">Sign in</button>
       <?php endif; ?>
 
       <div class="nav__toggle" id="nav-toggle"><i class='bx bx-grid-alt'></i></div>
@@ -57,6 +57,7 @@ $xml = simplexml_load_file("data.xml") or die("Error: Cannot load XML file");
     <span class="cart__price-item" id="cart-items-count">Total Items: 0</span>
     <span class="cart__price-total" id="cart-total-price">₱0</span>
   </div>
+  <button class="buttonorder" id="place-order">Place Order</button>
 </div>
 
 <!-- LOGIN MODAL -->
@@ -64,7 +65,7 @@ $xml = simplexml_load_file("data.xml") or die("Error: Cannot load XML file");
   <div class="login-modal__content">
     <span class="login-modal__close" id="login-close">&times;</span>
     <img src="assets/img/logo.png" alt="Logo" class="login-modal__logo">
-    <h2>Welcome to DVRolex</h2>
+    <h2>Welcome to PFRolex</h2>
     <form class="login-form" action="login.php" method="post">
       <input type="email" name="email" placeholder="Email" required />
       <input type="password" name="password" placeholder="Password" required />
@@ -73,7 +74,7 @@ $xml = simplexml_load_file("data.xml") or die("Error: Cannot load XML file");
       <div class="or-divider">OR</div>
       <button type="button" class="login-btn fb">Continue with Facebook</button>
       <button type="button" class="login-btn google">Continue with Google</button>
-      <p class="signup-text">Not on DVRolex yet? <a href="#" id="switch-to-signup">Sign up</a></p>
+      <p class="signup-text">Not on PFRolex yet? <a href="#" id="switch-to-signup">Sign up</a></p>
     </form>
   </div>
 </div>
@@ -101,9 +102,11 @@ $xml = simplexml_load_file("data.xml") or die("Error: Cannot load XML file");
 <main class="main">
   <!-- HOME -->
   <section class="home" id="home">
-    <div class="home__container container grid">
-      <div class="home__img-bg">
-        <img src="assets/img/home.png" alt="" class="home__img">
+    <div class="home__container container grid">      <div class="home__img-bg">
+        <div class="sketchfab-embed-wrapper">
+          <iframe title="" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/37c23be725984ce4a311a2782af8e00a/embed?ui_theme=dark">
+          </iframe>
+        </div>
       </div>
       <div class="home__data">
         <h1 class="home__title">NEW WATCH <br> COLLECTIONS B720</h1>
@@ -219,132 +222,9 @@ $xml = simplexml_load_file("data.xml") or die("Error: Cannot load XML file");
 
 <!-- SCRIPTS -->
 <script>
-  let isLoggedIn = <?= $isLoggedIn ? 'true' : 'false' ?>;
-  let cart = [];
-
-  const cartContainer = document.getElementById("cart-container");
-  const itemsCountElem = document.getElementById("cart-items-count");
-  const totalPriceElem = document.getElementById("cart-total-price");
-  const cartElement = document.getElementById("cart");
-  const cartShopBtn = document.getElementById("cart-shop");
-  const cartCloseBtn = document.getElementById("cart-close");
-  const loginModal = document.getElementById("login-modal");
-  const loginClose = document.getElementById("login-close");
-
-  function openCart() {
-    cartElement.classList.add("show-cart");
-  }
-
-  function closeCart() {
-    cartElement.classList.remove("show-cart");
-  }
-
-  function showLoginModal() {
-    loginModal.style.display = "flex";
-  }
-
-  function hideLoginModal() {
-    loginModal.style.display = "none";
-  }
-
-  loginClose.addEventListener("click", hideLoginModal);
-  window.addEventListener("keydown", (e) => { if (e.key === "Escape") hideLoginModal(); });
-
-  function updateCartDisplay() {
-    cartContainer.innerHTML = "";
-    let totalItems = 0;
-    let totalPrice = 0;
-
-    cart.forEach((item, index) => {
-      cartContainer.innerHTML += `
-        <div class="cart__card">
-          <img src="${item.image}" class="cart__img" />
-          <div class="cart__details">
-            <h3 class="cart__title">${item.title}</h3>
-            <span class="cart__price">₱${item.price}</span>
-            <div class="cart__quantity-controls">
-              <button class="quantity-btn minus" data-index="${index}">−</button>
-              <span class="cart__quantity">${item.quantity}</span>
-              <button class="quantity-btn plus" data-index="${index}">+</button>
-            </div>
-          </div>
-          <button class="cart__remove" data-index="${index}"><i class='bx bx-trash'></i></button>
-        </div>
-      `;
-      totalItems += item.quantity;
-      totalPrice += item.quantity * item.price;
-    });
-
-    itemsCountElem.textContent = `Total Items: ${totalItems}`;
-    totalPriceElem.textContent = `₱${totalPrice}`;
-  }
-
-  document.querySelectorAll(".add-to-cart").forEach((btn) => {
-    btn.addEventListener("click", () => {
-      if (!isLoggedIn) {
-        showLoginModal();
-        return;
-      }
-      const title = btn.dataset.title;
-      const price = parseFloat(btn.dataset.price);
-      const image = btn.dataset.image;
-
-      const item = cart.find(i => i.title === title);
-      if (item) item.quantity++;
-      else cart.push({ title, price, image, quantity: 1 });
-
-      updateCartDisplay();
-      openCart();
-    });
-  });
-
-  cartContainer.addEventListener("click", (e) => {
-    const index = e.target.dataset.index;
-    if (e.target.closest(".cart__remove")) {
-      cart.splice(index, 1);
-    } else if (e.target.classList.contains("plus")) {
-      cart[index].quantity++;
-    } else if (e.target.classList.contains("minus")) {
-      cart[index].quantity > 1 ? cart[index].quantity-- : cart.splice(index, 1);
-    }
-    updateCartDisplay();
-  });
-
-  cartShopBtn.addEventListener("click", openCart);
-  cartCloseBtn.addEventListener("click", closeCart);
+  // Make the PHP variable available to JavaScript
+  window.isLoggedIn = <?= $isLoggedIn ? 'true' : 'false' ?>;
 </script>
-
-<script>
- const signupModal = document.getElementById("signup-modal");
-const signupClose = document.getElementById("signup-close");
-const switchToSignup = document.getElementById("switch-to-signup");
-const switchToLogin = document.getElementById("switch-to-login");
-
-switchToSignup?.addEventListener("click", (e) => {
-  e.preventDefault();
-  hideLoginModal();
-  signupModal.style.display = "flex";
-});
-
-switchToLogin?.addEventListener("click", (e) => {
-  e.preventDefault();
-  signupModal.style.display = "none";
-  loginModal.style.display = "flex";
-});
-
-signupClose?.addEventListener("click", () => {
-  signupModal.style.display = "none";
-});
-
-window.addEventListener("keydown", (e) => {
-  if (e.key === "Escape") {
-    signupModal.style.display = "none";
-  }
-});
-
-
-</script>
-
 
 <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
 <script src="assets/js/main.js"></script>

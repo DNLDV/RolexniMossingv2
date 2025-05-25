@@ -86,3 +86,156 @@ const swiper = new Swiper('.new-swiper', {
     1024: { slidesPerView: 4 },
   }
 });
+
+/*=============== CART FUNCTIONALITY ===============*/
+let cart = [];
+
+const cartContainer = document.getElementById("cart-container");
+const itemsCountElem = document.getElementById("cart-items-count");
+const totalPriceElem = document.getElementById("cart-total-price");
+const cartElement = document.getElementById("cart");
+const cartShopBtn = document.getElementById("cart-shop");
+const cartCloseBtn = document.getElementById("cart-close");
+const loginModal = document.getElementById("login-modal");
+const loginClose = document.getElementById("login-close");
+
+function openCart() {
+  cartElement.classList.add("show-cart");
+}
+
+function closeCart() {
+  cartElement.classList.remove("show-cart");
+}
+
+function showLoginModal() {
+  loginModal.style.display = "flex";
+}
+
+function hideLoginModal() {
+  loginModal.style.display = "none";
+}
+
+loginClose.addEventListener("click", hideLoginModal);
+window.addEventListener("keydown", (e) => { if (e.key === "Escape") hideLoginModal(); });
+
+function updateCartDisplay() {
+  cartContainer.innerHTML = "";
+  let totalItems = 0;
+  let totalPrice = 0;
+
+  cart.forEach((item, index) => {
+    cartContainer.innerHTML += `
+      <div class="cart__card">
+        <img src="${item.image}" class="cart__img" />
+        <div class="cart__details">
+          <h3 class="cart__title">${item.title}</h3>
+          <span class="cart__price">₱${item.price}</span>
+          <div class="cart__quantity-controls">
+            <button class="quantity-btn minus" data-index="${index}">−</button>
+            <span class="cart__quantity">${item.quantity}</span>
+            <button class="quantity-btn plus" data-index="${index}">+</button>
+          </div>
+        </div>
+        <button class="cart__remove" data-index="${index}"><i class='bx bx-trash'></i></button>
+      </div>
+    `;
+    totalItems += item.quantity;
+    totalPrice += item.quantity * item.price;
+  });
+
+  itemsCountElem.textContent = `Total Items: ${totalItems}`;
+  totalPriceElem.textContent = `₱${totalPrice}`;
+}
+
+// This will be initialized from index.php
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll(".add-to-cart").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      if (!window.isLoggedIn) {
+        showLoginModal();
+        return;
+      }
+      const title = btn.dataset.title;
+      const price = parseFloat(btn.dataset.price);
+      const image = btn.dataset.image;
+
+      const item = cart.find(i => i.title === title);
+      if (item) item.quantity++;
+      else cart.push({ title, price, image, quantity: 1 });
+
+      updateCartDisplay();
+      openCart();
+    });
+  });
+  cartContainer.addEventListener("click", (e) => {
+    const index = e.target.dataset.index;
+    if (e.target.closest(".cart__remove")) {
+      cart.splice(index, 1);
+    } else if (e.target.classList.contains("plus")) {
+      cart[index].quantity++;
+    } else if (e.target.classList.contains("minus")) {
+      cart[index].quantity > 1 ? cart[index].quantity-- : cart.splice(index, 1);
+    }
+    updateCartDisplay();
+  });
+
+  cartShopBtn.addEventListener("click", openCart);
+  cartCloseBtn.addEventListener("click", closeCart);
+  
+  // Place Order button functionality
+  const placeOrderBtn = document.getElementById("place-order");
+  if (placeOrderBtn) {
+    placeOrderBtn.addEventListener("click", () => {
+      if (!window.isLoggedIn) {
+        showLoginModal();
+        return;
+      }
+      
+      if (cart.length === 0) {
+        alert("Your cart is empty. Add items before placing an order.");
+        return;
+      }
+      
+      // Here you would typically send the order to a backend
+      alert("Thank you for your order! Your items will be processed soon.");
+      cart = [];
+      updateCartDisplay();
+      closeCart();
+    });
+  }
+});
+
+/*=============== LOGIN/SIGNUP MODAL FUNCTIONALITY ===============*/
+document.addEventListener('DOMContentLoaded', () => {
+  const signupModal = document.getElementById("signup-modal");
+  const signupClose = document.getElementById("signup-close");
+  const switchToSignup = document.getElementById("switch-to-signup");
+  const switchToLogin = document.getElementById("switch-to-login");
+
+  switchToSignup?.addEventListener("click", (e) => {
+    e.preventDefault();
+    hideLoginModal();
+    signupModal.style.display = "flex";
+  });
+
+  switchToLogin?.addEventListener("click", (e) => {
+    e.preventDefault();
+    signupModal.style.display = "none";
+    loginModal.style.display = "flex";
+  });
+  signupClose?.addEventListener("click", () => {
+    signupModal.style.display = "none";
+  });
+
+  window.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") {
+      signupModal.style.display = "none";
+    }
+  });
+  
+  // Navigation login button handler
+  const navLoginBtn = document.getElementById("nav-login-btn");
+  if (navLoginBtn) {
+    navLoginBtn.addEventListener("click", showLoginModal);
+  }
+});
