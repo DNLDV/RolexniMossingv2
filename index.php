@@ -121,10 +121,14 @@ $xml = simplexml_load_file("data.xml") or die("Error: Cannot load XML file");
 
   <!-- FEATURED -->
   <section class="featured section container" id="featured">
-    <h2 class="section__title">Featured</h2>
+  <h2 class="section__title">Featured</h2>
+<div class="search-bar">
+  <input type="text" id="tag-search" placeholder="Search by tag (e.g., Sale, Classic, Limited)" class="search-input" />
+</div>
+
     <div class="featured__container grid">
       <?php foreach ($xml->featuredProducts->product as $product): ?>
-        <article class="featured__card">
+        <article class="products__card" data-tag="<?= strtolower($product->tag) ?>">
           <img src="<?= $product->image ?>" class="featured__img" alt="">
           <span class="featured__tag"><?= $product->tag ?></span>
           <h3 class="featured__title"><?= $product->title ?></h3>
@@ -215,6 +219,32 @@ $xml = simplexml_load_file("data.xml") or die("Error: Cannot load XML file");
 <a href="#" class="scrollup" id="scroll-up">
   <i class='bx bx-up-arrow-alt scrollup__icon'></i>
 </a>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const searchInput = document.getElementById('tag-search');
+    const featuredCards = document.querySelectorAll('.featured__card');
+    const productCards = document.querySelectorAll('.products__card');
+
+    searchInput.addEventListener('input', () => {
+      const searchTerm = searchInput.value.trim().toLowerCase();
+
+      const filterCards = (cards) => {
+        cards.forEach(card => {
+          const tag = card.getAttribute('data-tag');
+          if (!searchTerm || tag.includes(searchTerm)) {
+            card.style.display = '';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+      };
+
+      filterCards(featuredCards);
+      filterCards(productCards);
+    });
+  });
+</script>
+
 
 <!-- SWEETALERT -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

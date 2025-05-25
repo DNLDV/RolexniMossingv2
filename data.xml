@@ -1,76 +1,83 @@
 <shop>
-    <cart>
-      <item>
-        <title>Jazzmaster</title>
-        <price>1050</price>
-        <quantity>1</quantity>
-        <image>assets/img/featured2.png</image>
-      </item>
-      <item>
-        <title>Rose Gold</title>
-        <price>850</price>
-        <quantity>1</quantity>
-        <image>assets/img/featured1.png</image>
-      </item>
-      <item>
-        <title>Longines Rose</title>
-        <price>980</price>
-        <quantity>1</quantity>
-        <image>assets/img/new1.png</image>
-      </item>
-      <summary>
-        <totalItems>3</totalItems>
-        <totalPrice>2880</totalPrice>
-      </summary>
-    </cart>
-  
-    <featuredProducts>
-      <product>
-        <title>Rose Gold</title>
-        <price>890</price>
-        <tag>Sale</tag>
-        <image>assets/img/featured1.png</image>
-      </product>
-      <product>
-        <title>Jazzmaster</title>
-        <price>1050</price>
-        <tag>Sale</tag>
-        <image>assets/img/featured2.png</image>
-      </product>
-      <product>
-        <title>Ingersoll</title>
-        <price>250</price>
-        <tag>Sale</tag>
-        <image>assets/img/featured3.png</image>
-      </product>
-    </featuredProducts>
-  
-    <products>
-      <product>
-        <title>Spirit Rose</title>
-        <price>1500</price>
-        <image>assets/img/product1.png</image>
-      </product>
-      <product>
-        <title>Khaki Pilot</title>
-        <price>1350</price>
-        <image>assets/img/product2.png</image>
-      </product>
-      <product>
-        <title>Jubilee Black</title>
-        <price>870</price>
-        <image>assets/img/product3.png</image>
-      </product>
-      <product>
-        <title>Fossil Me3</title>
-        <price>650</price>
-        <image>assets/img/product4.png</image>
-      </product>
-      <product>
-        <title>Duchen</title>
-        <price>950</price>
-        <image>assets/img/product5.png</image>
-      </product>
-    </products>
-  </shop>
-  
+  <cart>
+    <item>
+      <title>Jazzmaster</title>
+      <price>1050</price>
+      <quantity>1</quantity>
+      <image>assets/img/featured2.png</image>
+      <tag>Sale</tag>
+    </item>
+    <item>
+      <title>Rose Gold</title>
+      <price>850</price>
+      <quantity>1</quantity>
+      <image>assets/img/featured1.png</image>
+      <tag>Sale</tag>
+    </item>
+    <item>
+      <title>Longines Rose</title>
+      <price>980</price>
+      <quantity>1</quantity>
+      <image>assets/img/new1.png</image>
+      <tag>New</tag>
+    </item>
+    <summary>
+      <totalItems>3</totalItems>
+      <totalPrice>2880</totalPrice>
+    </summary>
+  </cart>
+
+  <featuredProducts>
+    <product>
+      <title>Rose Gold</title>
+      <price>890</price>
+      <tag>Sale</tag>
+      <image>assets/img/featured1.png</image>
+    </product>
+    <product>
+      <title>Jazzmaster</title>
+      <price>1050</price>
+      <tag>Sale</tag>
+      <image>assets/img/featured2.png</image>
+    </product>
+    <product>
+      <title>Ingersoll</title>
+      <price>250</price>
+      <tag>Limited</tag>
+      <image>assets/img/featured3.png</image>
+    </product>
+  </featuredProducts>
+
+  <products>
+    <product>
+      <title>Spirit Rose</title>
+      <price>1500</price>
+      <tag>Classic</tag>
+      <image>assets/img/product1.png</image>
+    </product>
+    <product>
+      <title>Khaki Pilot</title>
+      <price>1350</price>
+      <tag>Limited</tag>
+      <image>assets/img/product2.png</image>
+    </product>
+    <product>
+      <title>Jubilee Black</title>
+      <price>870</price>
+      <tag>Sale</tag>
+      <image>assets/img/product3.png</image>
+    </product>
+    <product>
+      <title>Fossil Me3</title>
+      <price>650</price>
+      <tag>New</tag>
+      <image>assets/img/product4.png</image>
+    </product>
+    <product>
+      <title>Duchen</title>
+      <price>950</price>
+      <tag>Classic</tag>
+      <image>assets/img/product5.png</image>
+    </product>
+  </products>
+</shop>
