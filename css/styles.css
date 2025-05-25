@@ -970,7 +970,8 @@ body.dark-theme{
 }
 
 .cart__prices{
-  margin-top: 6rem;
+  margin-top: 2rem;
+  margin-bottom: 5rem;
   display: flex;
   justify-content: space-between;
 }
@@ -984,33 +985,55 @@ body.dark-theme{
   font-weight: var(--font-medium);
 }
 
+/* From Uiverse.io by alexroumi */
 .buttonorder {
-  padding: 1.3em 3em;
-  font-size: 12px;
-  text-transform: uppercase;
-  letter-spacing: 2.5px;
-  font-weight: 500;
-  color: #000;
-  background-color: #fff;
-  border: none;
-  border-radius: 45px;
-  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease 0s;
-  cursor: pointer;
-  outline: none;
+  padding: 15px 25px;
+  border: unset;
+  border-radius: 15px;
+  color: #212121;
+  background: #e8e8e8;
+  position: relative;
+  font-weight: 1000;
+  font-size: 17px;
+  -webkit-box-shadow: 4px 8px 19px -3px rgba(0,0,0,0.27);
+  box-shadow: 4px 8px 19px -3px rgba(0,0,0,0.27);
+  transition: all 250ms;
+  overflow: hidden;
   width: 100%;
   margin-top: 2rem;
+  cursor: pointer;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.buttonorder::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 0;
+  border-radius: 15px;
+  background-color: #ffb566;
+  z-index: 0;
+  -webkit-box-shadow: 4px 8px 19px -3px rgba(0,0,0,0.27);
+  box-shadow: 4px 8px 19px -3px rgba(0,0,0,0.27);
+  transition: all 250ms;
 }
 
 .buttonorder:hover {
-  background-color: #23c483;
-  box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4);
-  color: #fff;
-  transform: translateY(-7px);
+  color: #212121;
 }
 
-.buttonorder:active {
-  transform: translateY(-1px);
+.buttonorder span,
+.buttonorder {
+  position: relative;
+  z-index: 1;
+}
+
+.buttonorder:hover::before {
+  width: 100%;
 }
 
 

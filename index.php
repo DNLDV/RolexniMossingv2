@@ -56,7 +56,7 @@ $xml = simplexml_load_file("data.xml") or die("Error: Cannot load XML file");
     <span class="cart__price-item" id="cart-items-count">Total Items: 0</span>
     <span class="cart__price-total" id="cart-total-price">₱0</span>
   </div>
-  <button class="buttonorder" id="place-order">Place Order</button>
+  <button class="buttonorder" id="place-order"><span>Place Order</span></button>
 </div>
 
 <!-- LOGIN MODAL -->
