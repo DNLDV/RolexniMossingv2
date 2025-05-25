@@ -180,14 +180,34 @@ document.addEventListener('DOMContentLoaded', () => {
   
   // Place Order button functionality
   document.getElementById('place-order').addEventListener('click', () => {
+    const cartContainer = document.getElementById('cart-container');
+    const cartItems = cartContainer.children.length;
+
+    // Check if cart is empty
+    if (cartItems === 0) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "You don't have any items in your cart!",
+        footer: '<a href="#">Why do I have this issue?</a>'
+      });
+      return;
+    }
+
+    // Check if user is logged in
     if (!window.isLoggedIn) {
-      alert("Please sign in first!");
+      Swal.fire({
+        title: 'Please Log In',
+        text: 'You must be logged in to place an order.',
+        icon: 'warning',
+        confirmButtonText: 'Log in now'
+      }).then(() => {
+        document.getElementById('login-modal').style.display = 'block';
+      });
       return;
     }
-    if (cart.length === 0) {
-      alert("Your cart is empty!");
-      return;
-    }
+
+    // Proceed with placing order via placeorder.php
     fetch('placeorder.php', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -196,12 +216,32 @@ document.addEventListener('DOMContentLoaded', () => {
     .then(res => res.text())
     .then(res => {
       if (res === 'success') {
-        alert("Order placed successfully!");
-        cart = [];
-        updateCartDisplay();
+        Swal.fire({
+          title: 'Order Placed!',
+          text: 'Thank you for shopping with PFRolex.',
+          icon: 'success',
+          confirmButtonText: 'OK'
+        }).then(() => {
+          // Clear cart data and UI
+          cart = [];
+          cartContainer.innerHTML = '';
+          document.getElementById('cart-items-count').textContent = 'Total Items: 0';
+          document.getElementById('cart-total-price').textContent = '₱0';
+        });
       } else {
-        alert("Order failed: " + res);
+        Swal.fire({
+          icon: 'error',
+          title: 'Order Failed',
+          text: res
+        });
       }
+    })
+    .catch(err => {
+      Swal.fire({
+        icon: 'error',
+        title: 'An error occurred',
+        text: err.toString()
+      });
     });
   });
 });
