@@ -10,12 +10,13 @@ $xml = simplexml_load_file("data.xml") or die("Error: Cannot load XML file");
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>PFRolex Responsive Watches Website</title>
-  <link rel="shortcut icon" href="assets/img/favicon.png" type="image/x-icon" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css" />
+  <link rel="shortcut icon" href="assets/img/favicon.png" type="image/x-icon" />  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css" />
   <link rel="stylesheet" href="css/styles.css" />
+  <link rel="stylesheet" href="css/toast.css" />
 </head>
 <body>
+
 
 <!-- HEADER -->
 <header class="header" id="header">
@@ -30,6 +31,7 @@ $xml = simplexml_load_file("data.xml") or die("Error: Cannot load XML file");
       </ul>
       <div class="nav__close" id="nav-close"><i class='bx bx-x'></i></div>
     </div>
+
     <div class="nav__btns">
       <i class='bx bx-moon change-theme' id="theme-button"></i>
       <div class="nav__shop" id="cart-shop"><i class='bx bx-shopping-bag'></i></div>
@@ -38,14 +40,13 @@ $xml = simplexml_load_file("data.xml") or die("Error: Cannot load XML file");
         <form action="logout.php" method="post" class="logout-form">
           <button type="submit" class="logout-btn">Log out</button>
         </form>
-      <?php else: ?>
-        <button class="login-btn nav__login-btn" id="nav-login-btn">Sign in</button>
       <?php endif; ?>
 
       <div class="nav__toggle" id="nav-toggle"><i class='bx bx-grid-alt'></i></div>
     </div>
   </nav>
 </header>
+
 
 <!-- CART -->
 <div class="cart" id="cart">
@@ -56,8 +57,11 @@ $xml = simplexml_load_file("data.xml") or die("Error: Cannot load XML file");
     <span class="cart__price-item" id="cart-items-count">Total Items: 0</span>
     <span class="cart__price-total" id="cart-total-price">₱0</span>
   </div>
-  <button class="buttonorder" id="place-order"><span>Place Order</span></button>
+  <button class="buttonorder" id="place-order">Place Order</button>
 </div>
+
+<!-- Order Message Toast -->
+<div id="order-message" class="hidden"></div>
 
 <!-- LOGIN MODAL -->
 <div class="login-modal" id="login-modal">
@@ -78,6 +82,7 @@ $xml = simplexml_load_file("data.xml") or die("Error: Cannot load XML file");
   </div>
 </div>
 
+
 <!-- SIGN UP MODAL -->
 <div class="login-modal" id="signup-modal" style="display: none;">
   <div class="login-modal__content">
@@ -94,15 +99,15 @@ $xml = simplexml_load_file("data.xml") or die("Error: Cannot load XML file");
   </div>
 </div>
 
+
+
 <!-- MAIN -->
 <main class="main">
   <!-- HOME -->
   <section class="home" id="home">
     <div class="home__container container grid">
       <div class="home__img-bg">
-        <div class="sketchfab-embed-wrapper">
-          <iframe title="" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/37c23be725984ce4a311a2782af8e00a/embed?ui_theme=dark"></iframe>
-        </div>
+        <img src="assets/img/home.png" alt="" class="home__img">
       </div>
       <div class="home__data">
         <h1 class="home__title">NEW WATCH <br> COLLECTIONS B720</h1>
@@ -121,14 +126,10 @@ $xml = simplexml_load_file("data.xml") or die("Error: Cannot load XML file");
 
   <!-- FEATURED -->
   <section class="featured section container" id="featured">
-  <h2 class="section__title">Featured</h2>
-<div class="search-bar">
-  <input type="text" id="tag-search" placeholder="Search by tag (e.g., Sale, Classic, Limited)" class="search-input" />
-</div>
-
+    <h2 class="section__title">Featured</h2>
     <div class="featured__container grid">
       <?php foreach ($xml->featuredProducts->product as $product): ?>
-        <article class="products__card" data-tag="<?= strtolower($product->tag) ?>">
+        <article class="featured__card">
           <img src="<?= $product->image ?>" class="featured__img" alt="">
           <span class="featured__tag"><?= $product->tag ?></span>
           <h3 class="featured__title"><?= $product->title ?></h3>
@@ -219,39 +220,10 @@ $xml = simplexml_load_file("data.xml") or die("Error: Cannot load XML file");
 <a href="#" class="scrollup" id="scroll-up">
   <i class='bx bx-up-arrow-alt scrollup__icon'></i>
 </a>
+
+<!-- SCRIPTS -->
 <script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const searchInput = document.getElementById('tag-search');
-    const featuredCards = document.querySelectorAll('.featured__card');
-    const productCards = document.querySelectorAll('.products__card');
-
-    searchInput.addEventListener('input', () => {
-      const searchTerm = searchInput.value.trim().toLowerCase();
-
-      const filterCards = (cards) => {
-        cards.forEach(card => {
-          const tag = card.getAttribute('data-tag');
-          if (!searchTerm || tag.includes(searchTerm)) {
-            card.style.display = '';
-          } else {
-            card.style.display = 'none';
-          }
-        });
-      };
-
-      filterCards(featuredCards);
-      filterCards(productCards);
-    });
-  });
-</script>
-
-
-<!-- SWEETALERT -->
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-
-<!-- Make the PHP variable available to JavaScript -->
-<script>
+  // Make the PHP variable available to JavaScript
   window.isLoggedIn = <?= $isLoggedIn ? 'true' : 'false' ?>;
 </script>
 

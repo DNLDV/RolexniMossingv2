@@ -889,6 +889,11 @@ body.dark-theme{
    right: -100%;
    padding: 3.5rem 2rem;
    transition: .4s;
+   overflow-y: auto; /* Allow scrolling for carts with many items */
+}
+
+.show-cart {
+   right: 0;
 }
 
 .cart__title-center{
@@ -916,6 +921,12 @@ body.dark-theme{
    display: flex;
    align-items: center;
    column-gap: 1rem;
+   background-color: var(--container-color);
+   padding: 1rem;
+   border-radius: 0.5rem;
+   border: 1px solid var(--border-color);
+   margin-bottom: 1rem;
+   position: relative;
 }
 
 .cart__box{
@@ -925,80 +936,115 @@ body.dark-theme{
 }
 
 .cart__img{
-   width: 50px;
+   width: 70px;
+   height: 70px;
+   object-fit: contain;
+   border-radius: 0.5rem;
+}
+
+.cart__details {
+   flex: 1;
+   display: flex;
+   flex-direction: column;
 }
 
 .cart__title{
    font-size: var(--normal-font-size);
    margin-bottom: var(--mb-0-5);
+   font-weight: var(--font-medium);
 }
 
 .cart__price{
    display: block;
    font-size: var(--small-font-size);
    color: var(--first-color);
-   margin-bottom: var(--mb-1-5);
+   margin-bottom: var(--mb-0-5);
+   font-weight: bold;
 }
 
-.cart__amount,
-.cart__amount-content{
+.cart__quantity-controls {
    display: flex;
    align-items: center;
+   gap: 1rem;
+   margin-top: 0.5rem;
 }
 
-
-.cart__amount{
-   column-gap: 3rem;
+.cart__quantity {
+   font-size: var(--normal-font-size);
+   min-width: 1.5rem;
+   text-align: center;
 }
 
-.cart__amount-content{
-   column-gap: 1rem;
-}
-
-.cart__amount-box{
+.quantity-btn {
    display: inline-flex;
-   padding: .25rem;
+   justify-content: center;
+   align-items: center;
+   width: 24px;
+   height: 24px;
    background-color: var(--container-color);
    border: 1px solid var(--border-color);
+   border-radius: 50%;
    cursor: pointer;
+   transition: background-color 0.3s;
 }
 
-.cart__amount-trash{
+.quantity-btn:hover {
+   background-color: var(--first-color);
+   color: var(--container-color);
+}
+
+.cart__remove {
    font-size: 1.15rem;
    color: var(--first-color);
    cursor: pointer;
+   background: none;
+   border: none;
+   padding: 0.5rem;
+}
+
+.cart__remove:hover {
+   color: #f44336;
 }
 
 .cart__prices{
   margin-top: 2rem;
-  margin-bottom: 5rem;
+  margin-bottom: 2rem;
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background-color: var(--container-color);
+  border-radius: 0.5rem;
+  border: 1px solid var(--border-color);
 }
 
-.cart__prices-item{
-  font-size: var(--small-font-size);
+.cart__price-item{
+  font-size: var(--normal-font-size);
 }
 
-.cart__prices-total{
+.cart__price-total{
   font-size: var(--h3-font-size);
   font-weight: var(--font-medium);
+  color: var(--first-color);
 }
 
-/* From Uiverse.io by alexroumi */
+/* From Uiverse.io by alexroumi - modified */
 .buttonorder {
+  width: 100%;
   padding: 15px 25px;
   border: unset;
   border-radius: 15px;
-  color: #212121;
-  background: #e8e8e8;
+  color: #fff;
+  background: var(--first-color);
   position: relative;
-  font-weight: 1000;
+  font-weight: 700;
   font-size: 17px;
   -webkit-box-shadow: 4px 8px 19px -3px rgba(0,0,0,0.27);
   box-shadow: 4px 8px 19px -3px rgba(0,0,0,0.27);
   transition: all 250ms;
   overflow: hidden;
+  cursor: pointer;
+  text-transform: uppercase;
   width: 100%;
   margin-top: 2rem;
   cursor: pointer;
@@ -1023,7 +1069,8 @@ body.dark-theme{
 }
 
 .buttonorder:hover {
-  color: #212121;
+  background: var(--first-color) !important;
+  color: #fff !important;
 }
 
 .buttonorder span,

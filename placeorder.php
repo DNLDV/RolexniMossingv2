@@ -44,10 +44,21 @@ if (!$root) {
     $dom->appendChild($root);
 }
 
-// 3) Create new <order> element with <username>
+// 3) Create new <order> element with <username>, timestamp and ID
 $orderElement = $dom->createElement('order');
+
+// Generate order ID
+$orderId = 'ORD-' . time() . '-' . substr(md5(uniqid(mt_rand(), true)), 0, 6);
+$orderIdElement = $dom->createElement('orderid', $orderId);
+
 $usernameElement = $dom->createElement('username', $_SESSION['user']['name']);
+$timestampElement = $dom->createElement('timestamp', date('Y-m-d H:i:s'));
+$statusElement = $dom->createElement('status', 'pending');
+
+$orderElement->appendChild($orderIdElement);
 $orderElement->appendChild($usernameElement);
+$orderElement->appendChild($timestampElement);
+$orderElement->appendChild($statusElement);
 
 // 4) Loop through items and create <item> elements
 foreach ($cartItems as $item) {
@@ -55,9 +66,16 @@ foreach ($cartItems as $item) {
 
     $titleNode = $dom->createElement('title', $item['title']);
     $priceNode = $dom->createElement('price', $item['price']);
+    $quantityNode = $dom->createElement('quantity', $item['quantity']);
+    
+    if(isset($item['image'])) {
+        $imageNode = $dom->createElement('image', $item['image']);
+        $itemNode->appendChild($imageNode);
+    }
 
     $itemNode->appendChild($titleNode);
     $itemNode->appendChild($priceNode);
+    $itemNode->appendChild($quantityNode);
 
     $orderElement->appendChild($itemNode);
 }
