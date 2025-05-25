@@ -1,3 +1,4 @@
+<?xml version="1.0"?>
 <shop>
   <cart>
     <item>
@@ -26,7 +27,6 @@
       <totalPrice>2880</totalPrice>
     </summary>
   </cart>
-
   <featuredProducts>
     <product>
       <title>Rose Gold</title>
@@ -47,13 +47,16 @@
       <image>assets/img/featured3.png</image>
     </product>
   </featuredProducts>
-
   <products>
     <product>
       <title>Spirit Rose</title>
       <price>1500</price>
       <tag>Classic</tag>
       <image>assets/img/product1.png</image>
+      <category>
+        <name>Watch</name>
+        <description>TO be worn in wrist</description>
+      </category>
     </product>
     <product>
       <title>Khaki Pilot</title>

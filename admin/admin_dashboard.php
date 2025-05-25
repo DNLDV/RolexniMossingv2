@@ -31,6 +31,7 @@ if (!$orders) {
     <h2>Admin Panel</h2>
     <nav>
       <a href="admin_dashboard.php">Dashboard</a>
+      <a href="products.php">Products</a>
       <a href="users.php">Users</a>
       <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
       <form id="logout-form" action="logout.php" method="post" style="display:none;"></form>

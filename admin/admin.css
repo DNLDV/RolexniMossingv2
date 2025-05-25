@@ -257,6 +257,125 @@
   color: #ffffff;
 }
 
+/* Product Management Forms */
+.category-form {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.category-form input[type="text"] {
+  padding: 6px 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: .9rem;
+}
+.btn-action {
+  background-color: #004225; /* Rolex green */
+  color: #f1c40f; /* Gold accent */
+  border: none;
+  padding: 6px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.btn-action:hover {
+  background-color: #00331a;
+}
+
+/* Featured Products Section */
+.featured-section {
+  margin-bottom: 30px;
+}
+.featured-section h2 {
+  font-size: 1.25rem;
+  color: #004225;
+  margin-bottom: 10px;
+}
+.featured-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #ffffff;
+  border-radius: 5px;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+.featured-table th,
+.featured-table td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: left;
+}
+.featured-table th {
+  background-color: #f1c40f;
+  color: #004225;
+  text-transform: uppercase;
+}
+.featured-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+/* Delete Category Button */
+.btn-delete-category {
+  background-color: #e74c3c;
+  color: #fff;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.btn-delete-category:hover {
+  background-color: #c0392b;
+}
+
+/* Product Management Table */
+.product-management-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #ffffff;
+  border-radius: 5px;
+  overflow: hidden;
+  margin-top: 20px;
+}
+.product-management-table th {
+  background-color: #f1c40f;
+  color: #004225;
+  text-transform: uppercase;
+  padding: 12px;
+  text-align: center;
+}
+.product-management-table td {
+  border: 1px solid #ddd;
+  padding: 15px;
+  vertical-align: top;
+}
+.product-management-table h2 {
+  color: #004225;
+  margin-top: 0;
+  margin-bottom: 15px;
+  font-size: 1.2rem;
+}
+.add-product-form,
+.manage-product-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.add-product-form input,
+.add-product-form select,
+.add-product-form textarea,
+.manage-product-form input,
+.manage-product-form select,
+.manage-product-form textarea {
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+.add-product-form button,
+.manage-product-form button {
+  margin-top: 10px;
+}
+
 /* Responsive */
 @media (max-width: 768px) {
   .dashboard-wrapper {
