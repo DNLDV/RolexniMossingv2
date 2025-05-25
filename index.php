@@ -124,24 +124,45 @@ $xml = simplexml_load_file("data.xml") or die("Error: Cannot load XML file");
     </div>
   </section>
 
-  <!-- FEATURED -->
-  <section class="featured section container" id="featured">
-    <h2 class="section__title">Featured</h2>
-    <div class="featured__container grid">
-      <?php foreach ($xml->featuredProducts->product as $product): ?>
-        <article class="featured__card">
-          <img src="<?= $product->image ?>" class="featured__img" alt="">
-          <span class="featured__tag"><?= $product->tag ?></span>
-          <h3 class="featured__title"><?= $product->title ?></h3>
-          <span class="featured__price">₱<?= $product->price ?></span>
-          <button class="button featured__button add-to-cart"
-                  data-title="<?= $product->title ?>" data-price="<?= $product->price ?>" data-image="<?= $product->image ?>">
-            Add to Cart
-          </button>
-        </article>
-      <?php endforeach; ?>
-    </div>
-  </section>
+ <!-- Tag-Based Search Bar -->
+<div class="search-bar container">
+  <input type="text" id="tag-search" placeholder="Search by tag (e.g., Classic, Sale, New, Premium)" />
+</div>
+
+<section class="featured section container" id="featured">
+  <h2 class="section__title">Featured</h2>
+  <div class="featured__container grid">
+    <?php
+      $searchTag = isset($_GET['tag']) ? strtolower(trim($_GET['tag'])) : '';
+      $hasResults = false;
+
+      foreach ($xml->featuredProducts->product as $product):
+        $productTag = strtolower(trim((string)$product->tag));
+
+        // If no search or the tag matches the search query, show it
+        if ($searchTag === '' || strpos($productTag, $searchTag) !== false):
+          $hasResults = true;
+    ?>
+      <article class="featured__card">
+        <img src="<?= $product->image ?>" class="featured__img" alt="">
+        <span class="featured__tag"><?= $product->tag ?></span>
+        <h3 class="featured__title"><?= $product->title ?></h3>
+        <span class="featured__price">₱<?= $product->price ?></span>
+        <button class="button featured__button add-to-cart"
+                data-title="<?= $product->title ?>" data-price="<?= $product->price ?>" data-image="<?= $product->image ?>">
+          Add to Cart
+        </button>
+      </article>
+    <?php
+        endif;
+      endforeach;
+
+      if (!$hasResults):
+    ?>
+      <p style="text-align: center; margin-top: 1rem;">No products found with tag: <strong><?= htmlspecialchars($_GET['tag']) ?></strong></p>
+    <?php endif; ?>
+  </div>
+</section>
 
   <!-- PRODUCTS -->
  <!-- PRODUCTS -->
@@ -251,6 +272,26 @@ $xml = simplexml_load_file("data.xml") or die("Error: Cannot load XML file");
 <a href="#" class="scrollup" id="scroll-up">
   <i class='bx bx-up-arrow-alt scrollup__icon'></i>
 </a>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const searchInput = document.getElementById("tag-search");
+    const cards = document.querySelectorAll(".featured__card");
+
+    searchInput.addEventListener("input", () => {
+      const query = searchInput.value.trim().toLowerCase();
+
+      cards.forEach(card => {
+        const tag = card.querySelector(".featured__tag").textContent.toLowerCase();
+        if (tag.includes(query)) {
+          card.style.display = "block";
+        } else {
+          card.style.display = "none";
+        }
+      });
+    });
+  });
+</script>
+
 
 <!-- SCRIPTS -->
 <script>
