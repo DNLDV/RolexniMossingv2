@@ -970,7 +970,8 @@ body.dark-theme{
 }
 
 .cart__prices{
-  margin-top: 6rem;
+  margin-top: 2rem;
+  margin-bottom: 5rem;
   display: flex;
   justify-content: space-between;
 }
@@ -990,7 +991,6 @@ body.dark-theme{
   border: unset;
   border-radius: 15px;
   color: #212121;
-  z-index: 1;
   background: #e8e8e8;
   position: relative;
   font-weight: 1000;
@@ -1002,6 +1002,9 @@ body.dark-theme{
   width: 100%;
   margin-top: 2rem;
   cursor: pointer;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .buttonorder::before {
@@ -1012,15 +1015,21 @@ body.dark-theme{
   height: 100%;
   width: 0;
   border-radius: 15px;
-  background-color: #212121;
-  z-index: -1;
+  background-color: #ffb566;
+  z-index: 0;
   -webkit-box-shadow: 4px 8px 19px -3px rgba(0,0,0,0.27);
   box-shadow: 4px 8px 19px -3px rgba(0,0,0,0.27);
   transition: all 250ms;
 }
 
 .buttonorder:hover {
-  color: #ffb566;;
+  color: #212121;
+}
+
+.buttonorder span,
+.buttonorder {
+  position: relative;
+  z-index: 1;
 }
 
 .buttonorder:hover::before {
