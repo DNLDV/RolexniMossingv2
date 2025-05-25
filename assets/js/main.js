@@ -3,37 +3,30 @@ const navMenu = document.getElementById('nav-menu'),
       navToggle = document.getElementById('nav-toggle'),
       navClose = document.getElementById('nav-close');
 
-if(navToggle){
-  navToggle.addEventListener('click', () => {
-    navMenu.classList.add('show-menu');
-  });
+if (navToggle) {
+  navToggle.addEventListener('click', () => navMenu.classList.add('show-menu'));
 }
-
-if(navClose){
-  navClose.addEventListener('click', () => {
-    navMenu.classList.remove('show-menu');
-  });
+if (navClose) {
+  navClose.addEventListener('click', () => navMenu.classList.remove('show-menu'));
 }
 
 /*=============== REMOVE MENU ON LINK CLICK ===============*/
-const navLinks = document.querySelectorAll('.nav__link');
-
-navLinks.forEach(n => n.addEventListener('click', () => {
-  navMenu.classList.remove('show-menu');
-}));
+document.querySelectorAll('.nav__link').forEach(link => {
+  link.addEventListener('click', () => navMenu.classList.remove('show-menu'));
+});
 
 /*=============== CHANGE BACKGROUND HEADER ON SCROLL ===============*/
-function scrollHeader(){
+function scrollHeader() {
   const header = document.getElementById('header');
-  if(this.scrollY >= 80) header.classList.add('scroll-header');
+  if (window.scrollY >= 80) header.classList.add('scroll-header');
   else header.classList.remove('scroll-header');
 }
 window.addEventListener('scroll', scrollHeader);
 
 /*=============== SHOW SCROLL UP BUTTON ===============*/
-function scrollUp(){
+function scrollUp() {
   const scrollUp = document.getElementById('scroll-up');
-  if(this.scrollY >= 400) scrollUp.classList.add('show-scroll');
+  if (window.scrollY >= 400) scrollUp.classList.add('show-scroll');
   else scrollUp.classList.remove('show-scroll');
 }
 window.addEventListener('scroll', scrollUp);
@@ -43,28 +36,22 @@ const themeButton = document.getElementById('theme-button');
 const darkTheme = 'dark-theme';
 const iconTheme = 'bx-sun';
 
-// Previously selected theme (if user selected)
 const selectedTheme = localStorage.getItem('selected-theme');
 const selectedIcon = localStorage.getItem('selected-icon');
 
-// Get current theme
-const getCurrentTheme = () => document.body.classList.contains(darkTheme) ? 'dark' : 'light';
-const getCurrentIcon = () => themeButton.classList.contains(iconTheme) ? 'bx-moon' : 'bx-sun';
+const getCurrentTheme = () =>
+  document.body.classList.contains(darkTheme) ? 'dark' : 'light';
+const getCurrentIcon = () =>
+  themeButton.classList.contains(iconTheme) ? 'bx-moon' : 'bx-sun';
 
-// Apply previously selected theme and icon
-if(selectedTheme){
-  if(selectedTheme === 'dark') document.body.classList.add(darkTheme);
-  else document.body.classList.remove(darkTheme);
-
-  if(selectedIcon === 'bx-moon') themeButton.classList.add(iconTheme);
-  else themeButton.classList.remove(iconTheme);
+if (selectedTheme) {
+  document.body.classList.toggle(darkTheme, selectedTheme === 'dark');
+  themeButton.classList.toggle(iconTheme, selectedIcon === 'bx-moon');
 }
 
-// Toggle theme & save to localStorage
 themeButton.addEventListener('click', () => {
   document.body.classList.toggle(darkTheme);
   themeButton.classList.toggle(iconTheme);
-  
   localStorage.setItem('selected-theme', getCurrentTheme());
   localStorage.setItem('selected-icon', getCurrentIcon());
 });
@@ -98,25 +85,33 @@ const cartShopBtn = document.getElementById("cart-shop");
 const cartCloseBtn = document.getElementById("cart-close");
 const loginModal = document.getElementById("login-modal");
 const loginClose = document.getElementById("login-close");
+const orderMessageElem = document.getElementById("order-message");
 
 function openCart() {
   cartElement.classList.add("show-cart");
 }
-
 function closeCart() {
   cartElement.classList.remove("show-cart");
 }
-
 function showLoginModal() {
   loginModal.style.display = "flex";
 }
-
 function hideLoginModal() {
   loginModal.style.display = "none";
 }
+loginClose?.addEventListener("click", hideLoginModal);
+window.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") hideLoginModal();
+});
 
-loginClose.addEventListener("click", hideLoginModal);
-window.addEventListener("keydown", (e) => { if (e.key === "Escape") hideLoginModal(); });
+// Show alert message (toast style)
+function showMessage(text, color = '#4caf50') {
+  if (!orderMessageElem) return;
+  orderMessageElem.textContent = text;
+  orderMessageElem.style.backgroundColor = color;
+  orderMessageElem.classList.remove('hidden');
+  setTimeout(() => orderMessageElem.classList.add('hidden'), 3000);
+}
 
 function updateCartDisplay() {
   cartContainer.innerHTML = "";
@@ -144,10 +139,9 @@ function updateCartDisplay() {
   });
 
   itemsCountElem.textContent = `Total Items: ${totalItems}`;
-  totalPriceElem.textContent = `₱${totalPrice}`;
+  totalPriceElem.textContent = `₱${totalPrice.toFixed(2)}`;
 }
 
-// This will be initialized from index.php
 document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll(".add-to-cart").forEach((btn) => {
     btn.addEventListener("click", () => {
@@ -155,18 +149,20 @@ document.addEventListener('DOMContentLoaded', () => {
         showLoginModal();
         return;
       }
+
       const title = btn.dataset.title;
       const price = parseFloat(btn.dataset.price);
       const image = btn.dataset.image;
 
-      const item = cart.find(i => i.title === title);
-      if (item) item.quantity++;
+      const existing = cart.find(i => i.title === title);
+      if (existing) existing.quantity++;
       else cart.push({ title, price, image, quantity: 1 });
 
       updateCartDisplay();
       openCart();
     });
   });
+
   cartContainer.addEventListener("click", (e) => {
     const index = e.target.dataset.index;
     if (e.target.closest(".cart__remove")) {
@@ -179,10 +175,9 @@ document.addEventListener('DOMContentLoaded', () => {
     updateCartDisplay();
   });
 
-  cartShopBtn.addEventListener("click", openCart);
-  cartCloseBtn.addEventListener("click", closeCart);
-  
-  // Place Order button functionality
+  cartShopBtn?.addEventListener("click", openCart);
+  cartCloseBtn?.addEventListener("click", closeCart);
+
   const placeOrderBtn = document.getElementById("place-order");
   if (placeOrderBtn) {
     placeOrderBtn.addEventListener("click", () => {
@@ -190,14 +185,12 @@ document.addEventListener('DOMContentLoaded', () => {
         showLoginModal();
         return;
       }
-      
       if (cart.length === 0) {
-        alert("Your cart is empty. Add items before placing an order.");
+        showMessage("Your cart is empty. Add items before placing an order.", "#e74c3c");
         return;
       }
-      
-      // Here you would typically send the order to a backend
-      alert("Thank you for your order! Your items will be processed soon.");
+      // Handle actual order logic here (e.g., AJAX to PHP)
+      showMessage("Thank you for your order!");
       cart = [];
       updateCartDisplay();
       closeCart();
@@ -223,19 +216,15 @@ document.addEventListener('DOMContentLoaded', () => {
     signupModal.style.display = "none";
     loginModal.style.display = "flex";
   });
+
   signupClose?.addEventListener("click", () => {
     signupModal.style.display = "none";
   });
 
   window.addEventListener("keydown", (e) => {
-    if (e.key === "Escape") {
-      signupModal.style.display = "none";
-    }
+    if (e.key === "Escape") signupModal.style.display = "none";
   });
-  
-  // Navigation login button handler
+
   const navLoginBtn = document.getElementById("nav-login-btn");
-  if (navLoginBtn) {
-    navLoginBtn.addEventListener("click", showLoginModal);
-  }
+  navLoginBtn?.addEventListener("click", showLoginModal);
 });

@@ -17,7 +17,6 @@ $xml = simplexml_load_file("data.xml") or die("Error: Cannot load XML file");
 </head>
 <body>
 
-
 <!-- HEADER -->
 <header class="header" id="header">
   <nav class="nav container">
@@ -30,7 +29,8 @@ $xml = simplexml_load_file("data.xml") or die("Error: Cannot load XML file");
         <li class="nav__item"><a href="#new" class="nav__link">New</a></li>
       </ul>
       <div class="nav__close" id="nav-close"><i class='bx bx-x'></i></div>
-    </div>    <div class="nav__btns">
+    </div>
+    <div class="nav__btns">
       <i class='bx bx-moon change-theme' id="theme-button"></i>
       <div class="nav__shop" id="cart-shop"><i class='bx bx-shopping-bag'></i></div>
 
@@ -46,7 +46,6 @@ $xml = simplexml_load_file("data.xml") or die("Error: Cannot load XML file");
     </div>
   </nav>
 </header>
-
 
 <!-- CART -->
 <div class="cart" id="cart">
@@ -79,7 +78,6 @@ $xml = simplexml_load_file("data.xml") or die("Error: Cannot load XML file");
   </div>
 </div>
 
-
 <!-- SIGN UP MODAL -->
 <div class="login-modal" id="signup-modal" style="display: none;">
   <div class="login-modal__content">
@@ -96,16 +94,14 @@ $xml = simplexml_load_file("data.xml") or die("Error: Cannot load XML file");
   </div>
 </div>
 
-
-
 <!-- MAIN -->
 <main class="main">
   <!-- HOME -->
   <section class="home" id="home">
-    <div class="home__container container grid">      <div class="home__img-bg">
+    <div class="home__container container grid">
+      <div class="home__img-bg">
         <div class="sketchfab-embed-wrapper">
-          <iframe title="" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/37c23be725984ce4a311a2782af8e00a/embed?ui_theme=dark">
-          </iframe>
+          <iframe title="" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/37c23be725984ce4a311a2782af8e00a/embed?ui_theme=dark"></iframe>
         </div>
       </div>
       <div class="home__data">
@@ -220,9 +216,53 @@ $xml = simplexml_load_file("data.xml") or die("Error: Cannot load XML file");
   <i class='bx bx-up-arrow-alt scrollup__icon'></i>
 </a>
 
-<!-- SCRIPTS -->
+<!-- SWEETALERT -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 <script>
-  // Make the PHP variable available to JavaScript
+  document.getElementById('place-order').addEventListener('click', function () {
+    const cartContainer = document.getElementById('cart-container');
+    const cartItems = cartContainer.children.length;
+
+    if (cartItems === 0) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "You don't have any items in your cart!",
+        footer: '<a href="#">Why do I have this issue?</a>'
+      });
+      return;
+    }
+
+    if (window.isLoggedIn) {
+      Swal.fire({
+        title: 'Order Placed!',
+        text: 'Thank you for shopping with PFRolex.',
+        icon: 'success',
+        confirmButtonText: 'OK'
+      }).then(() => {
+        // Clear cart UI
+        cartContainer.innerHTML = '';
+        document.getElementById('cart-items-count').textContent = 'Total Items: 0';
+        document.getElementById('cart-total-price').textContent = '₱0';
+
+        // TODO: Also clear cart data if you use localStorage or other storage
+      });
+    } else {
+      Swal.fire({
+        title: 'Please Log In',
+        text: 'You must be logged in to place an order.',
+        icon: 'warning',
+        confirmButtonText: 'Log in now'
+      }).then(() => {
+        document.getElementById('login-modal').style.display = 'block';
+      });
+    }
+  });
+</script>
+
+<!-- Make the PHP variable available to JavaScript -->
+<script>
   window.isLoggedIn = <?= $isLoggedIn ? 'true' : 'false' ?>;
 </script>
 
