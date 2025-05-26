@@ -8,7 +8,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $password = $_POST['password'];
     
     // Prepare SQL statement to prevent SQL injection
-    $stmt = $conn->prepare("SELECT id, fullname, email, password FROM users WHERE email = ?");
+    $stmt = $conn->prepare("SELECT id, fullname, email, password, is_verified FROM users WHERE email = ?");
     $stmt->bind_param("s", $email);
     $stmt->execute();
     $result = $stmt->get_result();
@@ -16,6 +16,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if ($result->num_rows === 1) {
         $user = $result->fetch_assoc();
         
+        // Check if user is verified
+        if (!$user['is_verified']) {
+            $_SESSION['error'] = "Please verify your email before logging in.";
+            header("Location: index.php");
+            exit();
+        }
         // Verify password
         if (password_verify($password, $user['password'])) {
             // Password is correct, set session

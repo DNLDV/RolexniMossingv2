@@ -143,12 +143,7 @@
       <tag>Military</tag>
       <image>assets/img/product14.png</image>
     </product>
-    <product>
-      <title>Orient Bambino</title>
-      <price>4200</price>
-      <tag>Dress</tag>
-      <image>assets/img/product15.png</image>
-    </product>
+    
     <product>
       <title>Tissot Le Locle</title>
       <price>18500</price>
@@ -162,7 +157,8 @@
       <price>5500</price>
       <tag>Reliable</tag>
       <image>assets/img/product17.png</image>
-    <quantity></quantity><description></description></product>
+    </product>
+    
     <product>
       <title>Omnitrix</title>
       <price>6900</price>

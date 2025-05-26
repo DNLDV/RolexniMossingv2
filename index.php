@@ -227,6 +227,14 @@ $viewMode = isset($_GET['view']) ? $_GET['view'] : 'gallery'; // 'gallery' or 'l
 </head>
 <body>
 
+<?php if (isset($_SESSION['error'])): ?>
+  <div style="background:#ffdddd;color:#a00;padding:10px;text-align:center;"> <?= $_SESSION['error']; unset($_SESSION['error']); ?> </div>
+<?php endif; ?>
+<?php if (isset($_SESSION['success'])): ?>
+  <div style="background:#ddffdd;color:#080;padding:10px;text-align:center;"> <?= $_SESSION['success']; unset($_SESSION['success']); ?> </div>
+<?php endif; ?>
+
+
 <!-- HEADER -->
 <header class="header" id="header">
   <nav class="nav container">
@@ -300,6 +308,8 @@ $viewMode = isset($_GET['view']) ? $_GET['view'] : 'gallery'; // 'gallery' or 'l
       <input type="text" name="fullname" placeholder="Full Name" required />
       <input type="email" name="email" placeholder="Email" required />
       <input type="password" name="password" placeholder="Password" required />
+      <div class="g-recaptcha" data-sitekey="6Lctn0krAAAAAIUruw-mqL-Iy95og1ofnILHqgvS"></div>
+      <script src="https://www.google.com/recaptcha/api.js" async defer></script>
       <button type="submit" class="login-btn">Sign up</button>
       <p class="signup-text">Already have an account? <a href="#" id="switch-to-login">Log in</a></p>
     </form>
