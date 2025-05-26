@@ -114,17 +114,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
         }        // Save changes
         if ($xml->asXML($productsFile)) {
-            // For AJAX requests, return text response
-            if (isset($_POST['description']) && !isset($_FILES['image'])) {
-                echo 'success';
+            // For AJAX requests, return JSON response
+            if (isset($_POST['ajax']) || (isset($_POST['description']) && !isset($_FILES['image']))) {
+                header('Content-Type: application/json');
+                echo json_encode([
+                    'status' => 'success',
+                    'message' => $action === 'update' ? 'Product updated successfully.' : 'Product deleted successfully.'
+                ]);
                 exit;
             }
             // For form submissions, redirect
             header('Location: products.php?updated=' . ($action === 'update' ? 'success' : 'deleted'));
             exit;
         } else {
-            if (isset($_POST['description']) && !isset($_FILES['image'])) {
-                echo 'fail';
+            if (isset($_POST['ajax']) || (isset($_POST['description']) && !isset($_FILES['image']))) {
+                header('Content-Type: application/json');
+                echo json_encode([
+                    'status' => 'fail',
+                    'message' => 'Failed to save changes.'
+                ]);
                 exit;
             }
             header('Location: products.php?updated=fail');

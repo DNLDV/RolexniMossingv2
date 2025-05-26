@@ -6,27 +6,24 @@ if (!isset($_SESSION['admin_user'])) {
     exit('Access denied');
 }
 
-// Load products XML
-$productsFile = __DIR__ . '/../data.xml';
-if (!file_exists($productsFile)) {
-    header('HTTP/1.1 500 Internal Server Error');
-    exit('Products data file not found.');
+// Load categories XML
+$categoriesFile = __DIR__ . '/../categories.xml';
+if (!file_exists($categoriesFile)) {
+    // Create empty categories file if it doesn't exist
+    $xml = new SimpleXMLElement('<categories></categories>');
+    $xml->asXML($categoriesFile);
 }
 
-$xml = simplexml_load_file($productsFile);
+$xml = simplexml_load_file($categoriesFile);
 if (!$xml) {
     header('HTTP/1.1 500 Internal Server Error');
-    exit('Failed to load products data.');
+    exit('Failed to load categories data.');
 }
 
-// Build a unique list of categories
+// Build a list of categories
 $categories = [];
-foreach ($xml->xpath('//product') as $prod) {
-    if (isset($prod->category->name)) {
-        $n = (string)$prod->category->name;
-        $d = (string)$prod->category->description;
-        $categories[$n] = $d;
-    }
+foreach ($xml->category as $category) {
+    $categories[(string)$category->name] = (string)$category->description;
 }
 
 // Return categories as JSON

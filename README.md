@@ -25,3 +25,7 @@ VALUES ('admin', 'adminpass');
 ALTER TABLE users
   ADD COLUMN is_verified TINYINT(1) DEFAULT 0,
   ADD COLUMN verification_token VARCHAR(255) DEFAULT NULL;
+
+  ALTER TABLE users
+  ADD COLUMN reset_token VARCHAR(64) DEFAULT NULL,
+  ADD COLUMN reset_expires DATETIME DEFAULT NULL;
