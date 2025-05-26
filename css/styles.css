@@ -1089,14 +1089,14 @@ body.dark-theme{
 }
 
 
-/* Hide login, signup, and reset password buttons/links completely */
+/* Show login, signup, and reset password buttons/links by default */
 .nav__login-btn,
 .nav__signup-btn,
 .nav__reset-btn,
 .login-btn,
 .signup-btn,
 .reset-btn {
-  display: none !important;
+  display: inline-block !important;
 }
 
 /* Make login/logout button background transparent and text black, but VISIBLE */
