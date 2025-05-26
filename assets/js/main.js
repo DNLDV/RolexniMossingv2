@@ -18,8 +18,25 @@ if(navClose){
 /*=============== REMOVE MENU ON LINK CLICK ===============*/
 const navLinks = document.querySelectorAll('.nav__link');
 
-navLinks.forEach(n => n.addEventListener('click', () => {
+navLinks.forEach(n => n.addEventListener('click', (e) => {
+  e.preventDefault();
+  const href = n.getAttribute('href');
+  const currentScroll = window.scrollY;
+  
+  // Close menu
   navMenu.classList.remove('show-menu');
+  
+  // Handle navigation
+  if (href.startsWith('#')) {
+    const targetElement = document.querySelector(href);
+    if (targetElement) {
+      // Smooth scroll to element
+      targetElement.scrollIntoView({ behavior: 'smooth' });
+    } else {
+      // If no target found, restore current position
+      window.scrollTo(0, currentScroll);
+    }
+  }
 }));
 
 /*=============== CHANGE BACKGROUND HEADER ON SCROLL ===============*/
@@ -89,16 +106,18 @@ const swiper = new Swiper('.new-swiper', {
 
 /*=============== CART FUNCTIONALITY ===============*/
 // Load cart from localStorage if available
-let cart = [];
+window.cart = [];
 try {
   const savedCart = localStorage.getItem('pfrolex_cart');
   if (savedCart) {
-    cart = JSON.parse(savedCart);
+    window.cart = JSON.parse(savedCart);
   }
 } catch (e) {
   console.error("Error loading cart from localStorage:", e);
-  cart = [];
+  window.cart = [];
 }
+// For backward compatibility
+let cart = window.cart;
 
 const cartContainer = document.getElementById("cart-container");
 const itemsCountElem = document.getElementById("cart-items-count");
@@ -110,27 +129,34 @@ const loginModal = document.getElementById("login-modal");
 const loginClose = document.getElementById("login-close");
 const orderMessageElem = document.getElementById("order-message");
 
-function openCart() {
+// Expose these functions to the global scope for use by other scripts
+window.openCart = function() {
   cartElement.classList.add("show-cart");
-}
+};
 
-function closeCart() {
+window.closeCart = function() {
   cartElement.classList.remove("show-cart");
-}
+};
 
-function showLoginModal() {
+window.showLoginModal = function() {
   loginModal.style.display = "flex";
-}
+};
 
-function hideLoginModal() {
+window.hideLoginModal = function() {
   loginModal.style.display = "none";
-}
+};
+
+// Create local function references
+function openCart() { window.openCart(); }
+function closeCart() { window.closeCart(); }
+function showLoginModal() { window.showLoginModal(); }
+function hideLoginModal() { window.hideLoginModal(); }
 
 loginClose.addEventListener("click", hideLoginModal);
 window.addEventListener("keydown", (e) => { if (e.key === "Escape") hideLoginModal(); });
 
 // Show toast message
-function showMessage(text, color = '#4caf50') {
+window.showMessage = function(text, color = '#4caf50') {
   if (!orderMessageElem) return;
   
   orderMessageElem.textContent = text;
@@ -140,14 +166,15 @@ function showMessage(text, color = '#4caf50') {
   setTimeout(() => {
     orderMessageElem.classList.add('hidden');
   }, 3000);
-}
+};
+function showMessage(text, color) { window.showMessage(text, color); }
 
-function updateCartDisplay() {
+window.updateCartDisplay = function() {
   cartContainer.innerHTML = "";
   let totalItems = 0;
   let totalPrice = 0;
 
-  cart.forEach((item, index) => {
+  window.cart.forEach((item, index) => {
     cartContainer.innerHTML += `
       <div class="cart__card">
         <img src="${item.image}" class="cart__img" />
@@ -273,6 +300,7 @@ document.addEventListener('DOMContentLoaded', () => {
           cart = [];
           localStorage.removeItem('pfrolex_cart');
           updateCartDisplay();
+          location.reload();
           alert("Order placed successfully!");
           closeCart();
         } else {
@@ -314,5 +342,46 @@ document.addEventListener('DOMContentLoaded', () => {
     if (e.key === "Escape") {
       signupModal.style.display = "none";
     }
+  });
+});
+
+// Add event listener for filter links or buttons
+document.querySelectorAll('.filter-link, .filter-button').forEach(filter => {
+  filter.addEventListener('click', function(e) {
+    e.preventDefault(); // Prevent default anchor or button behavior
+
+    const targetFilter = this.getAttribute('data-filter');
+
+    // Show loading indicator
+    const loadingIndicator = document.getElementById('products-loading');
+    if (loadingIndicator) loadingIndicator.style.display = 'flex';
+
+    // Send AJAX request to fetch filtered products
+    fetch(`get_products.php?filter=${encodeURIComponent(targetFilter)}`)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.text();
+      })
+      .then(data => {
+        // Update the product container with the filtered products
+        const productContainer = document.getElementById('product-container');
+        if (productContainer) {
+          productContainer.innerHTML = data;
+        }
+
+        // Hide loading indicator
+        if (loadingIndicator) loadingIndicator.style.display = 'none';
+      })
+      .catch(error => {
+        console.error('Error fetching filtered products:', error);
+
+        // Hide loading indicator
+        if (loadingIndicator) loadingIndicator.style.display = 'none';
+
+        // Show error message
+        alert('Failed to load filtered products. Please try again.');
+      });
   });
 });

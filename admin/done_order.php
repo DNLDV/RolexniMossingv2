@@ -7,7 +7,11 @@ if (!isset($_SESSION['admin_user'])) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['order_index'])) {
-    $index = (int) $_POST['order_index'];
+    $index = filter_var($_POST['order_index'], FILTER_VALIDATE_INT);
+    if ($index === false || $index < 0) {
+        die('Invalid order index.');
+    }
+
     $ordersFile = __DIR__ . '/../database/orders.xml';
     $soldFile = __DIR__ . '/../database/sold.xml';
 
@@ -37,8 +41,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['order_index'])) {
             // Remove from orders
             $orderNode->parentNode->removeChild($orderNode);
             $ordersDoc->save($ordersFile);
+        } else {
+            die('Order index out of range.');
         }
+    } else {
+        die('Failed to load orders.xml');
     }
+} else {
+    die('Invalid request.');
 }
 
 // Redirect back to dashboard

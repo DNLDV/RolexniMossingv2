@@ -15,25 +15,27 @@ if (!$xml) {
     die('Failed to load products data.');
 }
 
-// Build a unique list of categories from both products & featuredProducts
-$categories = [];
+// Load products and featured products into a unified array
+$allProducts = [];
 if (isset($xml->products->product)) {
-  foreach ($xml->products->product as $prod) {
-    if (isset($prod->category->name)) {
-      $n = (string)$prod->category->name;
-      $d = (string)$prod->category->description;
-      $categories[$n] = $d;
+    foreach ($xml->products->product as $prod) {
+        $allProducts[] = $prod;
     }
-  }
 }
 if (isset($xml->featuredProducts->product)) {
-  foreach ($xml->featuredProducts->product as $prod) {
-    if (isset($prod->category->name)) {
-      $n = (string)$prod->category->name;
-      $d = (string)$prod->category->description;
-      $categories[$n] = $d;
+    foreach ($xml->featuredProducts->product as $fprod) {
+        $allProducts[] = $fprod;
     }
-  }
+}
+
+// Build a unique list of categories from the unified products
+$categories = [];
+foreach ($allProducts as $prod) {
+    if (isset($prod->category->name)) {
+        $n = (string)$prod->category->name;
+        $d = (string)$prod->category->description;
+        $categories[$n] = $d;
+    }
 }
 
 // Feedback message
@@ -67,92 +69,71 @@ $added = $_GET['added'] ?? '';
       <div class="alert alert-success">Category added successfully.</div>
     <?php elseif ($added === 'fail'): ?>
       <div class="alert alert-error">Failed to add category.</div>
-    <?php endif; ?>
-    <?php if (isset($_GET['removed'])): ?>
+    <?php endif; ?>    <?php if (isset($_GET['removed'])): ?>
       <div class="alert alert-success">Category removed successfully.</div>
     <?php endif; ?>
+    <?php if (isset($_GET['updated'])): ?>
+      <?php if ($_GET['updated'] === 'success'): ?>
+        <div class="alert alert-success">Product updated successfully.</div>
+      <?php elseif ($_GET['updated'] === 'deleted'): ?>
+        <div class="alert alert-success">Product deleted successfully.</div>
+      <?php elseif ($_GET['updated'] === 'fail'): ?>
+        <div class="alert alert-error">Failed to update product.</div>
+      <?php endif; ?>
+    <?php endif; ?>
     <section class="admin-container">
-      <!-- Featured Products Section -->
-      <section class="admin-container featured-section">
-        <h2>Featured Products</h2>
-        <table class="featured-table">
-          <thead>
-            <tr><th>#</th><th>Title</th><th>Price</th><th>Tag</th><th>Category</th><th>Action</th></tr>
-          </thead>
-          <tbody>
-            <?php if (isset($xml->featuredProducts->product)): ?>
-              <?php foreach ($xml->featuredProducts->product as $j => $fprod): ?>
-              <tr>
-                <td><?php echo ((int)$j) + 1; ?></td>
-                <td><?php echo htmlspecialchars($fprod->title); ?></td>
-                <td>₱<?php echo htmlspecialchars($fprod->price); ?></td>
-                <td><?php echo htmlspecialchars($fprod->tag); ?></td>
-                <td><?php echo isset($fprod->category->name) ? htmlspecialchars($fprod->category->name) : '-'; ?></td>
-                <td>
-                  <!-- Add/Edit Category for Featured -->
-                  <form action="add_category.php" method="post" class="category-form">
-                    <input type="hidden" name="type" value="featured">
-                    <input type="hidden" name="product_index" value="<?php echo $j; ?>">
-                    <input type="text" name="cat_name" placeholder="Category name" value="<?php echo isset($fprod->category->name) ? htmlspecialchars($fprod->category->name) : ''; ?>" required>
-                    <input type="text" name="cat_desc" placeholder="Description" value="<?php echo isset($fprod->category->description) ? htmlspecialchars($fprod->category->description) : ''; ?>" required>
-                    <button type="submit" class="btn-action"><?php echo isset($fprod->category) ? 'Update' : 'Add'; ?></button>
-                  </form>
-                  <?php if (isset($fprod->category)): ?>
-                  <form action="delete_category.php" method="post" style="display:inline; margin-left:8px;">
-                    <input type="hidden" name="type" value="featured">
-                    <input type="hidden" name="product_index" value="<?php echo $j; ?>">
-                    <button type="submit" class="btn-delete-category">Remove</button>
-                  </form>
-                  <?php endif; ?>
-                </td>
-              </tr>
-              <?php endforeach; ?>
-            <?php else: ?>
-              <tr><td colspan="6">No featured products found.</td></tr>
-            <?php endif; ?>
-          </tbody>
-        </table>
-      </section>
-      <!-- End Featured Products -->
+      <!-- All Products Table -->
       <table class="order-table">
         <thead>
-          <tr><th>#</th><th>Title</th><th>Price</th><th>Tag</th><th>Category</th><th>Action</th></tr>
+          <tr>
+            <th>#</th>
+            <th>Title</th>
+            <th>Price</th>
+            <th>Tag</th>
+            <th>Category</th>
+            <th>Description</th>
+            <th>Action</th>
+          </tr>
         </thead>
         <tbody>
-          <?php if (isset($xml->products->product)): ?>
-            <?php foreach ($xml->products->product as $i => $prod): ?>
+          <?php foreach ($allProducts as $i => $prod): ?>
           <tr>
-            <td><?php echo ((int)$i) + 1; ?></td>
+            <td><?php echo $i + 1; ?></td>
             <td><?php echo htmlspecialchars($prod->title); ?></td>
             <td>₱<?php echo htmlspecialchars($prod->price); ?></td>
             <td><?php echo htmlspecialchars($prod->tag); ?></td>
-            <td><?php echo isset($prod->category->name) ? htmlspecialchars($prod->category->name) : '-'; ?></td>
             <td>
-              <!-- Add/Edit Category Form -->
-              <form action="add_category.php" method="post" class="category-form">
+              <form action="add_category.php" method="post">
                 <input type="hidden" name="product_index" value="<?php echo $i; ?>">
-                <input type="text" name="cat_name" placeholder="Category name" value="<?php echo isset($prod->category->name) ? htmlspecialchars($prod->category->name) : ''; ?>" required>
-                <input type="text" name="cat_desc" placeholder="Description" value="<?php echo isset($prod->category->description) ? htmlspecialchars($prod->category->description) : ''; ?>" required>
-                <button type="submit" class="btn-action"><?php echo isset($prod->category) ? 'Update' : 'Add'; ?></button>
+                <select name="cat_name">
+                  <?php foreach ($categories as $catName => $catDesc): ?>
+                    <option value="<?php echo htmlspecialchars($catName); ?>" 
+                            <?php echo (isset($prod->category->name) && (string)$prod->category->name === $catName) ? 'selected' : ''; ?>>
+                      <?php echo htmlspecialchars($catName); ?>
+                    </option>
+                  <?php endforeach; ?>
+                </select>
+                <button type="submit">Update</button>
               </form>
-              <?php if (isset($prod->category)): ?>
-              <!-- Remove Category Button -->
-              <form action="delete_category.php" method="post" style="display:inline; margin-left:8px;">
+            </td>
+            <td>
+              <div contenteditable="true" class="editable-description" data-product-index="<?php echo $i; ?>">
+                <?php echo htmlspecialchars($prod->description ?? ''); ?>
+              </div>
+            </td>
+            <td>
+              <form action="update_product.php" method="post" enctype="multipart/form-data" style="display: inline;">
                 <input type="hidden" name="product_index" value="<?php echo $i; ?>">
-                <button type="submit" class="btn-delete-category">Remove</button>
+                <button type="submit" name="action" value="update">Update</button>
+                <button type="submit" name="action" value="delete">Delete</button>
               </form>
-              <?php endif; ?>
             </td>
           </tr>
-            <?php endforeach; ?>
-          <?php else: ?>
-            <tr><td colspan="6">No products found.</td></tr>
-          <?php endif; ?>
+          <?php endforeach; ?>
         </tbody>
       </table>
-    </section>
-    <!-- Unified Product Management Table -->
-    <section class="admin-container">
+
+      <!-- Product Management Forms -->
       <table class="product-management-table">
         <thead>
           <tr><th>Add New Product</th><th>Manage Existing Products</th></tr>
@@ -198,10 +179,9 @@ $added = $_GET['added'] ?? '';
               <!-- Manage Existing Products -->
               <h2>Manage Existing Products</h2>
               <form id="manage-product-form" action="update_product.php" method="post" enctype="multipart/form-data" class="manage-product-form">
-                <label for="manage-select">Select Product</label>
-                <select id="manage-select" name="product_index" required>
+                <label for="manage-select">Select Product</label>                <select id="manage-select" name="product_index" required>
                   <option value="">-- Choose Product --</option>
-                  <?php foreach ($xml->products->product as $i => $mprod): ?>
+                  <?php foreach ($allProducts as $i => $mprod): ?>
                     <option value="<?= $i ?>"
                             data-title="<?= htmlspecialchars($mprod->title) ?>"
                             data-price="<?= htmlspecialchars($mprod->price) ?>"
@@ -210,7 +190,7 @@ $added = $_GET['added'] ?? '';
                             data-desc="<?= htmlspecialchars((string)$mprod->description ?: '') ?>"
                             data-cat="<?= htmlspecialchars(isset($mprod->category->name)?$mprod->category->name:'') ?>"
                             data-catdesc="<?= htmlspecialchars(isset($mprod->category->description)?$mprod->category->description:'') ?>">
-                      <?= htmlspecialchars($mprod->title) ?>
+                      <?= htmlspecialchars($mprod->title) . (in_array($mprod, iterator_to_array($xml->featuredProducts->product ?? [], false)) ? ' (Featured)' : '') ?>
                     </option>
                   <?php endforeach; ?>
                 </select>
@@ -257,8 +237,74 @@ $added = $_GET['added'] ?? '';
           </tr>
         </tbody>
       </table>
+    </section>    <!-- Category Creation Table Section -->
+    <section class="admin-container">
+      <table class="order-table category-table">
+        <thead>
+          <tr>
+            <th colspan="2">Create New Category</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <form action="add_category.php" method="post" class="category-creation-form">
+              <td>
+                <div class="form-field">
+                  <label for="category_name">Category Name:</label>
+                  <input type="text" id="category_name" name="category_name" required>
+                </div>
+              </td>
+              <td>
+                <div class="form-field">
+                  <label for="category_description">Category Description:</label>
+                  <textarea id="category_description" name="category_description" required></textarea>
+                </div>
+                <div class="form-action">
+                  <button type="submit" class="btn-action">Create Category</button>
+                </div>
+              </td>
+            </form>
+          </tr>
+        </tbody>
+      </table>
     </section>
   </div>
 </div>
+<script>
+        // Handle inline description editing
+        document.querySelectorAll('.editable-description').forEach(desc => {
+          desc.addEventListener('blur', function() {
+            const productIndex = this.dataset.productIndex;
+            const newDescription = this.innerText;
+            
+            // Create form data
+            const formData = new FormData();
+            formData.append('product_index', productIndex);
+            formData.append('description', newDescription);
+            formData.append('action', 'update');
+
+            // Send AJAX request
+            fetch('update_product.php', {
+              method: 'POST',
+              body: formData
+            })
+            .then(response => response.text())
+            .then(result => {
+              if (result.includes('success')) {
+                this.style.backgroundColor = '#e8f5e9';
+                setTimeout(() => this.style.backgroundColor = '', 1000);
+              } else {
+                this.style.backgroundColor = '#ffebee';
+                setTimeout(() => this.style.backgroundColor = '', 1000);
+              }
+            })
+            .catch(error => {
+              console.error('Error:', error);
+              this.style.backgroundColor = '#ffebee';
+              setTimeout(() => this.style.backgroundColor = '', 1000);
+            });
+          });
+        });
+      </script>
 </body>
 </html>

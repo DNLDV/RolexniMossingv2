@@ -1,6 +1,6 @@
 # RolexniMossingv2
 
-rolex_ng_mahirap
+rolex_ng_mahirap 
 
 CREATE TABLE users (
     id INT AUTO_INCREMENT PRIMARY KEY,

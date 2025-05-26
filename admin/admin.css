@@ -114,23 +114,27 @@
   min-height: 100vh;
   background: #f8f8f8;
 }
+
 .sidebar {
-  width: 250px;
-  background-color: #004225; /* Rolex green */
-  color: #f1c40f; /* Gold accent */
+  width: 210px;
+  background-color: #000000; 
+  color: #ff9900;
   padding: 20px;
   box-sizing: border-box;
 }
+
 .sidebar h2 {
   margin-bottom: 1.5rem;
   font-size: 1.5rem;
   text-transform: uppercase;
 }
+
 .sidebar nav {
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
+
 .sidebar nav a {
   color: inherit;
   text-decoration: none;
@@ -139,9 +143,11 @@
   border-radius: 4px;
   transition: background 0.2s;
 }
+
 .sidebar nav a:hover {
   background: rgba(241,196,15,0.2);
 }
+
 .main-content {
   flex-grow: 1;
   padding: 20px;
@@ -152,21 +158,22 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #004225;
-  color: #f1c40f;
+  background-color: #000000;
+  color: #ffffff;
   padding: 15px 20px;
   border-radius: 5px;
   margin-bottom: 20px;
 }
 .btn-logout {
-  background: #f1c40f;
-  color: #004225;
+  background: #ff9900;
+  color: #ffffff;
   border: none;
   padding: 8px 16px;
   border-radius: 4px;
   cursor: pointer;
   transition: opacity 0.2s;
 }
+
 .btn-logout:hover {
   opacity: 0.8;
 }
@@ -179,31 +186,42 @@
   border-radius: 5px;
   overflow: hidden;
 }
+
 .order-table th,
-.order-table td {
+.order-table td,
+.featured-table th,
+.featured-table td {
   border: 1px solid #ddd;
   padding: 12px;
-  text-align: left;
+  text-align: center;
+  border-style: solid;
+  border-color: black;
+  background-color: #ffffff;
+  border: #000000 4px solid;
 }
+
 .order-table th {
-  background-color: #f1c40f;
-  color: #004225;
+  background-color: #000000;
+  color: #ffffff;
   text-transform: uppercase;
 }
+
 .order-item {
   margin-bottom: 8px;
 }
+
 .btn-delete,
-.btn-done {
-  background-color: #f1c40f;
-  color: #004225;
+.btn-done,
+.btn-action {
+  background-color: #000000;
+  color: #ffffff;
   border: none;
   padding: 6px 10px;
-  margin-right: 5px;
   border-radius: 4px;
   cursor: pointer;
-  transition: opacity 0.2s;
+  transition: background 0.2s;
 }
+
 .btn-delete:hover,
 .btn-done:hover {
   opacity: 0.8;
@@ -217,17 +235,20 @@
   border-radius: 5px;
   overflow: hidden;
 }
+
 .user-table th,
 .user-table td {
   border: 1px solid #ddd;
   padding: 12px;
-  text-align: left;
+  text-align: center;
 }
+
 .user-table th {
-  background-color: #f1c40f;
-  color: #004225;
+  background-color: #0e0d0d;
+  color: #ffffff;
   text-transform: uppercase;
 }
+
 .btn-delete-user {
   background-color: #e74c3c;
   color: #fff;
@@ -237,6 +258,7 @@
   cursor: pointer;
   transition: background 0.2s;
 }
+
 .btn-delete-user:hover {
   background-color: #c0392b;
 }
@@ -248,10 +270,12 @@
   border-radius: 4px;
   font-weight: 500;
 }
+
 .alert-success {
   background-color: #2ecc71;
   color: #ffffff;
 }
+
 .alert-error {
   background-color: #e74c3c;
   color: #ffffff;
@@ -263,21 +287,24 @@
   gap: 8px;
   align-items: center;
 }
+
 .category-form input[type="text"] {
   padding: 6px 8px;
   border: 1px solid #ddd;
   border-radius: 4px;
   font-size: .9rem;
 }
+
 .btn-action {
-  background-color: #004225; /* Rolex green */
-  color: #f1c40f; /* Gold accent */
+  background-color: #000000; /* Rolex green */
+  color: #ffffff; /* Gold accent */
   border: none;
   padding: 6px 10px;
   border-radius: 4px;
   cursor: pointer;
   transition: background 0.2s;
 }
+
 .btn-action:hover {
   background-color: #00331a;
 }
@@ -286,11 +313,14 @@
 .featured-section {
   margin-bottom: 30px;
 }
-.featured-section h2 {
+
+.featured-section h2,
+.product-management-table h2 {
   font-size: 1.25rem;
-  color: #004225;
-  margin-bottom: 10px;
+  color: #000000;
+  margin-bottom: 15px;
 }
+
 .featured-table {
   width: 100%;
   border-collapse: collapse;
@@ -299,17 +329,24 @@
   overflow: hidden;
   margin-bottom: 20px;
 }
+
 .featured-table th,
 .featured-table td {
   border: 1px solid #ddd;
   padding: 10px;
-  text-align: left;
+  text-align: center;
+  border-style: solid;
+  border-color: black;
+  background-color: #ffffff;
+  border: #000000 4px solid;
 }
+
 .featured-table th {
-  background-color: #f1c40f;
-  color: #004225;
+  background-color: #000000;
+  color: #ffffff;
   text-transform: uppercase;
 }
+
 .featured-table tr:nth-child(even) {
   background-color: #f9f9f9;
 }
@@ -324,6 +361,7 @@
   cursor: pointer;
   transition: background 0.2s;
 }
+
 .btn-delete-category:hover {
   background-color: #c0392b;
 }
@@ -337,30 +375,37 @@
   overflow: hidden;
   margin-top: 20px;
 }
+
 .product-management-table th {
-  background-color: #f1c40f;
-  color: #004225;
+  background-color: #000000;
+  color: #ffffff;
   text-transform: uppercase;
   padding: 12px;
   text-align: center;
+  border: #000000 4px solid;
 }
+
 .product-management-table td {
-  border: 1px solid #ddd;
+  border: #000000 4px solid;
   padding: 15px;
   vertical-align: top;
+  background-color: #ffffff;
 }
+
 .product-management-table h2 {
-  color: #004225;
+  color: #000000;
   margin-top: 0;
   margin-bottom: 15px;
   font-size: 1.2rem;
 }
+
 .add-product-form,
 .manage-product-form {
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
+
 .add-product-form input,
 .add-product-form select,
 .add-product-form textarea,
@@ -371,9 +416,201 @@
   border: 1px solid #ddd;
   border-radius: 4px;
 }
+
 .add-product-form button,
 .manage-product-form button {
   margin-top: 10px;
+}
+
+/* Smooth Transitions */
+.btn-action,
+.btn-delete,
+.btn-delete-category,
+input,
+textarea,
+select,
+.editable-description {
+    transition: all 0.3s ease;
+    overscroll-behavior: none; /* Prevent scroll chaining */
+}
+
+.alert {
+    animation: slideIn 0.3s ease-out;
+    position: relative; /* Ensure alerts don't affect layout flow */
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateY(-20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Prevent unwanted jumps */
+html {
+    scrollbar-gutter: stable;
+}
+
+body {
+    position: relative;
+    min-height: 100vh;
+    overflow-y: scroll; /* Always show scrollbar to prevent layout shifts */
+}
+
+.dashboard-wrapper {
+    min-height: 100vh;
+    position: relative;
+    overflow-x: hidden; /* Prevent horizontal scroll */
+}
+
+/* Prevent content jumps during form submissions */
+.submitting {
+    pointer-events: none;
+    position: relative;
+}
+
+.submitting::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.5);
+    z-index: 1000;
+}
+
+/* Prevent focus behaviors that might cause jumping */
+:focus {
+    outline: none !important;
+}
+
+button:focus {
+    outline: none !important;
+}
+
+/* Disable pointer events during transitions */
+.transitioning {
+    pointer-events: none;
+}
+
+/* Add loading state styles */
+.loading {
+    opacity: 0.7;
+    pointer-events: none;
+}
+
+/* Prevent form elements from causing layout shifts */
+form {
+    margin: 0;
+    padding: 0;
+}
+
+/* Keep buttons stable */
+button {
+    position: relative;
+    transform: translateZ(0); /* Force GPU acceleration */
+    -webkit-font-smoothing: antialiased;
+    backface-visibility: hidden;
+    cursor: pointer;
+}
+
+/* Prevent layout shift when loading products */
+.products-section {
+  min-height: 400px; /* Prevents layout shift when loading products */
+}
+
+/* Loading indicator styles */
+.loading-indicator {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.8);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.spinner {
+  width: 50px;
+  height: 50px;
+  border: 5px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 5px solid #3498db;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Smooth scrolling for the entire page */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Disable smooth scrolling when restoring position */
+html.disable-smooth-scroll {
+  scroll-behavior: auto;
+}
+
+/* Container styles to prevent layout shifts */
+#product-container {
+  min-height: 200px;
+  position: relative;
+}
+
+/* Pagination styles to prevent layout shifts */
+#product-pagination {
+  min-height: 40px;
+  margin-top: 2rem;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.pagination__link,
+.pagination__prev,
+.pagination__next {
+  padding: 0.5rem 1rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  text-decoration: none;
+  color: #333;
+  transition: all 0.3s ease;
+}
+
+.pagination__link.active {
+  background-color: #3498db;
+  color: white;
+  border-color: #3498db;
+}
+
+.pagination__link:hover,
+.pagination__prev:hover,
+.pagination__next:hover {
+  background-color: #f5f5f5;
+}
+
+/* Add transition for smooth opacity changes */
+.fade-transition {
+  transition: opacity 0.3s ease-in-out;
+}
+
+.fade-out {
+  opacity: 0;
+}
+
+.fade-in {
+  opacity: 1;
 }
 
 /* Responsive */
@@ -384,4 +621,76 @@
   .sidebar {
     width: 100%;
   }
+}
+
+/* Category Table Section */
+.category-table {
+  margin-top: 30px;
+}
+
+.category-table th {
+  background-color: #000000;
+  color: #ffffff;
+  text-transform: uppercase;
+  font-size: 1.2rem;
+  padding: 15px;
+}
+
+.category-table td {
+  padding: 20px;
+  vertical-align: top;
+}
+
+.category-table .form-field {
+  margin-bottom: 15px;
+}
+
+.category-table label {
+  display: block;
+  font-weight: 600;
+  color: #000000;
+  margin-bottom: 5px;
+}
+
+.category-table input,
+.category-table textarea {
+  width: 80%;
+  padding: 8px 12px;
+  border: 3px solid #000000;
+  border-radius: 4px;
+  font-size: 1rem;
+  transition: border-color 0.2s;
+}
+
+.category-table textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+.category-table input:focus,
+.category-table textarea:focus {
+  outline: none;
+  border-color: #ff9900;
+}
+
+.category-table .form-action {
+  margin-top: 20px;
+  text-align: right;
+}
+
+.category-table .btn-action {
+  background-color: #000000;
+  color: #ff9900;
+  padding: 10px 20px;
+  font-size: 1rem;
+  text-transform: uppercase;
+  font-weight: 600;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.category-table .btn-action:hover {
+  background-color: #1a1a1a;
 }

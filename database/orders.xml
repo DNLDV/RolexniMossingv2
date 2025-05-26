@@ -1,48 +1,39 @@
 <?xml version="1.0"?>
 <orders>
   <order>
+    <orderid>ORD-1748239931-bae4ce</orderid>
     <username>ako</username>
+    <timestamp>2025-05-26 08:12:11</timestamp>
+    <status>pending</status>
     <item>
-      <title>B720 Collection</title>
-      <price>1236</price>
-    </item>
-  </order>
-  <order>
-    <username>ako</username>
-    <item>
-      <title>Rose Gold</title>
-      <price>890</price>
-    </item>
-    <item>
-      <title>Jazzmaster</title>
-      <price>1050</price>
-    </item>
-  </order>
-  <order>
-    <username>Shiela May De Vega</username>
-    <item>
+      <image>assets/img/product2.png</image>
       <title>Khaki Pilot</title>
       <price>1350</price>
+      <quantity>1</quantity>
     </item>
-  </order>
-  <order>
-    <username>ako</username>
     <item>
+      <image>assets/img/product3.png</image>
+      <title>Jubilee Black</title>
+      <price>870</price>
+      <quantity>1</quantity>
+    </item>
+    <item>
+      <image>assets/img/product1.png</image>
+      <title>Spirit Rose</title>
+      <price>1500</price>
+      <quantity>1</quantity>
+    </item>
+    <item>
+      <image>assets/img/product5.png</image>
       <title>Duchen</title>
       <price>950</price>
+      <quantity>1</quantity>
     </item>
   </order>
   <order>
+    <orderid>ORD-1748240097-c4f557</orderid>
     <username>ako</username>
-    <item>
-      <title>B720 Collection</title>
-      <price>1236</price>
-    </item>
-  </order>
-  <order>
-    <orderid>ORD-1748194712-9cb1c9</orderid>
-    <username>ako</username>
-    <timestamp>2025-05-25 19:38:32</timestamp>
+    <timestamp>2025-05-26 08:14:57</timestamp>
     <status>pending</status>
     <item>
       <image>assets/img/product5.png</image>
@@ -52,32 +43,56 @@
     </item>
     <item>
       <image>assets/img/featured2.png</image>
-      <title>Jazzmaster</title>
-      <price>1050</price>
-      <quantity>2</quantity>
-    </item>
-    <item>
-      <image>assets/img/new1.png</image>
-      <title>Longines Rose</title>
-      <price>980</price>
+      <title>Submarine</title>
+      <price>9150</price>
       <quantity>1</quantity>
     </item>
   </order>
   <order>
-    <orderid>ORD-1748231070-097eee</orderid>
+    <orderid>ORD-1748242163-40e0d5</orderid>
     <username>ako</username>
-    <timestamp>2025-05-26 05:44:30</timestamp>
+    <timestamp>2025-05-26 08:49:23</timestamp>
     <status>pending</status>
     <item>
       <image>assets/img/featured2.png</image>
       <title>Jazzmaster</title>
       <price>1050</price>
-      <quantity>2</quantity>
+      <quantity>4</quantity>
     </item>
+  </order>
+  <order>
+    <orderid>ORD-1748242516-ee9b9b</orderid>
+    <username>ako</username>
+    <timestamp>2025-05-26 08:55:16</timestamp>
+    <status>pending</status>
     <item>
-      <image>assets/img/home.png</image>
-      <title>B720 Collection</title>
-      <price>1236</price>
+      <image>assets/img/product5.png</image>
+      <title>Duchen</title>
+      <price>950</price>
+      <quantity>1</quantity>
+    </item>
+  </order>
+  <order>
+    <orderid>ORD-1748242756-aba7e5</orderid>
+    <username>ako</username>
+    <timestamp>2025-05-26 08:59:16</timestamp>
+    <status>pending</status>
+    <item>
+      <image>assets/img/product2.png</image>
+      <title>Khaki Pilot</title>
+      <price>1350</price>
+      <quantity>1</quantity>
+    </item>
+  </order>
+  <order>
+    <orderid>ORD-1748242781-bac960</orderid>
+    <username>ako</username>
+    <timestamp>2025-05-26 08:59:41</timestamp>
+    <status>pending</status>
+    <item>
+      <image>assets/img/featured2.png</image>
+      <title>Jazzmaster</title>
+      <price>1050</price>
       <quantity>1</quantity>
     </item>
   </order>
