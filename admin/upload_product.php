@@ -2,6 +2,11 @@
 session_start();
 // Only admin
 if (!isset($_SESSION['admin_user'])) {
+    if (isset($_POST['ajax'])) {
+        header('Content-Type: application/json');
+        echo json_encode(['status' => 'fail', 'message' => 'Unauthorized']);
+        exit;
+    }
     header('Location: index.php');
     exit;
 }
@@ -53,8 +58,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $productsNode->appendChild($prodElem);
                     // Save XML
                     if ($doc->save($file)) {
-                        header('Location: products.php?upload=success');
-                        exit;
+                        if (isset($_POST['ajax'])) {
+                            header('Content-Type: application/json');
+                            echo json_encode([
+                                'status' => 'success',
+                                'message' => 'Product uploaded successfully'
+                            ]);
+                            exit;
+                        } else {
+                            header('Location: products.php?upload=success');
+                            exit;
+                        }
                     }
                 }
             }

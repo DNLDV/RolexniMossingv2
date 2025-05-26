@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<categories>
+  <category>
+    <name>Watch</name>
+    <description>to be worn on wrist</description>
+  </category>
+  <category>
+    <name>Premium</name>
+    <description>High-end luxury watches</description>
+  </category>
+  <category>
+    <name>Sport</name>
+    <description>Watches for active lifestyles</description>
+  </category>
+  <category>
+    <name>Classic</name>
+    <description>Timeless designs</description>
+  </category>
+  <category>
+    <name>Sale</name>
+    <description>Discounted products</description>
+  </category>
+  <category>
+    <name>New</name>
+    <description>Newly launched products</description>
+  </category>
+<category><name>Wristwatch</name><description>clock</description></category></categories>

@@ -26,3 +26,31 @@
   font-size: var(--small-font-size);
   margin: 0;
 }
+
+/* No Results Message */
+.no-results {
+  text-align: center;
+  padding: 3rem 1rem;
+  background-color: var(--container-color);
+  border-radius: 0.75rem;
+  box-shadow: 0 4px 16px hsla(0, 0%, 0%, 0.1);
+  margin: 2rem 0;
+  color: var(--text-color-light);
+}
+
+.no-results i {
+  font-size: 3rem;
+  color: var(--first-color);
+  margin-bottom: 1rem;
+}
+
+.no-results h3 {
+  font-size: var(--h2-font-size);
+  margin-bottom: 0.5rem;
+  color: var(--title-color);
+}
+
+.no-results p {
+  margin: 0;
+  font-size: var(--normal-font-size);
+}
