@@ -227,6 +227,14 @@ $viewMode = isset($_GET['view']) ? $_GET['view'] : 'gallery'; // 'gallery' or 'l
 </head>
 <body>
 
+<?php if (isset($_SESSION['error'])): ?>
+  <div style="background:#ffdddd;color:#a00;padding:10px;text-align:center;"> <?= $_SESSION['error']; unset($_SESSION['error']); ?> </div>
+<?php endif; ?>
+<?php if (isset($_SESSION['success'])): ?>
+  <div style="background:#ddffdd;color:#080;padding:10px;text-align:center;"> <?= $_SESSION['success']; unset($_SESSION['success']); ?> </div>
+<?php endif; ?>
+
+
 <!-- HEADER -->
 <header class="header" id="header">
   <nav class="nav container">
@@ -385,7 +393,7 @@ $viewMode = isset($_GET['view']) ? $_GET['view'] : 'gallery'; // 'gallery' or 'l
       
       <div class="category-tags">
         <?php
-          $availableTags = ['sale', 'limited', 'classic', 'new', 'premium', 'sport', 'casual', 'minimal', 'light', 'luxury', 'bold', 'military', 'dress', 'swiss', 'reliable'];
+          $availableTags = ['sale', 'limited', 'classic', 'new', 'premium', 'sport', 'casual', 'minimal','legend', 'light', 'luxury', 'bold', 'military', 'dress', 'swiss', 'reliable'];
           
           foreach ($availableTags as $tag):
         ?>
