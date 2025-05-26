@@ -7,8 +7,19 @@ if (!isset($_SESSION['admin_user'])) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['order_index'])) {
-    $index = (int) $_POST['order_index'];
-    $ordersFile = __DIR__ . '/../database/orders.xml';
+    // Make sure we're working with a clean integer value
+    $index = is_numeric($_POST['order_index']) ? intval($_POST['order_index']) : -1;
+    if ($index < 0) {
+        die('Invalid order index format. Received: "' . htmlspecialchars($_POST['order_index']) . '"');
+    }
+    
+    // Ensure database directory exists
+    $databaseDir = __DIR__ . '/../database';
+    if (!is_dir($databaseDir)) {
+        mkdir($databaseDir, 0755, true);
+    }
+    
+    $ordersFile = $databaseDir . '/orders.xml';
 
     $doc = new DOMDocument();
     $doc->preserveWhiteSpace = false;
