@@ -1108,3 +1108,83 @@ CLIENT -> SERVER: QUIT
 
 SERVER -> CLIENT: 221 2.0.0 closing connection d2e1a72fcca58-74615ea6f94sm1316602b3a.10 - gsmtp
 
+SERVER -> CLIENT: 220 smtp.gmail.com ESMTP 41be03b00d2f7-b26eaf96573sm17001602a12.43 - gsmtp
+
+CLIENT -> SERVER: EHLO localhost
+
+SERVER -> CLIENT: 250-smtp.gmail.com at your service, [120.29.69.138]
+250-SIZE 35882577
+250-8BITMIME
+250-STARTTLS
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-CHUNKING
+250 SMTPUTF8
+
+CLIENT -> SERVER: STARTTLS
+
+SERVER -> CLIENT: 220 2.0.0 Ready to start TLS
+
+CLIENT -> SERVER: EHLO localhost
+
+SERVER -> CLIENT: 250-smtp.gmail.com at your service, [120.29.69.138]
+250-SIZE 35882577
+250-8BITMIME
+250-AUTH LOGIN PLAIN XOAUTH2 PLAIN-CLIENTTOKEN OAUTHBEARER XOAUTH
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-CHUNKING
+250 SMTPUTF8
+
+CLIENT -> SERVER: AUTH LOGIN
+
+SERVER -> CLIENT: 334 VXNlcm5hbWU6
+
+CLIENT -> SERVER: [credentials hidden]
+SERVER -> CLIENT: 334 UGFzc3dvcmQ6
+
+CLIENT -> SERVER: [credentials hidden]
+SERVER -> CLIENT: 235 2.7.0 Accepted
+
+CLIENT -> SERVER: MAIL FROM:<your_new_gmail@gmail.com>
+
+SERVER -> CLIENT: 250 2.1.0 OK 41be03b00d2f7-b26eaf96573sm17001602a12.43 - gsmtp
+
+CLIENT -> SERVER: RCPT TO:<donpogi35@gmail.com>
+
+SERVER -> CLIENT: 250 2.1.5 OK 41be03b00d2f7-b26eaf96573sm17001602a12.43 - gsmtp
+
+CLIENT -> SERVER: DATA
+
+SERVER -> CLIENT: 354 Go ahead 41be03b00d2f7-b26eaf96573sm17001602a12.43 - gsmtp
+
+CLIENT -> SERVER: Date: Mon, 26 May 2025 15:10:40 +0200
+
+CLIENT -> SERVER: To: donpogi35@gmail.com
+
+CLIENT -> SERVER: From: PFRolex <your_new_gmail@gmail.com>
+
+CLIENT -> SERVER: Subject: PFRolex Account Verification
+
+CLIENT -> SERVER: Message-ID: <8VHn1rvakhETNyZAK2HDrjmUAw2wTj9YQVoxTfoYdA@localhost>
+
+CLIENT -> SERVER: X-Mailer: PHPMailer 6.10.0 (https://github.com/PHPMailer/PHPMailer)
+
+CLIENT -> SERVER: MIME-Version: 1.0
+
+CLIENT -> SERVER: Content-Type: text/html; charset=iso-8859-1
+
+CLIENT -> SERVER: 
+
+CLIENT -> SERVER: <h2>Welcome to PFRolex!</h2><p>Click the link below to verify your email and activate your account:</p><a href='http://localhost/RolexniMossingv2/verify.php?token=ce03596d5e4d5c9eb046760d2f950875'>http://localhost/RolexniMossingv2/verify.php?token=ce03596d5e4d5c9eb046760d2f950875</a>
+
+CLIENT -> SERVER: 
+
+CLIENT -> SERVER: .
+
+SERVER -> CLIENT: 250 2.0.0 OK  1748265043 41be03b00d2f7-b26eaf96573sm17001602a12.43 - gsmtp
+
+CLIENT -> SERVER: QUIT
+
+SERVER -> CLIENT: 221 2.0.0 closing connection 41be03b00d2f7-b26eaf96573sm17001602a12.43 - gsmtp
+
