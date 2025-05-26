@@ -36,9 +36,12 @@ $response = [
 // Build the HTML for filter info (if category selected)
 $filterInfoHtml = '';
 if ($selectedCategory) {
-    $filterInfoHtml = '<div class="filter-results">
+    $filterInfoHtml = '<div class="filter-results" id="filter-results-container">
         <p>Showing ' . $totalProducts . ' products for category: <strong>' . ucfirst($selectedCategory) . '</strong></p>
     </div>';
+} else {
+    // When no category is selected, return empty content
+    $filterInfoHtml = '';
 }
 $response['filterInfo'] = $filterInfoHtml;
 

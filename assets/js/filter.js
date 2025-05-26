@@ -51,6 +51,30 @@ function updateCategoryTags(selectedCategory) {
       clearFilterBtn.style.display = 'none';
     }
   }
+    // Handle filter results container visibility - look for all possible containers
+  const filterResultsContainer = document.querySelector('.filter-results');
+  const filterResultsById = document.getElementById('filter-results-container');
+  
+  // If no category is selected, hide all filter results containers
+  if (!selectedCategory) {
+    // Hide container from index.php
+    if (filterResultsById) {
+      filterResultsById.style.display = 'none';
+    }
+    
+    // Hide any other dynamically added container
+    if (filterResultsContainer && filterResultsContainer !== filterResultsById) {
+      filterResultsContainer.style.display = 'none';
+    }
+  } else {
+    // Show appropriate containers if they exist
+    if (filterResultsContainer) {
+      filterResultsContainer.style.display = 'block';
+    }
+    if (filterResultsById) {
+      filterResultsById.style.display = 'block';
+    }
+  }
 }
 
 /**
@@ -177,7 +201,21 @@ function filterProducts(category, viewMode, page) {
   // Get containers
   productContainer = document.getElementById('product-container');
   filterResultsContainer = document.querySelector('.filter-results');
+  const filterResultsById = document.getElementById('filter-results-container');
   loadingIndicator = document.getElementById('products-loading');
+  
+  // Immediately hide filter results if no category is selected
+  if (!category || category === '') {
+    if (filterResultsById) {
+      filterResultsById.style.display = 'none';
+      filterResultsById.innerHTML = '';
+    }
+    
+    if (filterResultsContainer && filterResultsContainer !== filterResultsById) {
+      filterResultsContainer.style.display = 'none';
+      filterResultsContainer.innerHTML = '';
+    }
+  }
   
   if (!productContainer) return;
   
@@ -218,16 +256,18 @@ function filterProducts(category, viewMode, page) {
     .then(data => {
       // Update category tags
       updateCategoryTags(data.selectedCategory);
-      
-      // Update filter info
-      if (filterResultsContainer) {
-        if (data.filterInfo) {
-          // If there's a container already, update it
+        // Update filter info
+      if (data.selectedCategory) {
+        // We have a selected category, show filter results
+        if (filterResultsContainer) {
+          // Update existing container
           filterResultsContainer.innerHTML = data.filterInfo;
-        } else if (data.selectedCategory) {
-          // Create container if it doesn't exist but we have a selected category
+          filterResultsContainer.style.display = 'block';
+        } else if (data.filterInfo) {
+          // Create new container if it doesn't exist
           const filterInfoDiv = document.createElement('div');
           filterInfoDiv.className = 'filter-results';
+          filterInfoDiv.id = 'filter-results-container';
           filterInfoDiv.innerHTML = data.filterInfo;
           
           const categoryFilterDiv = document.querySelector('.category-filter');
@@ -235,11 +275,11 @@ function filterProducts(category, viewMode, page) {
             categoryFilterDiv.insertAdjacentElement('afterend', filterInfoDiv);
           }
         }
-      } else if (data.filterInfo) {
-        // If no container exists but we have filter info to display
-        const categoryFilterDiv = document.querySelector('.category-filter');
-        if (categoryFilterDiv) {
-          categoryFilterDiv.insertAdjacentHTML('afterend', data.filterInfo);
+      } else {
+        // No category selected, remove filter results display
+        if (filterResultsContainer) {
+          filterResultsContainer.innerHTML = '';
+          filterResultsContainer.style.display = 'none';
         }
       }
       
@@ -279,6 +319,26 @@ function clearCategoryFilter() {
   saveScrollPosition();
   currentCategory = '';
   currentPage = 1;
+  
+  // Immediately update category tags to show none are selected
+  updateCategoryTags('');
+  
+  // Remove the filter results text - find all containers
+  const filterResultsContainer = document.querySelector('.filter-results');
+  const filterResultsById = document.getElementById('filter-results-container');
+  
+  // Hide the container from index.php
+  if (filterResultsById) {
+    filterResultsById.innerHTML = '';
+    filterResultsById.style.display = 'none';
+  }
+  
+  // Hide any dynamically added container
+  if (filterResultsContainer && filterResultsContainer !== filterResultsById) {
+    filterResultsContainer.innerHTML = '';
+    filterResultsContainer.style.display = 'none';
+  }
+  
   filterProducts('', currentViewMode, 1);
 }
 
@@ -315,48 +375,52 @@ window.addEventListener('popstate', function(event) {
 document.addEventListener('DOMContentLoaded', function() {
   // Initialize event listeners for category tags
   document.querySelectorAll('.category-tag').forEach(tag => {
-    tag.addEventListener('click', function() {
+    tag.addEventListener('click', function(event) {
+      event.preventDefault();
       saveScrollPosition();
       const category = this.dataset.category;
-      
-      // Toggle category if clicked on active one
       if (this.classList.contains('active')) {
-        currentCategory = '';
+        clearCategoryFilter();
+        return;
       } else {
         currentCategory = category;
+        document.querySelectorAll('.category-tag').forEach(t => t.classList.remove('active'));
+        this.classList.add('active');
       }
-      
-      // Reset to first page when changing category
       currentPage = 1;
-      
-      // Load filtered products
       filterProducts(currentCategory, currentViewMode, currentPage);
     });
   });
-  
+
   // Initialize event listeners for view toggle
   document.querySelectorAll('.view-btn').forEach(btn => {
     btn.addEventListener('click', function() {
       saveScrollPosition();
       currentViewMode = this.dataset.view;
-      
-      // Load with current parameters but new view mode
       filterProducts(currentCategory, currentViewMode, currentPage);
     });
   });
-  
-  // Make functions global so they can be used by inline event handlers
+
+  // Make functions global
   window.clearCategoryFilter = clearCategoryFilter;
   window.filterProducts = filterProducts;
-  
-  // Initialize from URL parameters on page load
+
+  // Initialize from URL parameters
   const urlParams = new URLSearchParams(window.location.search);
   currentCategory = urlParams.get('category') || '';
   currentViewMode = urlParams.get('view') || 'gallery';
   currentPage = parseInt(urlParams.get('page')) || 1;
-  
-  // Get containers
+
   productContainer = document.getElementById('product-container');
   loadingIndicator = document.getElementById('products-loading');
   paginationContainer = document.getElementById('product-pagination');
+
+  document.addEventListener('click', function(event) {
+    if (!event.target.closest('.category-tag') && !event.target.closest('.filter-results')) {
+      const filterResultsContainer = document.querySelector('.filter-results');
+      if (filterResultsContainer && currentCategory === '') {
+        filterResultsContainer.style.display = 'none';
+      }
+    }
+  });
 });

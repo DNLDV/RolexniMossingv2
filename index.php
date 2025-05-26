@@ -229,11 +229,11 @@ $viewMode = isset($_GET['view']) ? $_GET['view'] : 'gallery'; // 'gallery' or 'l
       text-transform: uppercase;
       font-weight: var(--font-medium);
     }
-    
-    .filter-results {
+      .filter-results {
       text-align: center;
       margin: 2rem 0;
       color: var(--text-color-light);
+      transition: opacity 0.3s ease;
     }
     
     .no-results {
@@ -493,9 +493,8 @@ $viewMode = isset($_GET['view']) ? $_GET['view'] : 'gallery'; // 'gallery' or 'l
           </span>
         <?php endforeach; ?>
       </div>
-      
-      <?php if ($selectedCategory): ?>
-        <button class="clear-filter" onclick="clearCategoryFilter()">
+        <?php if ($selectedCategory): ?>
+        <button class="clear-filter" onclick="clearCategoryFilter(); document.getElementById('filter-results-container')?.remove();">
           <i class='bx bx-x'></i> Clear Filter
         </button>
       <?php endif; ?>
@@ -527,10 +526,8 @@ $viewMode = isset($_GET['view']) ? $_GET['view'] : 'gallery'; // 'gallery' or 'l
       $currentPage = isset($_GET['page']) ? (int)$_GET['page'] : 1;
       $totalPages = ceil($totalProducts / $perPage);
       $startIndex = ($currentPage - 1) * $perPage;
-    ?>
-    
-    <?php if ($selectedCategory): ?>
-      <div class="filter-results">
+    ?>      <?php if ($selectedCategory): ?>
+      <div class="filter-results" id="filter-results-container">
         <p>Showing <?= $totalProducts ?> products for category: <strong><?= ucfirst($selectedCategory) ?></strong></p>
       </div>    <?php endif; ?>
 
