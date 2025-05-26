@@ -162,7 +162,7 @@
       <price>5500</price>
       <tag>Reliable</tag>
       <image>assets/img/product17.png</image>
-    </product>
+    <quantity></quantity><description></description></product>
     <product>
       <title>Omnitrix</title>
       <price>6900</price>
