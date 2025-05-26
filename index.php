@@ -7,13 +7,23 @@ $xml = simplexml_load_file("data.xml") or die("Error: Cannot load XML file");
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>PFRolex Responsive Watches Website</title>
   <link rel="shortcut icon" href="assets/img/favicon.png" type="image/x-icon" />  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css" />
-  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css" />  <link rel="stylesheet" href="css/styles.css" />
   <link rel="stylesheet" href="css/toast.css" />
+  <link rel="stylesheet" href="css/loading.css" />  <script>
+    $(document).ready(function() {
+      $("#btn").click(function() {
+        $("#test").load("data.txt");
+      });
+    });
+    
+    // Global variable to store login status for JavaScript access
+    window.isLoggedIn = <?php echo $isLoggedIn ? 'true' : 'false'; ?>;
+  </script>
 </head>
 <body>
 
@@ -177,8 +187,7 @@ $xml = simplexml_load_file("data.xml") or die("Error: Cannot load XML file");
     $totalPages = ceil($totalProducts / $perPage);
     $startIndex = ($currentPage - 1) * $perPage;
   ?>
-
-  <div class="products__container grid">
+  <div class="products__container grid" id="product-container">
     <?php
       for ($i = $startIndex; $i < $startIndex + $perPage && $i < $totalProducts; $i++):
         $product = $products[$i];
@@ -194,22 +203,26 @@ $xml = simplexml_load_file("data.xml") or die("Error: Cannot load XML file");
       </article>
     <?php endfor; ?>
   </div>
-
   <!-- PAGINATION -->
-  <div class="pagination">
+  <div class="pagination" id="product-pagination">
     <?php if ($currentPage > 1): ?>
-      <a href="?page=<?= $currentPage - 1 ?>#products" class="pagination__prev">Previous</a>
+      <a href="javascript:void(0)" data-page="<?= $currentPage - 1 ?>" class="pagination__prev">Previous</a>
     <?php endif; ?>
 
     <?php for ($page = 1; $page <= $totalPages; $page++): ?>
-      <a href="?page=<?= $page ?>#products" class="pagination__link <?= $page == $currentPage ? 'active' : '' ?>">
+      <a href="javascript:void(0)" data-page="<?= $page ?>" class="pagination__link <?= $page == $currentPage ? 'active' : '' ?>">
         <?= $page ?>
       </a>
     <?php endfor; ?>
 
     <?php if ($currentPage < $totalPages): ?>
-      <a href="?page=<?= $currentPage + 1 ?>#products" class="pagination__next">Next</a>
+      <a href="javascript:void(0)" data-page="<?= $currentPage + 1 ?>" class="pagination__next">Next</a>
     <?php endif; ?>
+  </div>
+  <!-- Loading indicator for AJAX -->
+  <div id="products-loading" class="loading-indicator" style="display:none;">
+    <div class="spinner"></div>
+    <p>Loading products...</p>
   </div>
 </section>      
 
@@ -272,6 +285,9 @@ $xml = simplexml_load_file("data.xml") or die("Error: Cannot load XML file");
 <a href="#" class="scrollup" id="scroll-up">
   <i class='bx bx-up-arrow-alt scrollup__icon'></i>
 </a>
+
+<!-- AJAX Pagination Script -->
+<script src="assets/js/pagination.js"></script>
 <script>
   document.addEventListener("DOMContentLoaded", () => {
     const searchInput = document.getElementById("tag-search");

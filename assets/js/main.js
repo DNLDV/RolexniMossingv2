@@ -89,16 +89,18 @@ const swiper = new Swiper('.new-swiper', {
 
 /*=============== CART FUNCTIONALITY ===============*/
 // Load cart from localStorage if available
-let cart = [];
+window.cart = [];
 try {
   const savedCart = localStorage.getItem('pfrolex_cart');
   if (savedCart) {
-    cart = JSON.parse(savedCart);
+    window.cart = JSON.parse(savedCart);
   }
 } catch (e) {
   console.error("Error loading cart from localStorage:", e);
-  cart = [];
+  window.cart = [];
 }
+// For backward compatibility
+let cart = window.cart;
 
 const cartContainer = document.getElementById("cart-container");
 const itemsCountElem = document.getElementById("cart-items-count");
@@ -110,27 +112,34 @@ const loginModal = document.getElementById("login-modal");
 const loginClose = document.getElementById("login-close");
 const orderMessageElem = document.getElementById("order-message");
 
-function openCart() {
+// Expose these functions to the global scope for use by other scripts
+window.openCart = function() {
   cartElement.classList.add("show-cart");
-}
+};
 
-function closeCart() {
+window.closeCart = function() {
   cartElement.classList.remove("show-cart");
-}
+};
 
-function showLoginModal() {
+window.showLoginModal = function() {
   loginModal.style.display = "flex";
-}
+};
 
-function hideLoginModal() {
+window.hideLoginModal = function() {
   loginModal.style.display = "none";
-}
+};
+
+// Create local function references
+function openCart() { window.openCart(); }
+function closeCart() { window.closeCart(); }
+function showLoginModal() { window.showLoginModal(); }
+function hideLoginModal() { window.hideLoginModal(); }
 
 loginClose.addEventListener("click", hideLoginModal);
 window.addEventListener("keydown", (e) => { if (e.key === "Escape") hideLoginModal(); });
 
 // Show toast message
-function showMessage(text, color = '#4caf50') {
+window.showMessage = function(text, color = '#4caf50') {
   if (!orderMessageElem) return;
   
   orderMessageElem.textContent = text;
@@ -140,14 +149,15 @@ function showMessage(text, color = '#4caf50') {
   setTimeout(() => {
     orderMessageElem.classList.add('hidden');
   }, 3000);
-}
+};
+function showMessage(text, color) { window.showMessage(text, color); }
 
-function updateCartDisplay() {
+window.updateCartDisplay = function() {
   cartContainer.innerHTML = "";
   let totalItems = 0;
   let totalPrice = 0;
 
-  cart.forEach((item, index) => {
+  window.cart.forEach((item, index) => {
     cartContainer.innerHTML += `
       <div class="cart__card">
         <img src="${item.image}" class="cart__img" />
