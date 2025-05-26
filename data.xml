@@ -27,15 +27,17 @@
       <totalPrice>2880</totalPrice>
     </summary>
   </cart>
+
   <featuredProducts>
     <product>
       <title>Rose Gold</title>
       <price>890</price>
       <tag>Sale</tag>
       <image>assets/img/featured1.png</image>
+      <description>Elegant rose gold watch with refined metallic sheen.</description>
       <category>
         <name>Watch</name>
-        <description>to be wrom on wrist</description>
+        <description>To be worn on wrist</description>
       </category>
     </product>
     <product>
@@ -43,129 +45,145 @@
       <price>1050</price>
       <tag>Sale</tag>
       <image>assets/img/featured2.png</image>
+      <description>Stylish and sophisticated, perfect for any formal outfit.</description>
     </product>
     <product>
       <title>Ingersoll</title>
       <price>250</price>
       <tag>Limited</tag>
       <image>assets/img/featured3.png</image>
+      <description>Affordable yet classic timepiece with timeless design.</description>
     </product>
   </featuredProducts>
+
   <products>
     <product>
       <title>Spirit Rose</title>
       <price>1500</price>
       <tag>Classic</tag>
       <image>assets/img/product1.png</image>
+      <description>Romantic and vintage-inspired, perfect for elegant occasions.</description>
     </product>
     <product>
       <title>Khaki Pilot</title>
       <price>1350</price>
       <tag>Limited</tag>
       <image>assets/img/product2.png</image>
+      <description>Military-style pilot watch with a rugged yet sleek design.</description>
     </product>
     <product>
       <title>Jubilee Black</title>
       <price>870</price>
       <tag>Sale</tag>
       <image>assets/img/product3.png</image>
+      <description>Dark elegance meets everyday wearability in this versatile piece.</description>
     </product>
     <product>
       <title>Fossil Me3</title>
       <price>650</price>
       <tag>New</tag>
       <image>assets/img/product4.png</image>
+      <description>Modern minimalist watch with industrial appeal.</description>
     </product>
     <product>
       <title>Duchen</title>
       <price>950</price>
       <tag>Classic</tag>
       <image>assets/img/product5.png</image>
+      <description>Classic European design with a blend of elegance and utility.</description>
     </product>
     <product>
       <title>Submarine</title>
       <price>9150</price>
       <tag>Classic</tag>
       <image>assets/img/featured2.png</image>
+      <description>High-performance diver's watch built for deep sea exploration.</description>
     </product>
-    <!-- Additional Products -->
     <product>
       <title>Rolex Submariner</title>
       <price>25000</price>
       <tag>Premium</tag>
       <image>assets/img/product6.png</image>
+      <description>The legendary diving watch known for precision and prestige.</description>
     </product>
     <product>
       <title>Omega Seamaster</title>
       <price>22000</price>
       <tag>Premium</tag>
       <image>assets/img/product7.png</image>
+      <description>A classic diver’s choice with ocean-tested performance.</description>
     </product>
     <product>
       <title>Casio G-Shock</title>
       <price>3500</price>
       <tag>Sport</tag>
       <image>assets/img/product8.png</image>
+      <description>Shock-resistant digital watch built for extreme durability.</description>
     </product>
     <product>
       <title>Timex Weekender</title>
       <price>4200</price>
       <tag>Casual</tag>
       <image>assets/img/product9.png</image>
+      <description>Simple, casual, and perfect for everyday wear.</description>
     </product>
     <product>
       <title>MVMT Chrono</title>
       <price>5200</price>
       <tag>Minimal</tag>
       <image>assets/img/product10.png</image>
+      <description>Minimalist chronograph with bold, clean lines and modern style.</description>
     </product>
     <product>
       <title>Swatch Skin</title>
       <price>3000</price>
       <tag>Light</tag>
       <image>assets/img/product11.png</image>
+      <description>Ultralight and ultra-thin — a barely-there timepiece.</description>
     </product>
     <product>
       <title>Tag Heuer Carrera</title>
       <price>27000</price>
       <tag>Luxury</tag>
       <image>assets/img/product12.png</image>
+      <description>Luxury chronograph watch with racing heritage.</description>
     </product>
     <product>
       <title>Diesel Mega Chief</title>
       <price>5800</price>
       <tag>Bold</tag>
       <image>assets/img/product13.png</image>
+      <description>Large and bold, this statement piece commands attention.</description>
     </product>
     <product>
       <title>Fossil Nate</title>
       <price>4900</price>
       <tag>Military</tag>
       <image>assets/img/product14.png</image>
+      <description>Military-inspired, rugged watch with functional design.</description>
     </product>
-    
     <product>
       <title>Tissot Le Locle</title>
       <price>18500</price>
       <tag>Swiss</tag>
       <image>assets/img/product16.png</image>
-      <quantity/>
-      <description/>
+      <quantity>1</quantity>
+      <description>Swiss automatic timepiece known for craftsmanship and legacy.</description>
     </product>
     <product>
       <title>Seiko 5</title>
       <price>5500</price>
       <tag>Reliable</tag>
       <image>assets/img/product17.png</image>
+      <description>Reliable Japanese automatic watch with a long-standing reputation.</description>
     </product>
-    
     <product>
       <title>Omnitrix</title>
       <price>6900</price>
       <tag>Legend</tag>
       <image>assets/img/products/product18.png</image>
       <quantity>1</quantity>
-      <description>The Omnitrix is a revolutionary wristwatch-like device that functions as a genetic transformation</description>
+      <description>The Omnitrix is a revolutionary wristwatch-like device that functions as a genetic transformation tool from the Ben 10 universe.</description>
       <category>
         <name>Watch</name>
         <description>Alienation</description>
