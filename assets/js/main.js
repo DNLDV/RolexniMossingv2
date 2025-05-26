@@ -18,8 +18,25 @@ if(navClose){
 /*=============== REMOVE MENU ON LINK CLICK ===============*/
 const navLinks = document.querySelectorAll('.nav__link');
 
-navLinks.forEach(n => n.addEventListener('click', () => {
+navLinks.forEach(n => n.addEventListener('click', (e) => {
+  e.preventDefault();
+  const href = n.getAttribute('href');
+  const currentScroll = window.scrollY;
+  
+  // Close menu
   navMenu.classList.remove('show-menu');
+  
+  // Handle navigation
+  if (href.startsWith('#')) {
+    const targetElement = document.querySelector(href);
+    if (targetElement) {
+      // Smooth scroll to element
+      targetElement.scrollIntoView({ behavior: 'smooth' });
+    } else {
+      // If no target found, restore current position
+      window.scrollTo(0, currentScroll);
+    }
+  }
 }));
 
 /*=============== CHANGE BACKGROUND HEADER ON SCROLL ===============*/
@@ -325,5 +342,46 @@ document.addEventListener('DOMContentLoaded', () => {
     if (e.key === "Escape") {
       signupModal.style.display = "none";
     }
+  });
+});
+
+// Add event listener for filter links or buttons
+document.querySelectorAll('.filter-link, .filter-button').forEach(filter => {
+  filter.addEventListener('click', function(e) {
+    e.preventDefault(); // Prevent default anchor or button behavior
+
+    const targetFilter = this.getAttribute('data-filter');
+
+    // Show loading indicator
+    const loadingIndicator = document.getElementById('products-loading');
+    if (loadingIndicator) loadingIndicator.style.display = 'flex';
+
+    // Send AJAX request to fetch filtered products
+    fetch(`get_products.php?filter=${encodeURIComponent(targetFilter)}`)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.text();
+      })
+      .then(data => {
+        // Update the product container with the filtered products
+        const productContainer = document.getElementById('product-container');
+        if (productContainer) {
+          productContainer.innerHTML = data;
+        }
+
+        // Hide loading indicator
+        if (loadingIndicator) loadingIndicator.style.display = 'none';
+      })
+      .catch(error => {
+        console.error('Error fetching filtered products:', error);
+
+        // Hide loading indicator
+        if (loadingIndicator) loadingIndicator.style.display = 'none';
+
+        // Show error message
+        alert('Failed to load filtered products. Please try again.');
+      });
   });
 });
