@@ -1089,7 +1089,17 @@ body.dark-theme{
 }
 
 
-/* Make login/logout button background transparent and text black */
+/* Hide login, signup, and reset password buttons/links completely */
+.nav__login-btn,
+.nav__signup-btn,
+.nav__reset-btn,
+.login-btn,
+.signup-btn,
+.reset-btn {
+  display: none !important;
+}
+
+/* Make login/logout button background transparent and text black, but VISIBLE */
 .logout-btn, .nav__login-btn {
   background-color: transparent !important;
   border: none !important;
@@ -1680,5 +1690,17 @@ body.dark-theme{
     max-height: 90%;
     overflow-y: auto;
   }
+}
+
+/* Hide login, signup, and reset password modals by default */
+#login-modal, #signup-modal, #reset-modal {
+  display: none !important;
+}
+
+/* Show modal when .active or .show class is added (JS should toggle this) */
+#login-modal.active, #login-modal.show,
+#signup-modal.active, #signup-modal.show,
+#reset-modal.active, #reset-modal.show {
+  display: flex !important;
 }
 }
