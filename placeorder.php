@@ -86,9 +86,14 @@ $root->appendChild($orderElement);
 // 6) Save changes back to orders.xml
 $dom->save($ordersFile);
 
-// Clear the cart session after placing the order
+// Ensure only the cart session is cleared, not the entire session
 if (isset($_SESSION['cart'])) {
     unset($_SESSION['cart']);
+}
+
+// Debugging: Ensure user session remains intact
+if (!isset($_SESSION['user'])) {
+    error_log('User session unexpectedly destroyed after placing order.');
 }
 
 // 7) Return success message

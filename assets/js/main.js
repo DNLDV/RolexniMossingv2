@@ -483,7 +483,7 @@ window.addEventListener("click", (event) => {
   }
 });
 
-// Adjusting initProductCardHandlers to avoid conflicts with button-fix.js
+// Updated initProductCardHandlers to ensure proper separation of events
 function initProductCardHandlers() {
   document.querySelectorAll(".products__card, .featured__card, .new__card").forEach(card => {
     const addToCartBtn = card.querySelector('.products__button, .featured__button, .new__button, .add-to-cart');

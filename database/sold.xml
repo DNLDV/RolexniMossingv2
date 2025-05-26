@@ -166,4 +166,16 @@
       <quantity>4</quantity>
     </item>
   </order>
+  <order>
+    <orderid>ORD-1748280939-ed4c95</orderid>
+    <username>prince</username>
+    <timestamp>2025-05-26 19:35:39</timestamp>
+    <status>pending</status>
+    <item>
+      <image>assets/img/products/product18.png</image>
+      <title>Omnitrix</title>
+      <price>6900</price>
+      <quantity>1</quantity>
+    </item>
+  </order>
 </sold>

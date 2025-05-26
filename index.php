@@ -764,6 +764,7 @@ $viewMode = isset($_GET['view']) ? $_GET['view'] : 'gallery'; // 'gallery' or 'l
 <script src="assets/js/main.js"></script>
 <script src="assets/js/search.js"></script>
 <script src="assets/js/button-fix.js"></script>
+<script src="assets/js/cart-fix.js"></script>
 <script>
   document.addEventListener('DOMContentLoaded', function () {
     const loginModal = document.getElementById('login-modal');

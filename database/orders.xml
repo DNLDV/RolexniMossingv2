@@ -36,4 +36,106 @@
       <quantity>1</quantity>
     </item>
   </order>
+  <order>
+    <orderid>ORD-1748276935-d1b2cd</orderid>
+    <username>prince</username>
+    <timestamp>2025-05-26 18:28:55</timestamp>
+    <status>pending</status>
+    <item>
+      <image>assets/img/home.png</image>
+      <title>B720 Collection</title>
+      <price>1236</price>
+      <quantity>1</quantity>
+    </item>
+    <item>
+      <image>assets/img/featured2.png</image>
+      <title>Jazzmaster</title>
+      <price>1050</price>
+      <quantity>59</quantity>
+    </item>
+    <item>
+      <image>assets/img/product2.png</image>
+      <title>Khaki Pilot</title>
+      <price>1350</price>
+      <quantity>362</quantity>
+    </item>
+  </order>
+  <order>
+    <orderid>ORD-1748277056-bb9dab</orderid>
+    <username>prince</username>
+    <timestamp>2025-05-26 18:30:56</timestamp>
+    <status>pending</status>
+    <item>
+      <image>assets/img/home.png</image>
+      <title>B720 Collection</title>
+      <price>1236</price>
+      <quantity>7</quantity>
+    </item>
+  </order>
+  <order>
+    <orderid>ORD-1748277061-c313b5</orderid>
+    <username>prince</username>
+    <timestamp>2025-05-26 18:31:01</timestamp>
+    <status>pending</status>
+    <item>
+      <image>assets/img/product13.png</image>
+      <title>Diesel Mega Chief</title>
+      <price>5800</price>
+      <quantity>7</quantity>
+    </item>
+  </order>
+  <order>
+    <orderid>ORD-1748277065-712f16</orderid>
+    <username>prince</username>
+    <timestamp>2025-05-26 18:31:05</timestamp>
+    <status>pending</status>
+    <item>
+      <image>assets/img/product14.png</image>
+      <title>Fossil Nate</title>
+      <price>4900</price>
+      <quantity>7</quantity>
+    </item>
+  </order>
+  <order>
+    <orderid>ORD-1748277068-bc55fd</orderid>
+    <username>prince</username>
+    <timestamp>2025-05-26 18:31:08</timestamp>
+    <status>pending</status>
+    <item>
+      <image>assets/img/product17.png</image>
+      <title>Seiko 5</title>
+      <price>5500</price>
+      <quantity>7</quantity>
+    </item>
+  </order>
+  <order>
+    <orderid>ORD-1748277081-f0124a</orderid>
+    <username>prince</username>
+    <timestamp>2025-05-26 18:31:21</timestamp>
+    <status>pending</status>
+    <item>
+      <image>assets/img/product16.png</image>
+      <title>Tissot Le Locle</title>
+      <price>18500</price>
+      <quantity>47</quantity>
+    </item>
+  </order>
+  <order>
+    <orderid>ORD-1748280911-a8d52f</orderid>
+    <username>prince</username>
+    <timestamp>2025-05-26 19:35:11</timestamp>
+    <status>pending</status>
+    <item>
+      <image>assets/img/product5.png</image>
+      <title>Duchen</title>
+      <price>950</price>
+      <quantity>1</quantity>
+    </item>
+    <item>
+      <image>assets/img/featured2.png</image>
+      <title>Submarine</title>
+      <price>9150</price>
+      <quantity>1</quantity>
+    </item>
+  </order>
 </orders>
