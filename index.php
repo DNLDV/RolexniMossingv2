@@ -3,6 +3,18 @@ session_start();
 $isLoggedIn = isset($_SESSION['user']);
 $xml = simplexml_load_file("data.xml") or die("Error: Cannot load XML file");
 
+// Load categories from XML for the main menu
+$categoriesXml = false;
+if (file_exists("categories.xml")) {
+    $categoriesXml = simplexml_load_file("categories.xml");
+    if ($categoriesXml === false) {
+        echo "<!-- Error parsing categories.xml -->";
+    }
+}
+
+// Debug XML structure
+// echo "<!-- "; print_r($categoriesXml); echo " -->";
+
 // Get selected category and view mode
 $selectedCategory = isset($_GET['category']) ? strtolower(trim($_GET['category'])) : '';
 $viewMode = isset($_GET['view']) ? $_GET['view'] : 'gallery'; // 'gallery' or 'list'
@@ -22,8 +34,52 @@ $viewMode = isset($_GET['view']) ? $_GET['view'] : 'gallery'; // 'gallery' or 'l
   <link rel="stylesheet" href="css/toast.css" />
   <link rel="stylesheet" href="css/loading.css" />
   <link rel="stylesheet" href="css/search.css" />
-  
-  <style>
+    <style>
+    /* Dropdown Menu Styles */
+    .nav__dropdown {
+      position: relative;
+    }
+    
+    .nav__dropdown:hover .nav__dropdown-menu {
+      display: block;
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+      .nav__dropdown-menu {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      min-width: 180px;
+      background: var(--container-color);
+      box-shadow: 0 4px 16px hsla(0, 0%, 0%, 0.1);
+      border-radius: 0.5rem;
+      padding: 0.5rem 0;
+      margin-top: 0.5rem;
+      z-index: 100;
+      display: none;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(10px);
+      transition: all 0.3s ease;
+      max-height: 300px;
+      overflow-y: auto;
+    }
+    
+    .nav__dropdown-link {
+      display: block;
+      padding: 0.5rem 1.5rem;
+      color: var(--title-color);
+      font-size: var(--normal-font-size);
+      transition: all 0.3s;
+    }
+    
+    .nav__dropdown-link:hover {
+      background: var(--first-color-lighten);
+      color: var(--first-color);
+      padding-left: 2rem;
+    }
+    
     /* Category Filter Styles */
     .category-filter {
       background: var(--container-color);
@@ -244,6 +300,25 @@ $viewMode = isset($_GET['view']) ? $_GET['view'] : 'gallery'; // 'gallery' or 'l
         <li class="nav__item"><a href="#home" class="nav__link active-link">Home</a></li>
         <li class="nav__item"><a href="#featured" class="nav__link">Featured</a></li>
         <li class="nav__item"><a href="#products" class="nav__link">Products</a></li>
+        
+        <?php if ($categoriesXml && isset($categoriesXml->category)): ?>          <!-- Dynamic Categories Menu -->
+          <li class="nav__item nav__dropdown">            <a href="#" class="nav__link">Categories <i class='bx bx-chevron-down'></i></a>
+            <ul class="nav__dropdown-menu">
+              <?php foreach ($categoriesXml->category as $category): 
+                // Get category name, check both 'name' and 'n' tags
+                $categoryName = isset($category->name) ? (string)$category->name : (isset($category->n) ? (string)$category->n : '');
+                if (!empty($categoryName)):
+              ?>
+                <li>
+                  <a href="index.php?category=<?= strtolower(trim($categoryName)) ?>" class="nav__dropdown-link">
+                    <?= htmlspecialchars($categoryName) ?>
+                  </a>
+                </li>
+              <?php endif; endforeach; ?>
+            </ul>
+          </li>
+        <?php endif; ?>
+        
         <li class="nav__item"><a href="#new" class="nav__link">New</a></li>
       </ul>
       <div class="nav__close" id="nav-close"><i class='bx bx-x'></i></div>
@@ -394,11 +469,23 @@ $viewMode = isset($_GET['view']) ? $_GET['view'] : 'gallery'; // 'gallery' or 'l
           </button>
         </div>
       </div>
-      
-      <div class="category-tags">
+        <div class="category-tags">
         <?php
+          // Original hardcoded tags
           $availableTags = ['sale', 'limited', 'classic', 'new', 'premium', 'sport', 'casual', 'minimal','legend', 'light', 'luxury', 'bold', 'military', 'dress', 'swiss', 'reliable'];
           
+          // Add categories from categories.xml
+          if ($categoriesXml && isset($categoriesXml->category)) {
+            foreach ($categoriesXml->category as $category) {
+              // Check both 'name' and 'n' tags for compatibility
+              $categoryName = isset($category->name) ? (string)$category->name : (isset($category->n) ? (string)$category->n : '');
+              if (!empty($categoryName) && !in_array(strtolower($categoryName), $availableTags)) {
+                $availableTags[] = strtolower($categoryName);
+              }
+            }
+          }
+          
+          // Display all tags
           foreach ($availableTags as $tag):
         ?>
           <span class="category-tag <?= $selectedCategory === $tag ? 'active' : '' ?>" data-category="<?= $tag ?>">
@@ -589,9 +676,70 @@ $viewMode = isset($_GET['view']) ? $_GET['view'] : 'gallery'; // 'gallery' or 'l
 </a>
 
 <!-- SCRIPTS -->
-<script>
-  // Make the PHP variable available to JavaScript
+<script>  // Make the PHP variable available to JavaScript
   window.isLoggedIn = <?= $isLoggedIn ? 'true' : 'false' ?>;
+    // Handle dropdown menu for mobile and desktop devices
+  document.addEventListener('DOMContentLoaded', function() {
+    const dropdownItems = document.querySelectorAll('.nav__dropdown');
+    
+    // For all devices - ensure dropdowns are working properly
+    dropdownItems.forEach(item => {
+      const dropdownLink = item.querySelector('.nav__link');
+      const dropdown = item.querySelector('.nav__dropdown-menu');
+      
+      // Force show for debugging - comment out in production
+      // dropdown.style.display = 'block';
+      // dropdown.style.opacity = '1';
+      // dropdown.style.visibility = 'visible';
+      // dropdown.style.transform = 'translateY(0)';
+      
+      // Touch device handling
+      dropdownLink.addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        // Close all other dropdowns
+        dropdownItems.forEach(otherItem => {
+          if (otherItem !== item) {
+            const otherDropdown = otherItem.querySelector('.nav__dropdown-menu');
+            if (otherDropdown) {
+              otherDropdown.style.display = 'none';
+              otherDropdown.style.opacity = '0';
+              otherDropdown.style.visibility = 'hidden';
+              otherDropdown.style.transform = 'translateY(10px)';
+            }
+          }
+        });
+        
+        // Toggle current dropdown
+        if (dropdown.style.display === 'block') {
+          dropdown.style.display = 'none';
+          dropdown.style.opacity = '0';
+          dropdown.style.visibility = 'hidden';
+          dropdown.style.transform = 'translateY(10px)';
+        } else {
+          dropdown.style.display = 'block';
+          dropdown.style.opacity = '1';
+          dropdown.style.visibility = 'visible';
+          dropdown.style.transform = 'translateY(0)';
+        }
+      });
+    });
+    
+    // Close dropdown when clicking outside
+    document.addEventListener('click', function(e) {
+      if (!e.target.closest('.nav__dropdown')) {
+        dropdownItems.forEach(item => {
+          const dropdown = item.querySelector('.nav__dropdown-menu');
+          if (dropdown) {
+            dropdown.style.display = 'none';
+            dropdown.style.opacity = '0';
+            dropdown.style.visibility = 'hidden';
+            dropdown.style.transform = 'translateY(10px)';
+          }
+        });
+      }
+    });
+  });
   
   // Category filtering functionality is now handled by filter.js
   
