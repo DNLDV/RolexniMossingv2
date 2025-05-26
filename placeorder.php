@@ -86,6 +86,11 @@ $root->appendChild($orderElement);
 // 6) Save changes back to orders.xml
 $dom->save($ordersFile);
 
+// Clear the cart session after placing the order
+if (isset($_SESSION['cart'])) {
+    unset($_SESSION['cart']);
+}
+
 // 7) Return success message
 echo "success";
 ?>

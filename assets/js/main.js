@@ -283,6 +283,7 @@ document.addEventListener('DOMContentLoaded', () => {
           cart = [];
           localStorage.removeItem('pfrolex_cart');
           updateCartDisplay();
+          location.reload();
           alert("Order placed successfully!");
           closeCart();
         } else {

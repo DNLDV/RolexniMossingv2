@@ -60,4 +60,40 @@
       <quantity>4</quantity>
     </item>
   </order>
+  <order>
+    <orderid>ORD-1748242516-ee9b9b</orderid>
+    <username>ako</username>
+    <timestamp>2025-05-26 08:55:16</timestamp>
+    <status>pending</status>
+    <item>
+      <image>assets/img/product5.png</image>
+      <title>Duchen</title>
+      <price>950</price>
+      <quantity>1</quantity>
+    </item>
+  </order>
+  <order>
+    <orderid>ORD-1748242756-aba7e5</orderid>
+    <username>ako</username>
+    <timestamp>2025-05-26 08:59:16</timestamp>
+    <status>pending</status>
+    <item>
+      <image>assets/img/product2.png</image>
+      <title>Khaki Pilot</title>
+      <price>1350</price>
+      <quantity>1</quantity>
+    </item>
+  </order>
+  <order>
+    <orderid>ORD-1748242781-bac960</orderid>
+    <username>ako</username>
+    <timestamp>2025-05-26 08:59:41</timestamp>
+    <status>pending</status>
+    <item>
+      <image>assets/img/featured2.png</image>
+      <title>Jazzmaster</title>
+      <price>1050</price>
+      <quantity>1</quantity>
+    </item>
+  </order>
 </orders>
