@@ -345,43 +345,93 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 
-// Add event listener for filter links or buttons
-document.querySelectorAll('.filter-link, .filter-button').forEach(filter => {
-  filter.addEventListener('click', function(e) {
-    e.preventDefault(); // Prevent default anchor or button behavior
+// Use event delegation for filter links or buttons
+const filterContainer = document.body; // Adjust this to a more specific container if possible
+filterContainer.addEventListener('click', function(e) {
+  const filter = e.target.closest('.filter-link, .filter-button');
+  if (!filter) return; // Ignore clicks outside filter elements
 
-    const targetFilter = this.getAttribute('data-filter');
+  e.preventDefault(); // Prevent default anchor or button behavior
 
-    // Show loading indicator
-    const loadingIndicator = document.getElementById('products-loading');
-    if (loadingIndicator) loadingIndicator.style.display = 'flex';
+  const targetFilter = filter.getAttribute('data-filter');
 
-    // Send AJAX request to fetch filtered products
-    fetch(`get_products.php?filter=${encodeURIComponent(targetFilter)}`)
-      .then(response => {
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-        return response.text();
-      })
-      .then(data => {
-        // Update the product container with the filtered products
-        const productContainer = document.getElementById('product-container');
-        if (productContainer) {
-          productContainer.innerHTML = data;
-        }
+  // Save the current scroll position
+  const currentScroll = window.scrollY;
 
-        // Hide loading indicator
-        if (loadingIndicator) loadingIndicator.style.display = 'none';
-      })
-      .catch(error => {
-        console.error('Error fetching filtered products:', error);
+  // Show loading indicator
+  const loadingIndicator = document.getElementById('products-loading');
+  if (loadingIndicator) {
+    loadingIndicator.style.display = 'flex';
+  }
 
-        // Hide loading indicator
-        if (loadingIndicator) loadingIndicator.style.display = 'none';
+  // Send AJAX request to fetch filtered products
+  fetch(`get_products.php?filter=${encodeURIComponent(targetFilter)}`)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.text();
+    })
+    .then(data => {
+      // Update the product container with the filtered products
+      const productContainer = document.getElementById('product-container');
+      if (productContainer) {
+        productContainer.innerHTML = data;
+      }
 
-        // Show error message
-        alert('Failed to load filtered products. Please try again.');
-      });
-  });
+      // Restore the scroll position
+      window.scrollTo({ top: currentScroll, behavior: 'instant' });
+
+      // Hide loading indicator
+      if (loadingIndicator) {
+        loadingIndicator.style.display = 'none';
+      }
+    })
+    .catch(error => {
+      console.error('Error fetching filtered products:', error);
+
+      // Hide loading indicator
+      if (loadingIndicator) {
+        loadingIndicator.style.display = 'none';
+      }
+
+      // Show error message
+      alert('Failed to load filtered products. Please try again.');
+    });
+});
+
+// Handle product deletion via AJAX
+document.addEventListener('click', function(e) {
+  const deleteButton = e.target.closest('.btn-delete');
+  if (!deleteButton) return;
+
+  e.preventDefault();
+
+  const productIndex = deleteButton.dataset.index;
+
+  fetch('admin/update_product.php', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      action: 'delete',
+      product_index: productIndex,
+      ajax: true
+    })
+  })
+    .then(response => response.json())
+    .then(data => {
+      if (data.status === 'success') {
+        alert(data.message);
+        // Optionally, remove the product row from the table
+        deleteButton.closest('tr').remove();
+      } else {
+        alert(data.message);
+      }
+    })
+    .catch(error => {
+      console.error('Error deleting product:', error);
+      alert('Failed to delete product. Please try again.');
+    });
 });

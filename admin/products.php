@@ -120,13 +120,15 @@ $added = $_GET['added'] ?? '';
               <div contenteditable="true" class="editable-description" data-product-index="<?php echo $i; ?>">
                 <?php echo htmlspecialchars($prod->description ?? ''); ?>
               </div>
-            </td>
-            <td>
-              <form action="update_product.php" method="post" enctype="multipart/form-data" style="display: inline;">
+            </td>            <td>              <form action="update_product.php" method="post" enctype="multipart/form-data" style="display: inline;">
                 <input type="hidden" name="product_index" value="<?php echo $i; ?>">
                 <button type="submit" name="action" value="update">Update</button>
-                <button type="submit" name="action" value="delete">Delete</button>
               </form>
+              <?php
+              $section = ($prod->getName() === 'product' && $prod->xpath('..')[0]->getName() === 'featuredProducts') ? 'featuredProducts' : 'products';
+              $title = htmlspecialchars($prod->title);
+              ?>
+              <a href="delete_product.php?title=<?php echo urlencode($title); ?>&section=<?php echo $section; ?>" class="delete-link" style="margin-left: 5px; display: inline-block; padding: 2px 8px; background-color: #f44336; color: white; text-decoration: none; border-radius: 4px;" onclick="return confirm('Are you sure you want to delete this product?');">Delete</a>
             </td>
           </tr>
           <?php endforeach; ?>
@@ -211,12 +213,9 @@ $added = $_GET['added'] ?? '';
                 <textarea name="category_desc" id="manage-category-desc" rows="1" placeholder="Category Description"></textarea>
 
                 <label for="manage-image">Replace Image (optional)</label>
-                <input type="file" name="image" id="manage-image" accept="image/*">
-
-                <button type="submit" name="action" value="update" class="btn-action">Update Product</button>
-                <button type="submit" name="action" value="delete" class="btn-delete-category" style="margin-left:10px;">Delete Product</button>
-              </form>
-              <script>
+                <input type="file" name="image" id="manage-image" accept="image/*">                <button type="submit" name="action" value="update" class="btn-action">Update Product</button>
+                <a href="#" id="delete-selected-product" class="btn-delete-category" style="margin-left:10px; display: inline-block; padding: 8px 12px; background-color: #f44336; color: white; text-decoration: none; border-radius: 4px;">Delete Product</a>
+              </form>              <script>
                 const manageSelect = document.getElementById('manage-select');
                 manageSelect.addEventListener('change', function() {
                   const opt = this.selectedOptions[0];
@@ -230,6 +229,25 @@ $added = $_GET['added'] ?? '';
                   const catSelect = document.getElementById('manage-category');
                   catSelect.value = cat;
                   document.getElementById('manage-category-desc').value = opt.dataset.catdesc || '';
+                });
+                
+                // Handle delete button click in manage section
+                document.getElementById('delete-selected-product').addEventListener('click', function(e) {
+                  e.preventDefault();
+                  const selectedOption = document.getElementById('manage-select').selectedOptions[0];
+                  
+                  if (!selectedOption || !selectedOption.value) {
+                    alert('Please select a product to delete.');
+                    return;
+                  }
+                  
+                  if (confirm('Are you sure you want to delete this product?')) {
+                    const productTitle = selectedOption.dataset.title;
+                    const isFeatured = selectedOption.textContent.includes('(Featured)');
+                    const section = isFeatured ? 'featuredProducts' : 'products';
+                    
+                    window.location.href = `delete_product.php?title=${encodeURIComponent(productTitle)}&section=${section}`;
+                  }
                 });
               </script>
               <!-- End Manage Products -->
