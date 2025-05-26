@@ -1089,6 +1089,21 @@ body.dark-theme{
 }
 
 
+/* Make login/logout button background transparent and text black */
+.logout-btn, .nav__login-btn {
+  background-color: transparent !important;
+  border: none !important;
+  color: #000 !important;
+  display: inline-block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+.logout-btn:hover, .nav__login-btn:hover {
+  background-color: transparent !important;
+  color: #000 !important;
+}
+
 @media screen and (max-width:320px) {
    .container{
        margin-left: var(--mb-1);
@@ -1582,20 +1597,17 @@ body.dark-theme{
 }
 
 .logout-btn, .nav__login-btn {
-  background-color: transparent;
-  border: 1px solid var(--first-color);
-  color: var(--first-color);
-  padding: 0.4rem 0.8rem;
-  border-radius: 0.25rem;
-  cursor: pointer;
-  font-size: 0.875rem;
-  transition: 0.3s;
+  background-color: transparent !important;
+  border: none !important;
+  color: #000 !important;
+  display: inline-block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
 }
 
 .logout-btn:hover, .nav__login-btn:hover {
-  background-color: var(--first-color);
-  color: #fff;
-}
+  background-color: transparent !important;
+  color: #000 !important;
 }
 
 

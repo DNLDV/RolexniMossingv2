@@ -257,6 +257,8 @@ $viewMode = isset($_GET['view']) ? $_GET['view'] : 'gallery'; // 'gallery' or 'l
         <form action="logout.php" method="post" class="logout-form">
           <button type="submit" class="logout-btn">Log out</button>
         </form>
+      <?php else: ?>
+        <button class="logout-btn" onclick="document.getElementById('login-modal').style.display='flex'">Log in</button>
       <?php endif; ?>
 
       <div class="nav__toggle" id="nav-toggle"><i class='bx bx-grid-alt'></i></div>
