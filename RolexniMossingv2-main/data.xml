@@ -1,0 +1,164 @@
+<?xml version="1.0"?>
+<shop>
+  <cart>
+    <item>
+      <title>Jazzmaster</title>
+      <price>1050</price>
+      <quantity>1</quantity>
+      <image>assets/img/featured2.png</image>
+      <tag>Sale</tag>
+    </item>
+    <item>
+      <title>Rose Gold</title>
+      <price>850</price>
+      <quantity>1</quantity>
+      <image>assets/img/featured1.png</image>
+      <tag>Sale</tag>
+    </item>
+    <item>
+      <title>Longines Rose</title>
+      <price>980</price>
+      <quantity>1</quantity>
+      <image>assets/img/new1.png</image>
+      <tag>New</tag>
+    </item>
+    <summary>
+      <totalItems>3</totalItems>
+      <totalPrice>2880</totalPrice>
+    </summary>
+  </cart>
+  <featuredProducts>
+    <product>
+      <title>Rose Gold</title>
+      <price>890</price>
+      <tag>Sale</tag>
+      <image>assets/img/featured1.png</image>
+    </product>
+    <product>
+      <title>Jazzmaster</title>
+      <price>1050</price>
+      <tag>Sale</tag>
+      <image>assets/img/featured2.png</image>
+    </product>
+    <product>
+      <title>Ingersoll</title>
+      <price>250</price>
+      <tag>Limited</tag>
+      <image>assets/img/featured3.png</image>
+    </product>
+  </featuredProducts>
+  
+  <products>
+    <product>
+      <title>Spirit Rose</title>
+      <price>1500</price>
+      <tag>Classic</tag>
+      <image>assets/img/product1.png</image>
+    </product>
+    <product>
+      <title>Khaki Pilot</title>
+      <price>1350</price>
+      <tag>Limited</tag>
+      <image>assets/img/product2.png</image>
+    </product>
+    <product>
+      <title>Jubilee Black</title>
+      <price>870</price>
+      <tag>Sale</tag>
+      <image>assets/img/product3.png</image>
+    </product>
+    <product>
+      <title>Fossil Me3</title>
+      <price>650</price>
+      <tag>New</tag>
+      <image>assets/img/product4.png</image>
+    </product>
+    <product>
+      <title>Duchen</title>
+      <price>950</price>
+      <tag>Classic</tag>
+      <image>assets/img/product5.png</image>
+    </product>
+    <product>
+      <title>Submarine</title>
+      <price>9150</price>
+      <tag>Classic</tag>
+      <image>assets/img/featured2.png</image>
+    </product>
+
+    <!-- Additional Products -->
+    <product>
+      <title>Rolex Submariner</title>
+      <price>25000</price>
+      <tag>Premium</tag>
+      <image>assets/img/product6.png</image>
+    </product>
+    <product>
+      <title>Omega Seamaster</title>
+      <price>22000</price>
+      <tag>Premium</tag>
+      <image>assets/img/product7.png</image>
+    </product>
+    <product>
+      <title>Casio G-Shock</title>
+      <price>3500</price>
+      <tag>Sport</tag>
+      <image>assets/img/product8.png</image>
+    </product>
+    <product>
+      <title>Timex Weekender</title>
+      <price>4200</price>
+      <tag>Casual</tag>
+      <image>assets/img/product9.png</image>
+    </product>
+    <product>
+      <title>MVMT Chrono</title>
+      <price>5200</price>
+      <tag>Minimal</tag>
+      <image>assets/img/product10.png</image>
+    </product>
+    <product>
+      <title>Swatch Skin</title>
+      <price>3000</price>
+      <tag>Light</tag>
+      <image>assets/img/product11.png</image>
+    </product>
+
+    <product>
+      <title>Tag Heuer Carrera</title>
+      <price>27000</price>
+      <tag>Luxury</tag>
+      <image>assets/img/product12.png</image>
+    </product>
+    <product>
+      <title>Diesel Mega Chief</title>
+      <price>5800</price>
+      <tag>Bold</tag>
+      <image>assets/img/product13.png</image>
+    </product>
+    <product>
+      <title>Fossil Nate</title>
+      <price>4900</price>
+      <tag>Military</tag>
+      <image>assets/img/product14.png</image>
+    </product>
+    <product>
+      <title>Orient Bambino</title>
+      <price>4200</price>
+      <tag>Dress</tag>
+      <image>assets/img/product15.png</image>
+    </product>
+    <product>
+      <title>Tissot Le Locle</title>
+      <price>18500</price>
+      <tag>Swiss</tag>
+      <image>assets/img/product16.png</image>
+    </product>
+    <product>
+      <title>Seiko 5</title>
+      <price>5500</price>
+      <tag>Reliable</tag>
+      <image>assets/img/product17.png</image>
+    </product>
+  </products>
+</shop>

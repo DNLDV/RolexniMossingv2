@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<orders>
+  <order>
+    <username>ako</username>
+    <item>
+      <title>Rose Gold</title>
+      <price>890</price>
+    </item>
+    <item>
+      <title>Jazzmaster</title>
+      <price>1050</price>
+    </item>
+  </order>
+  <order>
+    <username>Shiela May De Vega</username>
+    <item>
+      <title>Khaki Pilot</title>
+      <price>1350</price>
+    </item>
+  </order>
+  <order>
+    <username>ako</username>
+    <item>
+      <title>Duchen</title>
+      <price>950</price>
+    </item>
+  </order>
+  <order>
+    <username>ako</username>
+    <item>
+      <title>B720 Collection</title>
+      <price>1236</price>
+    </item>
+  </order>
+</orders>
