@@ -20,3 +20,8 @@ CREATE TABLE admins (
 -- Insert default admin account (example only)
 INSERT INTO admins (username, password)
 VALUES ('admin', 'adminpass');
+
+
+ALTER TABLE users
+  ADD COLUMN is_verified TINYINT(1) DEFAULT 0,
+  ADD COLUMN verification_token VARCHAR(255) DEFAULT NULL;

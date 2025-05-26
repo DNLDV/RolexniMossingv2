@@ -17,6 +17,13 @@ $xml = simplexml_load_file("data.xml") or die("Error: Cannot load XML file");
 </head>
 <body>
 
+<?php if (isset($_SESSION['error'])): ?>
+  <div style="background:#ffdddd;color:#a00;padding:10px;text-align:center;"> <?= $_SESSION['error']; unset($_SESSION['error']); ?> </div>
+<?php endif; ?>
+<?php if (isset($_SESSION['success'])): ?>
+  <div style="background:#ddffdd;color:#080;padding:10px;text-align:center;"> <?= $_SESSION['success']; unset($_SESSION['success']); ?> </div>
+<?php endif; ?>
+
 
 <!-- HEADER -->
 <header class="header" id="header">
