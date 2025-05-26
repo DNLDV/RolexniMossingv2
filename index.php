@@ -443,8 +443,13 @@ $viewMode = isset($_GET['view']) ? $_GET['view'] : 'gallery'; // 'gallery' or 'l
     <?php if ($selectedCategory): ?>
       <div class="filter-results">
         <p>Showing <?= $totalProducts ?> products for category: <strong><?= ucfirst($selectedCategory) ?></strong></p>
-      </div>
-    <?php endif; ?>
+      </div>    <?php endif; ?>
+
+    <!-- Loading indicator for AJAX -->
+    <div id="products-loading" class="loading-indicator" style="display:none;">
+      <div class="spinner"></div>
+      <p>Loading products...</p>
+    </div>
 
     <div class="products__container <?= $viewMode === 'list' ? 'list-view' : 'grid' ?>" id="product-container">
       <?php
@@ -487,8 +492,7 @@ $viewMode = isset($_GET['view']) ? $_GET['view'] : 'gallery'; // 'gallery' or 'l
             <button class="button products__button add-to-cart"
                     data-title="<?= $product->title ?>" data-price="<?= $product->price ?>" data-image="<?= $product->image ?>">
               Add to Cart
-            </button>
-          <?php endif; ?>
+            </button>          <?php endif; ?>
         </article>
       <?php 
           endfor;
@@ -503,8 +507,8 @@ $viewMode = isset($_GET['view']) ? $_GET['view'] : 'gallery'; // 'gallery' or 'l
     </div>
 
     <!-- PAGINATION -->
-    <?php if ($totalPages > 1): ?>
-      <div class="pagination" id="product-pagination">
+    <div class="pagination" id="product-pagination">
+      <?php if ($totalPages > 1): ?>
         <?php if ($currentPage > 1): ?>
           <a href="javascript:void(0)" data-page="<?= $currentPage - 1 ?>" class="pagination__prev">Previous</a>
         <?php endif; ?>
@@ -518,13 +522,7 @@ $viewMode = isset($_GET['view']) ? $_GET['view'] : 'gallery'; // 'gallery' or 'l
         <?php if ($currentPage < $totalPages): ?>
           <a href="javascript:void(0)" data-page="<?= $currentPage + 1 ?>" class="pagination__next">Next</a>
         <?php endif; ?>
-      </div>
-    <?php endif; ?>
-
-    <!-- Loading indicator for AJAX -->
-    <div id="products-loading" class="loading-indicator" style="display:none;">
-      <div class="spinner"></div>
-      <p>Loading products...</p>
+      <?php endif; ?>
     </div>
   </section>
 
@@ -593,45 +591,7 @@ $viewMode = isset($_GET['view']) ? $_GET['view'] : 'gallery'; // 'gallery' or 'l
   // Make the PHP variable available to JavaScript
   window.isLoggedIn = <?= $isLoggedIn ? 'true' : 'false' ?>;
   
-  // Category filtering functionality
-  document.addEventListener('DOMContentLoaded', function() {
-    // Category tag clicks
-    document.querySelectorAll('.category-tag').forEach(tag => {
-      tag.addEventListener('click', function() {
-        const category = this.dataset.category;
-        const currentUrl = new URL(window.location);
-        
-        if (this.classList.contains('active')) {
-          // If already active, remove filter
-          currentUrl.searchParams.delete('category');
-        } else {
-          // Set new category filter
-          currentUrl.searchParams.set('category', category);
-        }
-        
-        currentUrl.searchParams.delete('page'); // Reset to first page
-        window.location.href = currentUrl.toString();
-      });
-    });
-    
-    // View toggle buttons
-    document.querySelectorAll('.view-btn').forEach(btn => {
-      btn.addEventListener('click', function() {
-        const view = this.dataset.view;
-        const currentUrl = new URL(window.location);
-        currentUrl.searchParams.set('view', view);
-        window.location.href = currentUrl.toString();
-      });
-    });
-  });
-  
-  // Clear category filter function
-  function clearCategoryFilter() {
-    const currentUrl = new URL(window.location);
-    currentUrl.searchParams.delete('category');
-    currentUrl.searchParams.delete('page');
-    window.location.href = currentUrl.toString();
-  }
+  // Category filtering functionality is now handled by filter.js
   
   // Enhanced search functionality
   document.addEventListener("DOMContentLoaded", () => {
@@ -659,8 +619,8 @@ $viewMode = isset($_GET['view']) ? $_GET['view'] : 'gallery'; // 'gallery' or 'l
   });
 </script>
 
-<!-- AJAX Pagination Script -->
-<script src="assets/js/pagination.js"></script>
+<!-- AJAX Scripts -->
+<script src="assets/js/filter.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
 <script src="assets/js/main.js"></script>
 <script src="assets/js/search.js"></script>
