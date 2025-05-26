@@ -49,15 +49,16 @@ function sendVerificationEmail($email, $token, &$mailError = null) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // === reCAPTCHA validation ===
-    $recaptchaSecret = 'YOUR_SECRET_KEY'; // Replace with your reCAPTCHA secret key
+    // === reCAPTCHA validation with debug ===
+    $recaptchaSecret = '6Lctn0krAAAAAESLU3kNNqpArJ8y0DzVgxhfjq5h'; // Your real secret key from Google reCAPTCHA admin panel
     $recaptchaResponse = $_POST['g-recaptcha-response'] ?? '';
+    $userIP = $_SERVER['REMOTE_ADDR'] ?? '';
     $verifyResponse = file_get_contents(
-        "https://www.google.com/recaptcha/api/siteverify?secret={$recaptchaSecret}&response={$recaptchaResponse}"
+        "https://www.google.com/recaptcha/api/siteverify?secret={$recaptchaSecret}&response={$recaptchaResponse}&remoteip={$userIP}"
     );
-    $responseData = json_decode($verifyResponse);
-    if (!$responseData || !$responseData->success) {
-        $_SESSION['error'] = "CAPTCHA verification failed. Please try again.";
+    $responseData = json_decode($verifyResponse, true);
+    if (!$responseData || !$responseData['success']) {
+        $_SESSION['error'] = "CAPTCHA verification failed. Debug: " . htmlspecialchars($verifyResponse);
         header("Location: index.php");
         exit();
     }

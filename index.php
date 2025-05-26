@@ -288,7 +288,7 @@ $viewMode = isset($_GET['view']) ? $_GET['view'] : 'gallery'; // 'gallery' or 'l
     <form class="login-form" action="login.php" method="post">
       <input type="email" name="email" placeholder="Email" required />
       <input type="password" name="password" placeholder="Password" required />
-      <a href="#">Forgot your password?</a>
+      <a href="forgot_password.php" style="float:right;font-size:0.95em;">Forgot your password?</a>
       <button type="submit" class="login-btn">Log in</button>
       <div class="or-divider">OR</div>
       <button type="button" class="login-btn fb">Continue with Facebook</button>
