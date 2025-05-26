@@ -14,7 +14,8 @@ $xml = simplexml_load_file("data.xml") or die("Error: Cannot load XML file");
   <link rel="shortcut icon" href="assets/img/favicon.png" type="image/x-icon" />  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css" />  <link rel="stylesheet" href="css/styles.css" />
   <link rel="stylesheet" href="css/toast.css" />
-  <link rel="stylesheet" href="css/loading.css" />  <script>
+  <link rel="stylesheet" href="css/loading.css" />
+  <link rel="stylesheet" href="css/search.css" /><script>
     $(document).ready(function() {
       $("#btn").click(function() {
         $("#test").load("data.txt");
@@ -129,15 +130,9 @@ $xml = simplexml_load_file("data.xml") or die("Error: Cannot load XML file");
                   data-title="B720 Collection" data-price="1236" data-image="assets/img/home.png">
             ADD TO CART
           </button>
-        </div>
-      </div>
+        </div>      </div>
     </div>
   </section>
-
- <!-- Tag-Based Search Bar -->
-<div class="search-bar container">
-  <input type="text" id="tag-search" placeholder="Search by tag (e.g., Classic, Sale, New, Premium)" />
-</div>
 
 <section class="featured section container" id="featured">
   <h2 class="section__title">Featured</h2>
@@ -174,10 +169,17 @@ $xml = simplexml_load_file("data.xml") or die("Error: Cannot load XML file");
   </div>
 </section>
 
-  <!-- PRODUCTS -->
- <!-- PRODUCTS -->
+  <!-- PRODUCTS -->  <!-- PRODUCTS -->
 <section class="products section container" id="products">
   <h2 class="section__title">Products</h2>
+  
+  <!-- Product Search Bar -->
+  <div class="search-bar container">
+    <input type="text" id="product-search" placeholder="Search by product name, tag, or category..." />
+    <div id="search-results" class="search-results container" style="display: none;">
+      <!-- Search results will be displayed here -->
+    </div>
+  </div>
 
   <?php
     $products = $xml->products->product;
@@ -317,5 +319,6 @@ $xml = simplexml_load_file("data.xml") or die("Error: Cannot load XML file");
 
 <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
 <script src="assets/js/main.js"></script>
+<script src="assets/js/search.js"></script>
 </body>
 </html>
