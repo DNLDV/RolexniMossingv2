@@ -49,6 +49,20 @@ function sendVerificationEmail($email, $token, &$mailError = null) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    // === reCAPTCHA validation ===
+    $recaptchaSecret = 'YOUR_SECRET_KEY'; // Replace with your reCAPTCHA secret key
+    $recaptchaResponse = $_POST['g-recaptcha-response'] ?? '';
+    $verifyResponse = file_get_contents(
+        "https://www.google.com/recaptcha/api/siteverify?secret={$recaptchaSecret}&response={$recaptchaResponse}"
+    );
+    $responseData = json_decode($verifyResponse);
+    if (!$responseData || !$responseData->success) {
+        $_SESSION['error'] = "CAPTCHA verification failed. Please try again.";
+        header("Location: index.php");
+        exit();
+    }
+    // === end reCAPTCHA validation ===
+
   $fullname = $_POST['fullname'];
   $email = $_POST['email'];
   $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
