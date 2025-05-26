@@ -29,11 +29,11 @@ $viewMode = isset($_GET['view']) ? $_GET['view'] : 'gallery'; // 'gallery' or 'l
   <title>PFRolex Responsive Watches Website</title>
   <link rel="shortcut icon" href="assets/img/favicon.png" type="image/x-icon" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css" />
-  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css" />  <link rel="stylesheet" href="css/styles.css" />
   <link rel="stylesheet" href="css/toast.css" />
   <link rel="stylesheet" href="css/loading.css" />
   <link rel="stylesheet" href="css/search.css" />
+  <link rel="stylesheet" href="css/button-fix.css" />
     <style>
     /* Dropdown Menu Styles */
     .nav__dropdown {
@@ -371,6 +371,17 @@ $viewMode = isset($_GET['view']) ? $_GET['view'] : 'gallery'; // 'gallery' or 'l
       <button type="submit" class="login-btn">Sign up</button>
       <p class="signup-text">Already have an account? <a href="#" id="switch-to-login">Log in</a></p>
     </form>
+  </div>
+</div>
+
+<!-- PRODUCT DETAILS MODAL -->
+<div class="product-modal" id="product-modal">
+  <div class="product-modal__content">
+    <span class="product-modal__close" id="product-close">&times;</span>
+    <img src="" alt="Product Image" class="product-modal__image" id="product-image">
+    <h2 id="product-name">Product Name</h2>
+    <p id="product-description">Product Description</p>
+    <p class="product-modal__price" id="product-price">$0.00</p>
   </div>
 </div>
 
@@ -752,6 +763,7 @@ $viewMode = isset($_GET['view']) ? $_GET['view'] : 'gallery'; // 'gallery' or 'l
 <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
 <script src="assets/js/main.js"></script>
 <script src="assets/js/search.js"></script>
+<script src="assets/js/button-fix.js"></script>
 <script>
   document.addEventListener('DOMContentLoaded', function () {
     const loginModal = document.getElementById('login-modal');
@@ -809,6 +821,56 @@ $viewMode = isset($_GET['view']) ? $_GET['view'] : 'gallery'; // 'gallery' or 'l
       if (e.target === signupModal) {
         signupModal.classList.remove('active');
       }
+    });
+  });
+    // Product details modal functionality using AJAX
+  document.addEventListener('DOMContentLoaded', function () {
+    const productModal = document.getElementById('product-modal');
+    const productClose = document.getElementById('product-close');
+    
+    // Close modal when clicking the close button
+    productClose.addEventListener('click', function () {
+      productModal.style.display = 'none';
+    });    // Close modal when clicking outside of it
+    window.addEventListener('click', function (e) {
+      if (e.target === productModal) {
+        productModal.style.display = 'none';
+      }
+    });
+    
+    // Initialize the product card handlers from main.js
+    if (typeof initProductCardHandlers === 'function') {
+      initProductCardHandlers();
+    }
+  });
+</script>
+
+<!-- Initialize pagination functionality -->
+<script>
+  // Initialize pagination functionality
+  document.addEventListener('DOMContentLoaded', function() {
+    const paginationLinks = document.querySelectorAll('#product-pagination a');
+    
+    paginationLinks.forEach(link => {
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        const page = this.dataset.page;
+        const currentCategory = '<?= $selectedCategory ?>';
+        const currentView = '<?= $viewMode ?>';
+        
+        // Call the filter products function with the current category and view mode
+        if (typeof window.filterProducts === 'function') {
+          window.filterProducts(currentCategory, currentView, page);
+        }
+        
+        // Re-initialize product handlers after content is loaded
+        setTimeout(function() {
+          if (typeof initProductCardHandlers === 'function') {
+            initProductCardHandlers();
+          }
+        }, 500);
+      });
     });
   });
 </script>

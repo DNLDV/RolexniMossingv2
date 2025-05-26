@@ -22,10 +22,10 @@ navLinks.forEach(n => n.addEventListener('click', (e) => {
   e.preventDefault();
   const href = n.getAttribute('href');
   const currentScroll = window.scrollY;
-  
+
   // Close menu
   navMenu.classList.remove('show-menu');
-  
+
   // Handle navigation
   if (href.startsWith('#')) {
     const targetElement = document.querySelector(href);
@@ -435,3 +435,111 @@ document.addEventListener('click', function(e) {
       alert('Failed to delete product. Please try again.');
     });
 });
+
+// Add event listener to product cards to open the product details modal
+const productModal = document.getElementById("product-modal");
+const productClose = document.getElementById("product-close");
+
+// Function to fetch and display product details
+function showProductDetails(productId) {
+  fetch(`get_product_details.php?id=${encodeURIComponent(productId)}`)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Failed to fetch product details');
+      }
+      return response.json();
+    })
+    .then(data => {
+      if (!data.success) {
+        throw new Error(data.error || 'Failed to load product details');
+      }
+      
+      // Populate modal with product details
+      document.getElementById("product-name").textContent = data.name;
+      document.getElementById("product-price").textContent = `₱${data.price}`;
+      document.getElementById("product-description").textContent = data.description;
+      document.getElementById("product-image").src = data.image;
+
+      // Show the modal
+      productModal.style.display = "flex";
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      alert('Failed to load product details. Please try again.');
+    });
+}
+
+// Close the product details modal
+if (productClose) {
+  productClose.addEventListener("click", () => {
+    productModal.style.display = "none";
+  });
+}
+
+// Close modal when clicking outside of it
+window.addEventListener("click", (event) => {
+  if (event.target === productModal) {
+    productModal.style.display = "none";
+  }
+});
+
+// Adjusting initProductCardHandlers to avoid conflicts with button-fix.js
+function initProductCardHandlers() {
+  document.querySelectorAll(".products__card, .featured__card, .new__card").forEach(card => {
+    const addToCartBtn = card.querySelector('.products__button, .featured__button, .new__button, .add-to-cart');
+
+    // Ensure the Add to Cart button has its own event listener
+    if (addToCartBtn) {
+      addToCartBtn.addEventListener("click", function(e) {
+        e.stopPropagation(); // Prevent triggering the modal
+        if (typeof window.updateCartDisplay === 'function') {
+          window.updateCartDisplay();
+        }
+        if (typeof window.openCart === 'function') {
+          window.openCart();
+        }
+      });
+    }
+
+    // Add click handler for product details modal
+    card.addEventListener("click", function(event) {
+      if (event.target.closest('.products__button, .featured__button, .new__button, .add-to-cart')) {
+        event.stopPropagation();
+        return; // Prevent modal from opening
+      }
+
+      const productTitle = card.querySelector(".products__title, .featured__title, .new__title").textContent;
+      showProductDetails(productTitle);
+    });
+  });
+
+  console.log("Product card handlers initialized");
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  // Initialize product cards click handlers
+  initProductCardHandlers();
+
+  // Initialize pagination event listeners
+  document.querySelectorAll("#product-pagination a").forEach(link => {
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+      const page = this.dataset.page;
+      if (page && typeof loadProducts === 'function') {
+        loadProducts(page);
+        // Re-initialize product card handlers after content is loaded
+        setTimeout(initProductCardHandlers, 500);
+      }
+    });
+  });
+}); // Ensure proper closure of DOMContentLoaded event listener
+
+// Fixing missing closing parenthesis in window.loadProducts
+if (typeof window.loadProducts === 'function') {
+  const originalLoadProducts = window.loadProducts;
+  window.loadProducts = function(page) { // Added missing closing parenthesis
+    originalLoadProducts(page);
+    // Re-initialize product card handlers after content is loaded
+    setTimeout(initProductCardHandlers, 500);
+  };
+}

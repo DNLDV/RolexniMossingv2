@@ -116,13 +116,24 @@ function attachPaginationListeners() {
   const paginationLinks = document.querySelectorAll('#product-pagination a');
   
   paginationLinks.forEach(link => {
-    link.addEventListener('click', function(e) {
+    // Remove any existing event listeners by cloning
+    const newLink = link.cloneNode(true);
+    link.parentNode.replaceChild(newLink, link);
+    
+    newLink.addEventListener('click', function(e) {
       e.preventDefault();
       saveScrollPosition();
       const page = parseInt(this.getAttribute('data-page'));
       if (page) {
         currentPage = page;
         filterProducts(currentCategory, currentViewMode, currentPage);
+        
+        // Re-initialize product card handlers after a short delay
+        setTimeout(function() {
+          if (typeof window.initProductCardHandlers === 'function') {
+            window.initProductCardHandlers();
+          }
+        }, 500);
       }
     });
   });
@@ -282,8 +293,7 @@ function filterProducts(category, viewMode, page) {
           filterResultsContainer.style.display = 'none';
         }
       }
-      
-      // Update product container with new HTML
+        // Update product container with new HTML
       productContainer.innerHTML = data.html;
       
       // Update pagination
@@ -291,6 +301,13 @@ function filterProducts(category, viewMode, page) {
       
       // Reinitialize add-to-cart buttons
       initProductButtons();
+      
+      // Re-initialize product card handlers for modal display
+      setTimeout(function() {
+        if (typeof window.initProductCardHandlers === 'function') {
+          window.initProductCardHandlers();
+        }
+      }, 300);
       
       // Hide loading indicator
       if (loadingIndicator) loadingIndicator.style.display = 'none';

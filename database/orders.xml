@@ -1,18 +1,6 @@
 <?xml version="1.0"?>
 <orders>
   <order>
-    <orderid>ORD-1748242163-40e0d5</orderid>
-    <username>ako</username>
-    <timestamp>2025-05-26 08:49:23</timestamp>
-    <status>pending</status>
-    <item>
-      <image>assets/img/featured2.png</image>
-      <title>Jazzmaster</title>
-      <price>1050</price>
-      <quantity>4</quantity>
-    </item>
-  </order>
-  <order>
     <orderid>ORD-1748242516-ee9b9b</orderid>
     <username>ako</username>
     <timestamp>2025-05-26 08:55:16</timestamp>

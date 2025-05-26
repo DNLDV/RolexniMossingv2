@@ -27,7 +27,6 @@
       <totalPrice>2880</totalPrice>
     </summary>
   </cart>
-
   <featuredProducts>
     <product>
       <title>Rose Gold</title>
@@ -55,14 +54,14 @@
       <description>Affordable yet classic timepiece with timeless design.</description>
     </product>
   </featuredProducts>
-
   <products>
     <product>
       <title>Spirit Rose</title>
       <price>1500</price>
       <tag>Classic</tag>
       <image>assets/img/product1.png</image>
-      <description>Romantic and vintage-inspired, perfect for elegant occasions.</description>
+      <description>New desc</description>
+      <quantity/>
     </product>
     <product>
       <title>Khaki Pilot</title>
@@ -70,6 +69,7 @@
       <tag>Limited</tag>
       <image>assets/img/product2.png</image>
       <description>Military-style pilot watch with a rugged yet sleek design.</description>
+      <quantity/>
     </product>
     <product>
       <title>Jubilee Black</title>
@@ -111,7 +111,7 @@
       <price>22000</price>
       <tag>Premium</tag>
       <image>assets/img/product7.png</image>
-      <description>A classic diver’s choice with ocean-tested performance.</description>
+      <description>A classic diver&#x2019;s choice with ocean-tested performance.</description>
     </product>
     <product>
       <title>Casio G-Shock</title>
@@ -139,7 +139,7 @@
       <price>3000</price>
       <tag>Light</tag>
       <image>assets/img/product11.png</image>
-      <description>Ultralight and ultra-thin — a barely-there timepiece.</description>
+      <description>Ultralight and ultra-thin &#x2014; a barely-there timepiece.</description>
     </product>
     <product>
       <title>Tag Heuer Carrera</title>

@@ -1703,4 +1703,143 @@ body.dark-theme{
 #reset-modal.active, #reset-modal.show {
   display: flex !important;
 }
+
+/* Product Details Modal Styles */
+.product-modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.product-modal.active, .product-modal[style*="flex"] {
+  display: flex !important;
+}
+
+.product-modal__content {
+  background: white;
+  padding: 2rem;
+  border-radius: 10px;
+  max-width: 400px;
+  width: 90%;
+  text-align: center;
+  position: relative;
+}
+
+.product-modal__close {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+/* Fixing misplaced braces */
+.product-modal__image {
+  width: 100%;
+  max-width: 300px;
+  margin-bottom: 1rem;
+  border-radius: 8px;
+}
+
+.product-modal__price {
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: var(--first-color);
+  margin-top: 1rem;
+}
+
+/* Enhanced styling for Add to Cart buttons to ensure they're clickable */
+.products__button, .featured__button, .new__button, .add-to-cart {
+  position: relative;
+  z-index: 10 !important; /* Higher z-index to ensure it's above the card */
+  cursor: pointer;
+  pointer-events: auto !important; /* Force pointer events to be active */
+}
+
+/* Make product card have appropriate pointer events */
+.products__card, .featured__card, .new__card {
+  pointer-events: auto;
+}
+
+/* Make button clicks stop propagation visually */
+.products__button:active, .featured__button:active, .new__button:active, .add-to-cart:active {
+  transform: scale(0.95);
+  transition: transform 0.1s;
+}
+
+/* Additional styles for product description */
+#product-description {
+  margin: 1rem 0;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: var(--text-color);
+  max-height: 200px;
+  overflow-y: auto;
+  text-align: left;
+  padding: 0 10px;
+}
+
+/* Ensure the product modal displays properly */
+.product-modal[style*="flex"] {
+  display: flex !important;
+}
+
+/* Add hover effect to product cards to indicate they're clickable */
+.products__card, .featured__card, .new__card {
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.products__card:hover, .featured__card:hover, .new__card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Keep buttons clickable without triggering the card's click event */
+.products__button, .featured__button, .new__button {
+  position: relative;
+  z-index: 2;
+}
+
+/* Additional styles for product description */
+#product-description {
+  margin: 1rem 0;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: var(--text-color);
+  max-height: 200px;
+  overflow-y: auto;
+  text-align: left;
+  padding: 0 10px;
+}
+
+/* Ensure the product modal displays properly */
+.product-modal[style*="flex"] {
+  display: flex !important;
+}
+
+/* Add hover effect to product cards to indicate they're clickable */
+.products__card, .featured__card, .new__card {
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.products__card:hover, .featured__card:hover, .new__card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Keep buttons clickable without triggering the card's click event */
+.products__button, .featured__button, .new__button {
+  position: relative;
+  z-index: 2;
 }

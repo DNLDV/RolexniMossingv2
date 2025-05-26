@@ -1,0 +1,33 @@
+/* Fix for Add to Cart buttons to ensure they're clickable */
+.products__button, 
+.featured__button, 
+.new__button, 
+.add-to-cart, 
+.home__button {
+  position: relative !important;
+  z-index: 10 !important;
+  cursor: pointer !important;
+  pointer-events: auto !important;
+}
+
+/* Visual feedback on button click */
+.products__button:active, 
+.featured__button:active, 
+.new__button:active, 
+.add-to-cart:active, 
+.home__button:active {
+  transform: scale(0.95) !important;
+  transition: transform 0.1s !important;
+}
+
+/* Ensure product cards don't block button clicks */
+.products__card *,
+.featured__card *,
+.new__card * {
+  pointer-events: auto !important;
+}
+
+/* Fix for modal display */
+.product-modal[style*="flex"] {
+  display: flex !important;
+}
