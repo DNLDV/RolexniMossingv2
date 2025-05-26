@@ -8,24 +8,38 @@ if (!isset($_SESSION['admin_user'])) {
     exit;
 }
 
-// Load orders.xml
-$ordersFile = __DIR__ . '/../database/orders.xml';
-if (!file_exists($ordersFile)) {
-    die('Orders file not found.');
+// Ensure database directory exists
+$databaseDir = __DIR__ . '/../database';
+if (!is_dir($databaseDir)) {
+    mkdir($databaseDir, 0755, true);
 }
-$orders = simplexml_load_file($ordersFile);
-if (!$orders) {
-    die('Failed to load orders.xml');
+
+// Load orders.xml
+$ordersFile = $databaseDir . '/orders.xml';
+if (!file_exists($ordersFile)) {
+    // Create empty orders file
+    $newOrdersXml = new SimpleXMLElement('<orders></orders>');
+    $newOrdersXml->asXML($ordersFile);
+    $orders = $newOrdersXml;
+} else {
+    $orders = simplexml_load_file($ordersFile);
+    if (!$orders) {
+        die('Failed to load orders.xml');
+    }
 }
 
 // Load sold.xml
-$soldFile = __DIR__ . '/../database/sold.xml';
+$soldFile = $databaseDir . '/sold.xml';
 if (!file_exists($soldFile)) {
-    die('Sold file not found.');
-}
-$sold = simplexml_load_file($soldFile);
-if (!$sold) {
-    die('Failed to load sold.xml');
+    // Create empty sold file
+    $newSoldXml = new SimpleXMLElement('<orders></orders>');
+    $newSoldXml->asXML($soldFile);
+    $sold = $newSoldXml;
+} else {
+    $sold = simplexml_load_file($soldFile);
+    if (!$sold) {
+        die('Failed to load sold.xml');
+    }
 }
 
 // Calculate total payments
@@ -74,9 +88,9 @@ foreach ($sold->order as $order) {
             <th>Items</th>
             <th>Actions</th>
           </tr>
-        </thead>
-        <tbody>
-          <?php foreach ($orders->order as $idx => $order): ?>
+        </thead>        <tbody>
+          <?php $orderIndex = 0; ?>
+          <?php foreach ($orders->order as $order): ?>
           <tr>
             <td><?php echo htmlspecialchars($order->username); ?></td>
             <td>
@@ -89,15 +103,15 @@ foreach ($sold->order as $order) {
             </td>
             <td>
               <form action="delete_order.php" method="post" style="display:inline;">
-                <input type="hidden" name="order_index" value="<?php echo $idx; ?>">
+                <input type="hidden" name="order_index" value="<?php echo $orderIndex; ?>">
                 <button type="submit" class="btn-delete">Delete</button>
-              </form>
-              <form action="done_order.php" method="post" style="display:inline;">
-                <input type="hidden" name="order_index" value="<?php echo htmlspecialchars($idx); ?>">
+              </form>              <form action="done_order.php" method="post" style="display:inline;">
+                <input type="hidden" name="order_index" value="<?php echo $orderIndex; ?>">
                 <button type="submit" class="btn-done">Done</button>
               </form>
             </td>
           </tr>
+          <?php $orderIndex++; ?>
           <?php endforeach; ?>
         </tbody>
       </table>

@@ -1,54 +1,6 @@
 <?xml version="1.0"?>
 <orders>
   <order>
-    <orderid>ORD-1748239931-bae4ce</orderid>
-    <username>ako</username>
-    <timestamp>2025-05-26 08:12:11</timestamp>
-    <status>pending</status>
-    <item>
-      <image>assets/img/product2.png</image>
-      <title>Khaki Pilot</title>
-      <price>1350</price>
-      <quantity>1</quantity>
-    </item>
-    <item>
-      <image>assets/img/product3.png</image>
-      <title>Jubilee Black</title>
-      <price>870</price>
-      <quantity>1</quantity>
-    </item>
-    <item>
-      <image>assets/img/product1.png</image>
-      <title>Spirit Rose</title>
-      <price>1500</price>
-      <quantity>1</quantity>
-    </item>
-    <item>
-      <image>assets/img/product5.png</image>
-      <title>Duchen</title>
-      <price>950</price>
-      <quantity>1</quantity>
-    </item>
-  </order>
-  <order>
-    <orderid>ORD-1748240097-c4f557</orderid>
-    <username>ako</username>
-    <timestamp>2025-05-26 08:14:57</timestamp>
-    <status>pending</status>
-    <item>
-      <image>assets/img/product5.png</image>
-      <title>Duchen</title>
-      <price>950</price>
-      <quantity>1</quantity>
-    </item>
-    <item>
-      <image>assets/img/featured2.png</image>
-      <title>Submarine</title>
-      <price>9150</price>
-      <quantity>1</quantity>
-    </item>
-  </order>
-  <order>
     <orderid>ORD-1748242163-40e0d5</orderid>
     <username>ako</username>
     <timestamp>2025-05-26 08:49:23</timestamp>
