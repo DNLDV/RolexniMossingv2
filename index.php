@@ -385,7 +385,7 @@ $viewMode = isset($_GET['view']) ? $_GET['view'] : 'gallery'; // 'gallery' or 'l
       
       <div class="category-tags">
         <?php
-          $availableTags = ['sale', 'limited', 'classic', 'new', 'premium', 'sport', 'casual', 'minimal', 'light', 'luxury', 'bold', 'military', 'dress', 'swiss', 'reliable'];
+          $availableTags = ['sale', 'limited', 'classic', 'new', 'premium', 'sport', 'casual', 'minimal','legend', 'light', 'luxury', 'bold', 'military', 'dress', 'swiss', 'reliable'];
           
           foreach ($availableTags as $tag):
         ?>

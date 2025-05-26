@@ -154,7 +154,9 @@
       <price>18500</price>
       <tag>Swiss</tag>
       <image>assets/img/product16.png</image>
-    <quantity/><description/></product>
+      <quantity/>
+      <description/>
+    </product>
     <product>
       <title>Seiko 5</title>
       <price>5500</price>
@@ -162,15 +164,15 @@
       <image>assets/img/product17.png</image>
     </product>
     <product>
-      <title>omintrix</title>
-      <price>99999</price>
-      <tag>New</tag>
-      <image>assets/img/products/pngkey.com-omnitrix-png-5776006.png</image>
-      <quantity>2</quantity>
-      <description>Able to transform to alien</description>
+      <title>Omnitrix</title>
+      <price>6900</price>
+      <tag>Legend</tag>
+      <image>assets/img/products/product18.png</image>
+      <quantity>1</quantity>
+      <description>The Omnitrix is a revolutionary wristwatch-like device that functions as a genetic transformation</description>
       <category>
         <name>Watch</name>
-        <description>to be wrom on wrist</description>
+        <description>Alienation</description>
       </category>
     </product>
   </products>
