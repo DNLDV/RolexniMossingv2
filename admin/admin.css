@@ -382,12 +382,14 @@
   text-transform: uppercase;
   padding: 12px;
   text-align: center;
+  border: #000000 4px solid;
 }
 
 .product-management-table td {
-  border: 1px solid #ddd;
+  border: #000000 4px solid;
   padding: 15px;
   vertical-align: top;
+  background-color: #ffffff;
 }
 
 .product-management-table h2 {
@@ -461,9 +463,9 @@
 
 .category-table input,
 .category-table textarea {
-  width: 100%;
+  width: 80%;
   padding: 8px 12px;
-  border: 1px solid #ddd;
+  border: 3px solid #000000;
   border-radius: 4px;
   font-size: 1rem;
   transition: border-color 0.2s;

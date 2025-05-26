@@ -134,7 +134,7 @@ $added = $_GET['added'] ?? '';
       </table>
 
       <!-- Product Management Forms -->
-      <table class="product management table">
+      <table class="product-management-table">
         <thead>
           <tr><th>Add New Product</th><th>Manage Existing Products</th></tr>
         </thead>
