@@ -1,0 +1,47 @@
+# PHPMailer and vendor files
+/assets/phpmailer/vendor/
+/vendor/
+
+# Logs
+*.log
+phpmailer_debug.log
+
+# Database files (if you want to exclude them)
+# Uncomment if you don't want to track your database files
+# /database/*.xml
+
+# User uploaded files (uncomment if needed)
+# /assets/img/products/user-uploads/
+
+# Environment files (if you have any)
+.env
+.env.local
+.env.development
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# IDE files
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+
+# Temporary files
+*.swp
+*.swo
+*.tmp
+*.bak
+*~
+
+# Cached files
+/cache/
+
+# Session files
+/sessions/
