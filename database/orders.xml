@@ -39,4 +39,46 @@
       <price>1236</price>
     </item>
   </order>
+  <order>
+    <orderid>ORD-1748194712-9cb1c9</orderid>
+    <username>ako</username>
+    <timestamp>2025-05-25 19:38:32</timestamp>
+    <status>pending</status>
+    <item>
+      <image>assets/img/product5.png</image>
+      <title>Duchen</title>
+      <price>950</price>
+      <quantity>1</quantity>
+    </item>
+    <item>
+      <image>assets/img/featured2.png</image>
+      <title>Jazzmaster</title>
+      <price>1050</price>
+      <quantity>2</quantity>
+    </item>
+    <item>
+      <image>assets/img/new1.png</image>
+      <title>Longines Rose</title>
+      <price>980</price>
+      <quantity>1</quantity>
+    </item>
+  </order>
+  <order>
+    <orderid>ORD-1748231070-097eee</orderid>
+    <username>ako</username>
+    <timestamp>2025-05-26 05:44:30</timestamp>
+    <status>pending</status>
+    <item>
+      <image>assets/img/featured2.png</image>
+      <title>Jazzmaster</title>
+      <price>1050</price>
+      <quantity>2</quantity>
+    </item>
+    <item>
+      <image>assets/img/home.png</image>
+      <title>B720 Collection</title>
+      <price>1236</price>
+      <quantity>1</quantity>
+    </item>
+  </order>
 </orders>

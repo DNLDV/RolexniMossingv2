@@ -33,6 +33,10 @@
       <price>890</price>
       <tag>Sale</tag>
       <image>assets/img/featured1.png</image>
+      <category>
+        <name>Watch</name>
+        <description>to be wrom on wrist</description>
+      </category>
     </product>
     <product>
       <title>Jazzmaster</title>
@@ -47,7 +51,6 @@
       <image>assets/img/featured3.png</image>
     </product>
   </featuredProducts>
-  
   <products>
     <product>
       <title>Spirit Rose</title>
@@ -85,7 +88,6 @@
       <tag>Classic</tag>
       <image>assets/img/featured2.png</image>
     </product>
-
     <!-- Additional Products -->
     <product>
       <title>Rolex Submariner</title>
@@ -123,7 +125,6 @@
       <tag>Light</tag>
       <image>assets/img/product11.png</image>
     </product>
-
     <product>
       <title>Tag Heuer Carrera</title>
       <price>27000</price>
