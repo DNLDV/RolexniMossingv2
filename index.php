@@ -299,26 +299,7 @@ $viewMode = isset($_GET['view']) ? $_GET['view'] : 'gallery'; // 'gallery' or 'l
       <ul class="nav__list">
         <li class="nav__item"><a href="#home" class="nav__link active-link">Home</a></li>
         <li class="nav__item"><a href="#featured" class="nav__link">Featured</a></li>
-        <li class="nav__item"><a href="#products" class="nav__link">Products</a></li>
-        
-        <?php if ($categoriesXml && isset($categoriesXml->category)): ?>          <!-- Dynamic Categories Menu -->
-          <li class="nav__item nav__dropdown">            <a href="#" class="nav__link">Categories <i class='bx bx-chevron-down'></i></a>
-            <ul class="nav__dropdown-menu">
-              <?php foreach ($categoriesXml->category as $category): 
-                // Get category name, check both 'name' and 'n' tags
-                $categoryName = isset($category->name) ? (string)$category->name : (isset($category->n) ? (string)$category->n : '');
-                if (!empty($categoryName)):
-              ?>
-                <li>
-                  <a href="index.php?category=<?= strtolower(trim($categoryName)) ?>" class="nav__dropdown-link">
-                    <?= htmlspecialchars($categoryName) ?>
-                  </a>
-                </li>
-              <?php endif; endforeach; ?>
-            </ul>
-          </li>
-        <?php endif; ?>
-        
+        <li class="nav__item"><a href="#products" class="nav__link">Products</a></li>        
         <li class="nav__item"><a href="#new" class="nav__link">New</a></li>
       </ul>
       <div class="nav__close" id="nav-close"><i class='bx bx-x'></i></div>
@@ -771,5 +752,65 @@ $viewMode = isset($_GET['view']) ? $_GET['view'] : 'gallery'; // 'gallery' or 'l
 <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
 <script src="assets/js/main.js"></script>
 <script src="assets/js/search.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const loginModal = document.getElementById('login-modal');
+    const signupModal = document.getElementById('signup-modal');
+    const loginButton = document.querySelector('.logout-btn');
+    const signupSwitch = document.getElementById('switch-to-signup');
+    const loginSwitch = document.getElementById('switch-to-login');
+    const loginClose = document.getElementById('login-close');
+    const signupClose = document.getElementById('signup-close');
+
+    // Show login modal
+    if (loginButton) {
+      loginButton.addEventListener('click', function () {
+        loginModal.classList.add('active');
+      });
+    }
+
+    // Switch to signup modal
+    if (signupSwitch) {
+      signupSwitch.addEventListener('click', function (e) {
+        e.preventDefault();
+        loginModal.classList.remove('active');
+        signupModal.classList.add('active');
+      });
+    }
+
+    // Switch to login modal
+    if (loginSwitch) {
+      loginSwitch.addEventListener('click', function (e) {
+        e.preventDefault();
+        signupModal.classList.remove('active');
+        loginModal.classList.add('active');
+      });
+    }
+
+    // Close login modal
+    if (loginClose) {
+      loginClose.addEventListener('click', function () {
+        loginModal.classList.remove('active');
+      });
+    }
+
+    // Close signup modal
+    if (signupClose) {
+      signupClose.addEventListener('click', function () {
+        signupModal.classList.remove('active');
+      });
+    }
+
+    // Close modals when clicking outside of them
+    window.addEventListener('click', function (e) {
+      if (e.target === loginModal) {
+        loginModal.classList.remove('active');
+      }
+      if (e.target === signupModal) {
+        signupModal.classList.remove('active');
+      }
+    });
+  });
+</script>
 </body>
 </html>
