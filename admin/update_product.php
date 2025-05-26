@@ -69,9 +69,49 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 }
             }
         } elseif ($action === 'delete') {
-            // Remove the product from its parent element
-            $parent = $product->xpath('..')[0];
-            unset($parent->product[array_search($product, iterator_to_array($parent->product))]);
+            // Locate the product in the XML and remove it
+            $productNodes = array_merge(
+                iterator_to_array($xml->products->product ?? []),
+                iterator_to_array($xml->featuredProducts->product ?? [])
+            );
+
+            if (isset($productNodes[$productIndex])) {
+                $productNode = $productNodes[$productIndex];
+                $domProduct = dom_import_simplexml($productNode);
+                $domParent = $domProduct->parentNode;
+
+                if ($domParent) {
+                    $domParent->removeChild($domProduct);
+
+                    // Save the updated XML
+                    if ($xml->asXML($productsFile)) {
+                        if (isset($_POST['ajax'])) {
+                            echo json_encode(['status' => 'success', 'message' => 'Product deleted successfully.']);
+                            exit;
+                        }
+                        header('Location: products.php?delete=success');
+                        exit;
+                    } else {
+                        error_log('Failed to save XML after deletion.');
+                        if (isset($_POST['ajax'])) {
+                            echo json_encode(['status' => 'fail', 'message' => 'Failed to delete product.']);
+                            exit;
+                        }
+                        header('Location: products.php?delete=fail');
+                        exit;
+                    }
+                } else {
+                    error_log('Parent node not found for product.');
+                }
+            } else {
+                error_log('Product not found at index: ' . $productIndex);
+                if (isset($_POST['ajax'])) {
+                    echo json_encode(['status' => 'fail', 'message' => 'Product not found.']);
+                    exit;
+                }
+                header('Location: products.php?delete=fail');
+                exit;
+            }
         }        // Save changes
         if ($xml->asXML($productsFile)) {
             // For AJAX requests, return text response

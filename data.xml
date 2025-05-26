@@ -143,12 +143,7 @@
       <tag>Military</tag>
       <image>assets/img/product14.png</image>
     </product>
-    <product>
-      <title>Orient Bambino</title>
-      <price>4200</price>
-      <tag>Dress</tag>
-      <image>assets/img/product15.png</image>
-    </product>
+    
     <product>
       <title>Tissot Le Locle</title>
       <price>18500</price>
@@ -161,17 +156,6 @@
       <tag>Reliable</tag>
       <image>assets/img/product17.png</image>
     </product>
-    <product>
-      <title>omintrix</title>
-      <price>99999</price>
-      <tag>New</tag>
-      <image>assets/img/products/pngkey.com-omnitrix-png-5776006.png</image>
-      <quantity>2</quantity>
-      <description>Able to transform to alien</description>
-      <category>
-        <name>Watch</name>
-        <description>to be wrom on wrist</description>
-      </category>
-    </product>
+    
   </products>
 </shop>
