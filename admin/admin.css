@@ -114,23 +114,27 @@
   min-height: 100vh;
   background: #f8f8f8;
 }
+
 .sidebar {
-  width: 250px;
-  background-color: #004225; /* Rolex green */
-  color: #f1c40f; /* Gold accent */
+  width: 210px;
+  background-color: #000000; 
+  color: #ff9900;
   padding: 20px;
   box-sizing: border-box;
 }
+
 .sidebar h2 {
   margin-bottom: 1.5rem;
   font-size: 1.5rem;
   text-transform: uppercase;
 }
+
 .sidebar nav {
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
+
 .sidebar nav a {
   color: inherit;
   text-decoration: none;
@@ -139,9 +143,11 @@
   border-radius: 4px;
   transition: background 0.2s;
 }
+
 .sidebar nav a:hover {
   background: rgba(241,196,15,0.2);
 }
+
 .main-content {
   flex-grow: 1;
   padding: 20px;
@@ -152,21 +158,22 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #004225;
-  color: #f1c40f;
+  background-color: #000000;
+  color: #ffffff;
   padding: 15px 20px;
   border-radius: 5px;
   margin-bottom: 20px;
 }
 .btn-logout {
-  background: #f1c40f;
-  color: #004225;
+  background: #ff9900;
+  color: #ffffff;
   border: none;
   padding: 8px 16px;
   border-radius: 4px;
   cursor: pointer;
   transition: opacity 0.2s;
 }
+
 .btn-logout:hover {
   opacity: 0.8;
 }
@@ -179,31 +186,42 @@
   border-radius: 5px;
   overflow: hidden;
 }
+
 .order-table th,
-.order-table td {
+.order-table td,
+.featured-table th,
+.featured-table td {
   border: 1px solid #ddd;
   padding: 12px;
-  text-align: left;
+  text-align: center;
+  border-style: solid;
+  border-color: black;
+  background-color: #ffffff;
+  border: #000000 4px solid;
 }
+
 .order-table th {
-  background-color: #f1c40f;
-  color: #004225;
+  background-color: #000000;
+  color: #ffffff;
   text-transform: uppercase;
 }
+
 .order-item {
   margin-bottom: 8px;
 }
+
 .btn-delete,
-.btn-done {
-  background-color: #f1c40f;
-  color: #004225;
+.btn-done,
+.btn-action {
+  background-color: #000000;
+  color: #ffffff;
   border: none;
   padding: 6px 10px;
-  margin-right: 5px;
   border-radius: 4px;
   cursor: pointer;
-  transition: opacity 0.2s;
+  transition: background 0.2s;
 }
+
 .btn-delete:hover,
 .btn-done:hover {
   opacity: 0.8;
@@ -217,17 +235,20 @@
   border-radius: 5px;
   overflow: hidden;
 }
+
 .user-table th,
 .user-table td {
   border: 1px solid #ddd;
   padding: 12px;
-  text-align: left;
+  text-align: center;
 }
+
 .user-table th {
-  background-color: #f1c40f;
-  color: #004225;
+  background-color: #0e0d0d;
+  color: #ffffff;
   text-transform: uppercase;
 }
+
 .btn-delete-user {
   background-color: #e74c3c;
   color: #fff;
@@ -237,6 +258,7 @@
   cursor: pointer;
   transition: background 0.2s;
 }
+
 .btn-delete-user:hover {
   background-color: #c0392b;
 }
@@ -248,10 +270,12 @@
   border-radius: 4px;
   font-weight: 500;
 }
+
 .alert-success {
   background-color: #2ecc71;
   color: #ffffff;
 }
+
 .alert-error {
   background-color: #e74c3c;
   color: #ffffff;
@@ -263,21 +287,24 @@
   gap: 8px;
   align-items: center;
 }
+
 .category-form input[type="text"] {
   padding: 6px 8px;
   border: 1px solid #ddd;
   border-radius: 4px;
   font-size: .9rem;
 }
+
 .btn-action {
-  background-color: #004225; /* Rolex green */
-  color: #f1c40f; /* Gold accent */
+  background-color: #000000; /* Rolex green */
+  color: #ffffff; /* Gold accent */
   border: none;
   padding: 6px 10px;
   border-radius: 4px;
   cursor: pointer;
   transition: background 0.2s;
 }
+
 .btn-action:hover {
   background-color: #00331a;
 }
@@ -286,11 +313,14 @@
 .featured-section {
   margin-bottom: 30px;
 }
-.featured-section h2 {
+
+.featured-section h2,
+.product-management-table h2 {
   font-size: 1.25rem;
-  color: #004225;
-  margin-bottom: 10px;
+  color: #000000;
+  margin-bottom: 15px;
 }
+
 .featured-table {
   width: 100%;
   border-collapse: collapse;
@@ -299,17 +329,24 @@
   overflow: hidden;
   margin-bottom: 20px;
 }
+
 .featured-table th,
 .featured-table td {
   border: 1px solid #ddd;
   padding: 10px;
-  text-align: left;
+  text-align: center;
+  border-style: solid;
+  border-color: black;
+  background-color: #ffffff;
+  border: #000000 4px solid;
 }
+
 .featured-table th {
-  background-color: #f1c40f;
-  color: #004225;
+  background-color: #000000;
+  color: #ffffff;
   text-transform: uppercase;
 }
+
 .featured-table tr:nth-child(even) {
   background-color: #f9f9f9;
 }
@@ -324,6 +361,7 @@
   cursor: pointer;
   transition: background 0.2s;
 }
+
 .btn-delete-category:hover {
   background-color: #c0392b;
 }
@@ -337,30 +375,35 @@
   overflow: hidden;
   margin-top: 20px;
 }
+
 .product-management-table th {
-  background-color: #f1c40f;
-  color: #004225;
+  background-color: #000000;
+  color: #ffffff;
   text-transform: uppercase;
   padding: 12px;
   text-align: center;
 }
+
 .product-management-table td {
   border: 1px solid #ddd;
   padding: 15px;
   vertical-align: top;
 }
+
 .product-management-table h2 {
-  color: #004225;
+  color: #000000;
   margin-top: 0;
   margin-bottom: 15px;
   font-size: 1.2rem;
 }
+
 .add-product-form,
 .manage-product-form {
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
+
 .add-product-form input,
 .add-product-form select,
 .add-product-form textarea,
@@ -371,6 +414,7 @@
   border: 1px solid #ddd;
   border-radius: 4px;
 }
+
 .add-product-form button,
 .manage-product-form button {
   margin-top: 10px;
