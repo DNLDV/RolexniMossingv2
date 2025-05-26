@@ -5,6 +5,26 @@
 
 // Define these functions in the global scope
 let productContainer, paginationContainer, loadingIndicator;
+let lastScrollPosition = 0;
+
+/**
+ * Save the current scroll position
+ */
+function saveScrollPosition() {
+  lastScrollPosition = window.scrollY;
+}
+
+/**
+ * Restore the scroll position
+ */
+function restoreScrollPosition() {
+  if (lastScrollPosition > 0) {
+    window.scrollTo({
+      top: lastScrollPosition,
+      behavior: 'instant'
+    });
+  }
+}
 
 /**
  * Update the pagination links after loading new products
@@ -46,6 +66,7 @@ function attachPaginationListeners() {
   paginationLinks.forEach(link => {
     link.addEventListener('click', function(e) {
       e.preventDefault();
+      saveScrollPosition();
       const page = parseInt(this.getAttribute('data-page'));
       if (page) {
         loadProducts(page);
@@ -137,7 +158,7 @@ function loadProducts(page) {
       // Update URL without triggering a scroll to the #products section
       const url = new URL(window.location);
       url.searchParams.set('page', page);
-      history.pushState({ page: page }, '', url);
+      history.pushState({ page: page, scrollPosition: lastScrollPosition }, '', url);
       
       // Update active pagination link
       updatePaginationLinks(page, data.totalPages);
@@ -147,6 +168,9 @@ function loadProducts(page) {
       
       // Hide loading indicator
       if (loadingIndicator) loadingIndicator.style.display = 'none';
+      
+      // Restore scroll position after content is loaded
+      setTimeout(restoreScrollPosition, 0);
     })
     .catch(error => {
       console.error('Error loading products:', error);
@@ -169,8 +193,13 @@ function loadProducts(page) {
 
 // Handle back/forward buttons in browser
 window.addEventListener('popstate', function(event) {
-  if (event.state && event.state.page) {
-    loadProducts(event.state.page);
+  if (event.state) {
+    if (event.state.scrollPosition) {
+      lastScrollPosition = event.state.scrollPosition;
+    }
+    if (event.state.page) {
+      loadProducts(event.state.page);
+    }
   } else {
     // If no state (first load), get page from URL
     const urlParams = new URLSearchParams(window.location.search);
@@ -243,7 +272,11 @@ window.loadProducts = function(page) {
 };
 
 // Handle back/forward buttons in browser
-window.addEventListener('popstate', function() {
+window.addEventListener('popstate', function(e) {
+  e.preventDefault();
+  // Get current Y position
+  const currentScroll = window.scrollY;
+  
   // Get page from URL
   const urlParams = new URLSearchParams(window.location.search);
   const currentPage = parseInt(urlParams.get('page')) || 1;
@@ -252,6 +285,9 @@ window.addEventListener('popstate', function() {
   const productContainer = document.getElementById('product-container');
   const paginationContainer = document.getElementById('product-pagination');
   if (productContainer && paginationContainer) {
-    window.loadProducts(currentPage);
+    window.loadProducts(currentPage).then(() => {
+      // Restore scroll position
+      window.scrollTo(0, currentScroll);
+    });
   }
 });

@@ -422,6 +422,197 @@
   margin-top: 10px;
 }
 
+/* Smooth Transitions */
+.btn-action,
+.btn-delete,
+.btn-delete-category,
+input,
+textarea,
+select,
+.editable-description {
+    transition: all 0.3s ease;
+    overscroll-behavior: none; /* Prevent scroll chaining */
+}
+
+.alert {
+    animation: slideIn 0.3s ease-out;
+    position: relative; /* Ensure alerts don't affect layout flow */
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateY(-20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Prevent unwanted jumps */
+html {
+    scrollbar-gutter: stable;
+}
+
+body {
+    position: relative;
+    min-height: 100vh;
+    overflow-y: scroll; /* Always show scrollbar to prevent layout shifts */
+}
+
+.dashboard-wrapper {
+    min-height: 100vh;
+    position: relative;
+    overflow-x: hidden; /* Prevent horizontal scroll */
+}
+
+/* Prevent content jumps during form submissions */
+.submitting {
+    pointer-events: none;
+    position: relative;
+}
+
+.submitting::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.5);
+    z-index: 1000;
+}
+
+/* Prevent focus behaviors that might cause jumping */
+:focus {
+    outline: none !important;
+}
+
+button:focus {
+    outline: none !important;
+}
+
+/* Disable pointer events during transitions */
+.transitioning {
+    pointer-events: none;
+}
+
+/* Add loading state styles */
+.loading {
+    opacity: 0.7;
+    pointer-events: none;
+}
+
+/* Prevent form elements from causing layout shifts */
+form {
+    margin: 0;
+    padding: 0;
+}
+
+/* Keep buttons stable */
+button {
+    position: relative;
+    transform: translateZ(0); /* Force GPU acceleration */
+    -webkit-font-smoothing: antialiased;
+    backface-visibility: hidden;
+    cursor: pointer;
+}
+
+/* Prevent layout shift when loading products */
+.products-section {
+  min-height: 400px; /* Prevents layout shift when loading products */
+}
+
+/* Loading indicator styles */
+.loading-indicator {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.8);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.spinner {
+  width: 50px;
+  height: 50px;
+  border: 5px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 5px solid #3498db;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Smooth scrolling for the entire page */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Disable smooth scrolling when restoring position */
+html.disable-smooth-scroll {
+  scroll-behavior: auto;
+}
+
+/* Container styles to prevent layout shifts */
+#product-container {
+  min-height: 200px;
+  position: relative;
+}
+
+/* Pagination styles to prevent layout shifts */
+#product-pagination {
+  min-height: 40px;
+  margin-top: 2rem;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.pagination__link,
+.pagination__prev,
+.pagination__next {
+  padding: 0.5rem 1rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  text-decoration: none;
+  color: #333;
+  transition: all 0.3s ease;
+}
+
+.pagination__link.active {
+  background-color: #3498db;
+  color: white;
+  border-color: #3498db;
+}
+
+.pagination__link:hover,
+.pagination__prev:hover,
+.pagination__next:hover {
+  background-color: #f5f5f5;
+}
+
+/* Add transition for smooth opacity changes */
+.fade-transition {
+  transition: opacity 0.3s ease-in-out;
+}
+
+.fade-out {
+  opacity: 0;
+}
+
+.fade-in {
+  opacity: 1;
+}
+
 /* Responsive */
 @media (max-width: 768px) {
   .dashboard-wrapper {
